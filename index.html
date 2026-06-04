@@ -105,12 +105,12 @@ select.form-field{color:var(--text-muted);cursor:pointer;appearance:none;}
 .partner-pill{background:#fff;border:1px solid var(--border);border-radius:8px;padding:7px 18px;font-size:12.5px;font-weight:700;color:var(--text-muted);}
 
 /* LOGO CAROUSEL */
-.logo-carousel-container{overflow:hidden;background:var(--off-white);padding:24px 0;}
-.logo-carousel{display:flex;gap:48px;padding:0 32px;animation:scroll-left 20s linear infinite;width:max-content;}
+.logo-carousel-container{overflow:hidden;background:var(--off-white);padding:32px 0;border-bottom:1px solid var(--border);}
+.logo-carousel{display:flex;gap:48px;padding:0 32px;animation:scroll-left 30s linear infinite;width:max-content;}
 .logo-carousel:hover{animation-play-state:paused;}
-@keyframes scroll-left{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
-.logo-carousel-item{flex-shrink:0;width:120px;height:60px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);filter:grayscale(100%);opacity:0.7;transition:all 0.3s;}
-.logo-carousel-item:hover{filter:grayscale(0);opacity:1;transform:scale(1.05);}
+@keyframes scroll-left{0%{transform:translateX(0);}100%{transform:translateX(calc(-50% - 24px));}}
+.logo-carousel-item{flex-shrink:0;width:140px;height:70px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, #fff 0%, #fafaf8 100%);border:1.5px solid var(--border);border-radius:10px;filter:grayscale(100%);opacity:0.65;transition:all 0.3s;font-weight:600;font-size:14px;color:var(--text-muted);cursor:pointer;user-select:none;}
+.logo-carousel-item:hover{filter:grayscale(0);opacity:1;transform:scale(1.08);border-color:var(--orange);box-shadow:0 4px 16px rgba(232,126,38,0.2);color:var(--orange);}
 
 /* STATS BAR */
 .stats-bar{background:var(--orange);}
@@ -334,8 +334,9 @@ select.form-field option{color:var(--text);background:#fff;}
   .footer-grid{grid-template-columns:1fr;gap:28px;}
   .footer-bottom{flex-direction:column;gap:14px;text-align:center;}
   .courses-header{flex-direction:column;align-items:flex-start;}
-  .logo-carousel{gap:32px;}
-  .logo-carousel-item{width:100px;height:50px;font-size:12px;}
+  .logo-carousel-container{padding:24px 0;}
+  .logo-carousel{gap:32px;padding:0 16px;animation:scroll-left 25s linear infinite;}
+  .logo-carousel-item{width:110px;height:60px;font-size:12px;border-radius:8px;}
 }
 </style>
 </head>
@@ -447,17 +448,24 @@ select.form-field option{color:var(--text);background:#fff;}
 
 <!-- LOGO CAROUSEL -->
 <div class="logo-carousel-container">
+  <div class="section-inner" style="text-align:center;margin-bottom:16px;">
+    <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;">Recognized & Certified By</div>
+    <h3 style="font-size:20px;font-weight:700;color:var(--text);margin:0;">Government & Industry Partners</h3>
+  </div>
   <div class="logo-carousel">
-    <div class="logo-carousel-item">NSDC</div>
-    <div class="logo-carousel-item">MS-CIT</div>
-    <div class="logo-carousel-item">Tally</div>
-    <div class="logo-carousel-item">MKCI</div>
-    <div class="logo-carousel-item">NIELIT</div>
-    <div class="logo-carousel-item">ISO Cert</div>
-    <div class="logo-carousel-item">NSDC</div>
-    <div class="logo-carousel-item">MS-CIT</div>
-    <div class="logo-carousel-item">Tally</div>
-    <div class="logo-carousel-item">MKCI</div>
+    <div class="logo-carousel-item">🏛️ NSDC</div>
+    <div class="logo-carousel-item">📜 MS-CIT</div>
+    <div class="logo-carousel-item">💼 Tally</div>
+    <div class="logo-carousel-item">🎓 MKCI</div>
+    <div class="logo-carousel-item">🔒 NIELIT</div>
+    <div class="logo-carousel-item">✓ ISO Certified</div>
+    <!-- Duplicate for seamless loop -->
+    <div class="logo-carousel-item">🏛️ NSDC</div>
+    <div class="logo-carousel-item">📜 MS-CIT</div>
+    <div class="logo-carousel-item">💼 Tally</div>
+    <div class="logo-carousel-item">🎓 MKCI</div>
+    <div class="logo-carousel-item">🔒 NIELIT</div>
+    <div class="logo-carousel-item">✓ ISO Certified</div>
   </div>
 </div>
 
@@ -465,9 +473,9 @@ select.form-field option{color:var(--text);background:#fff;}
 <div class="stats-bar">
   <div class="stats-inner">
     <div class="stat-item fade-up"><span class="stat-num">30+</span><span class="stat-label">Years of Excellence</span></div>
-    <div class="stat-item fade-up"><span class="stat-num">10K+</span><span class="stat-label">Students Trained</span></div>
-    <div class="stat-item fade-up"><span class="stat-num">30+</span><span class="stat-label">Courses Offered</span></div>
-    <div class="stat-item fade-up"><span class="stat-num">95%</span><span class="stat-label">Placement Rate</span></div>
+    <div class="stat-item fade-up"><span class="stat-num">30K+</span><span class="stat-label">Students Trained</span></div>
+    <div class="stat-item fade-up"><span class="stat-num">36</span><span class="stat-label">Career Programs</span></div>
+    <div class="stat-item fade-up"><span class="stat-num">3</span><span class="stat-label">Branches in Mumbai</span></div>
   </div>
 </div>
 

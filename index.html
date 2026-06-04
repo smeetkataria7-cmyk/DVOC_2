@@ -606,9 +606,36 @@ function formatHours(hours) {
   return `${hours} hours (${weeks} weeks)`;
 }
 
+// Topic-based placeholder images (Unsplash). When you receive the real
+// course photos, either add an `img` field to a course in coursesData
+// (it takes priority) or replace these URLs with your own files.
+const topicImages = [
+  { kw: ['full stack', 'software', 'web development', 'html', 'c#', 'c++'], url: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=80' },
+  { kw: ['java'], url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&q=80' },
+  { kw: ['python'], url: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=600&q=80' },
+  { kw: ['fintech', 'business analytics', 'tally', 'accounting'], url: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80' },
+  { kw: ['digital marketing', 'seo', 'sem', 'social media'], url: 'https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=600&q=80' },
+  { kw: ['data analytics', 'data analysis', 'power bi', 'tableau', 'excel', 'sql', 'r programming'], url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80' },
+  { kw: ['data science', 'machine learning', 'generative ai', 'ai '], url: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80' },
+  { kw: ['digital skills', 'genai', 'ai essentials', 'ms office', 'foundation in it', 'mscit'], url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80' }
+];
+
+function getCourseImage(course) {
+  if (course.img) return course.img; // real image takes priority
+  const name = course.name.toLowerCase();
+  for (const t of topicImages) {
+    if (t.kw.some(k => name.includes(k))) return t.url;
+  }
+  return null; // falls back to gradient + icon
+}
+
 function createCourseCard(course) {
   const courseLink = course.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  return `<a class="course-card fade-up" href="course-${courseLink}.html"><div class="course-img"><div class="course-img-bg" style="background:linear-gradient(135deg, #E87E26 0%, #C96B18 100%);"></div><div class="course-img-overlay"></div><div class="course-img-content"><span style="font-size:28px;">${course.icon}</span></div></div><div class="course-body"><div class="course-name">${course.name}</div><div class="course-desc">${course.desc}</div><div class="course-meta"><span class="cmeta">⏱ ${formatHours(course.hours)}</span><span class="cmeta">🎓 Certified</span></div><span class="course-link">Know More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></div></a>`;
+  const img = getCourseImage(course);
+  const bg = img
+    ? `background:url('${img}') center/cover no-repeat;`
+    : `background:linear-gradient(135deg, #E87E26 0%, #C96B18 100%);`;
+  return `<a class="course-card fade-up" href="course-${courseLink}.html"><div class="course-img"><div class="course-img-bg" style="${bg}"></div><div class="course-img-overlay"></div><div class="course-img-content"><span style="font-size:28px;">${course.icon}</span></div></div><div class="course-body"><div class="course-name">${course.name}</div><div class="course-desc">${course.desc}</div><div class="course-meta"><span class="cmeta">⏱ ${formatHours(course.hours)}</span><span class="cmeta">🎓 Certified</span></div><span class="course-link">Know More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></div></a>`;
 }
 
 function filterAndRenderCourses(filter = 'all', courses = topCourses, gridId = 'coursesGrid') {

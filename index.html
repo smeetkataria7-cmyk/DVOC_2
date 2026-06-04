@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -32,7 +32,7 @@ body{background:var(--white);color:var(--text);font-family:'Poppins',sans-serif;
 .sbtn:hover{background:var(--orange);color:#fff;}
 
 /* NAV */
-nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);box-shadow:0 2px 16px rgba(0,0,0,0.06);}
+nav{position:sticky;top:0;z-index:200;background:#FFFFFF;backdrop-filter:blur(16px);border-bottom:1px solid var(--border);box-shadow:0 2px 16px rgba(0,0,0,0.06);}
 .nav-inner{max-width:1260px;margin:0 auto;padding:0 32px;display:flex;align-items:center;height:72px;gap:4px;}
 .nav-logo{text-decoration:none;margin-right:32px;flex-shrink:0;display:flex;align-items:center;gap:10px;}
 .logo-icon{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--orange),var(--orange-dark));display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-size:20px;font-weight:800;color:#fff;}
@@ -104,6 +104,14 @@ select.form-field{color:var(--text-muted);cursor:pointer;appearance:none;}
 .partner-logos{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
 .partner-pill{background:#fff;border:1px solid var(--border);border-radius:8px;padding:7px 18px;font-size:12.5px;font-weight:700;color:var(--text-muted);}
 
+/* LOGO CAROUSEL */
+.logo-carousel-container{overflow:hidden;background:var(--off-white);padding:24px 0;}
+.logo-carousel{display:flex;gap:48px;padding:0 32px;animation:scroll-left 20s linear infinite;width:max-content;}
+.logo-carousel:hover{animation-play-state:paused;}
+@keyframes scroll-left{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.logo-carousel-item{flex-shrink:0;width:180px;height:72px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);filter:grayscale(100%);opacity:0.72;transition:all 0.3s;font-size:13px;font-weight:800;color:var(--navy);letter-spacing:0.3px;text-align:center;padding:0 18px;box-shadow:0 6px 20px rgba(0,0,0,0.04);}
+.logo-carousel-item:hover{filter:grayscale(0);opacity:1;transform:scale(1.05);}
+
 /* STATS BAR */
 .stats-bar{background:var(--orange);}
 .stats-inner{max-width:1260px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);}
@@ -162,6 +170,13 @@ section{padding:88px 32px;}
 .course-link{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:var(--orange);text-decoration:none;}
 .course-link svg{transition:transform 0.2s;}
 .course-card:hover .course-link svg{transform:translateX(4px);}
+.all-courses-section{background:var(--off-white);padding-top:72px;}
+.all-courses-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px;}
+.all-course-link{display:flex;flex-direction:column;gap:8px;min-height:132px;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:20px;text-decoration:none;color:inherit;transition:all 0.25s;}
+.all-course-link:hover{border-color:var(--border-orange);box-shadow:var(--shadow);transform:translateY(-3px);}
+.all-course-name{font-size:15px;font-weight:750;color:var(--text);line-height:1.35;}
+.all-course-meta{font-size:12.5px;color:var(--text-muted);line-height:1.55;margin-top:auto;}
+.all-course-action{font-size:13px;font-weight:700;color:var(--orange);}
 
 /* BATCHES */
 .batches-section{background:var(--off-white);}
@@ -179,7 +194,7 @@ section{padding:88px 32px;}
 /* WHY */
 .why-section{background:#fff;}
 .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:56px;}
-.why-image-block{position:relative;border-radius:20px;overflow:hidden;height:480px;background:linear-gradient(to bottom,rgba(15,27,45,0.3),rgba(15,27,45,0.65)),url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80') center/cover no-repeat;}
+.why-image-block{position:relative;border-radius:20px;overflow:hidden;height:600px;background:linear-gradient(to bottom,rgba(15,27,45,0.3),rgba(15,27,45,0.65)),url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80') center/cover no-repeat;}
 .why-image-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:32px;}
 .why-pills{display:flex;gap:10px;flex-wrap:wrap;}
 .why-pill{background:var(--orange);color:#fff;border-radius:100px;padding:8px 18px;font-size:13px;font-weight:700;}
@@ -192,25 +207,37 @@ section{padding:88px 32px;}
 
 /* TESTI */
 .testi-section{background:var(--orange-pale);}
-.testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px;}
-.testi-card{background:#fff;border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);transition:all 0.3s;border:1px solid transparent;}
+.testi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px;}
+.testi-card{background:#fff;border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);transition:all 0.3s;border:1px solid transparent;display:flex;flex-direction:column;justify-content:space-between;height:100%;}
 .testi-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--border-orange);}
-.testi-stars{color:var(--orange);font-size:14px;margin-bottom:14px;letter-spacing:2px;}
-.testi-text{font-size:14px;color:var(--text-muted);line-height:1.75;margin-bottom:22px;font-style:italic;}
-.testi-author{display:flex;align-items:center;gap:14px;padding-top:18px;border-top:1px solid var(--border);}
-.testi-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--orange-dark));display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0;font-family:'Poppins',sans-serif;}
+.testi-avatar-circle{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--orange-dark));display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:#fff;flex-shrink:0;font-family:'Poppins',sans-serif;margin:0 auto 18px;}
+.testi-stars{color:var(--orange);font-size:14px;margin-bottom:14px;letter-spacing:2px;text-align:center;}
+.testi-text{font-size:14px;color:var(--text-muted);line-height:1.75;margin-bottom:22px;font-style:italic;flex:1;text-align:center;}
+.testi-author{display:flex;flex-direction:column;align-items:center;padding-top:18px;border-top:1px solid var(--border);text-align:center;margin-top:auto;}
 .testi-name{font-size:15px;font-weight:700;color:var(--text);}
 .testi-role{font-size:12.5px;color:var(--orange);font-weight:500;margin-top:2px;}
+
+/* VIDEO TESTIMONIALS */
+.video-testi-section{background:#fff;}
+.video-testi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:48px;}
+.video-testi-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.3s;position:relative;}
+.video-testi-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--border-orange);}
+.video-thumbnail{height:180px;background:linear-gradient(135deg,var(--orange),var(--orange-dark));position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.video-thumbnail img{width:100%;height:100%;object-fit:cover;}
+.video-play-btn{position:absolute;width:56px;height:56px;background:var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;transition:all 0.3s;}
+.video-testi-card:hover .video-play-btn{transform:scale(1.1);background:var(--orange-dark);}
+.video-testi-body{padding:22px;}
+.video-testi-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.video-testi-course{font-size:12px;color:var(--orange);font-weight:600;margin-bottom:12px;}
+.video-testi-desc{font-size:13px;color:var(--text-muted);line-height:1.6;}
 
 /* LOCATIONS */
 .locations-section{background:#fff;}
 .locations-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px;}
 .location-card{background:var(--off-white);border:1.5px solid var(--border);border-radius:var(--radius);padding:32px;transition:all 0.3s;text-align:center;}
 .location-card:hover{border-color:var(--orange);transform:translateY(-4px);box-shadow:var(--shadow-lg);}
-.loc-icon{font-size:36px;margin-bottom:14px;}
-.loc-name{font-size:22px;font-weight:800;color:var(--text);margin-bottom:8px;}
-.loc-area{font-size:13.5px;color:var(--text-muted);margin-bottom:14px;line-height:1.6;}
-.loc-tag{display:inline-block;background:var(--orange-pale);border:1px solid var(--border-orange);color:var(--orange);font-size:11px;font-weight:700;padding:4px 14px;border-radius:100px;letter-spacing:0.5px;margin-bottom:20px;}
+.loc-name{font-size:22px;font-weight:800;color:var(--text);margin-bottom:14px;}
+.loc-area{font-size:13.5px;color:var(--text-muted);margin-bottom:20px;line-height:1.6;}
 .loc-link{display:flex;align-items:center;justify-content:center;gap:6px;color:var(--orange);font-size:13.5px;font-weight:700;text-decoration:none;transition:gap 0.2s;}
 .loc-link:hover{gap:10px;}
 
@@ -250,7 +277,12 @@ footer{background:var(--dark);border-top:3px solid var(--orange);padding:64px 32
 .footer-bl a:hover{color:rgba(255,255,255,0.7);}
 
 
-/* Bridge: invisible padding so mouse can travel from link to dropdown */
+/* WHATSAPP BUTTON */
+.whatsapp-btn{position:fixed;bottom:30px;right:30px;width:60px;height:60px;background:var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;text-decoration:none;box-shadow:0 4px 12px rgba(232,126,38,0.4);transition:all 0.3s;z-index:99;cursor:pointer;}
+.whatsapp-btn:hover{background:var(--orange-dark);transform:scale(1.1);box-shadow:0 8px 24px rgba(232,126,38,0.6);}
+@media(max-width:768px){
+  .whatsapp-btn{bottom:20px;right:20px;width:56px;height:56px;font-size:28px;}
+}
 .nav-item .dropdown::before,
 .nav-item .mega-dd::before{
   content:'';position:absolute;top:-18px;left:0;right:0;height:18px;background:transparent;
@@ -262,7 +294,7 @@ footer{background:var(--dark);border-top:3px solid var(--orange);padding:64px 32
 
 /* GLASSMORPHISM */
 body{background:radial-gradient(circle at 15% 15%,rgba(232,126,38,0.07) 0%,transparent 35%),radial-gradient(circle at 85% 30%,rgba(15,27,45,0.04) 0%,transparent 40%),#FCFCFA;}
-nav{background:rgba(255,255,255,0.75)!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);}
+nav{background:#FFFFFF!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);}
 .highlight-card{background:rgba(255,255,255,0.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.85);}
 .testi-card{background:rgba(255,255,255,0.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
 .batch-card{background:rgba(255,255,255,0.65);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
@@ -285,10 +317,12 @@ select.form-field option{color:var(--text);background:#fff;}
   .hero-inner{grid-template-columns:1fr;}
   .hero-form-card{max-width:480px;}
   .courses-grid{grid-template-columns:repeat(2,1fr);}
-  .testi-grid{grid-template-columns:1fr;}
+  .all-courses-grid{grid-template-columns:repeat(2,1fr);}
+  .testi-grid{grid-template-columns:repeat(2,1fr);}
+  .video-testi-grid{grid-template-columns:repeat(2,1fr);}
   .footer-grid{grid-template-columns:1fr 1fr;}
   .why-grid{grid-template-columns:1fr;}
-  .why-image-block{height:280px;}
+  .why-image-block{height:360px;}
 }
 @media(max-width:768px){
   section{padding:60px 20px;}
@@ -303,9 +337,14 @@ select.form-field option{color:var(--text);background:#fff;}
   .stats-inner{grid-template-columns:repeat(2,1fr);}
   .stat-item:nth-child(2){border-right:none;}
   .highlights-grid,.courses-grid,.batches-grid,.locations-grid{grid-template-columns:1fr;}
+  .all-courses-grid{grid-template-columns:1fr;}
+  .testi-grid{grid-template-columns:1fr;}
+  .video-testi-grid{grid-template-columns:1fr;}
   .footer-grid{grid-template-columns:1fr;gap:28px;}
   .footer-bottom{flex-direction:column;gap:14px;text-align:center;}
   .courses-header{flex-direction:column;align-items:flex-start;}
+  .logo-carousel{gap:32px;}
+  .logo-carousel-item{width:150px;height:60px;font-size:11.5px;}
 }
 </style>
 </head>
@@ -346,30 +385,29 @@ select.form-field option{color:var(--text);background:#fff;}
         <div class="mega-dd">
           <div class="mega-col">
             <h4>By Audience</h4>
-            <a href="#courses"><span class="mc-icon">🎒</span><span>School Students</span></a>
-            <a href="#courses"><span class="mc-icon">🎓</span><span>College Students</span></a>
-            <a href="#courses"><span class="mc-icon">🧑‍💼</span><span>Graduates</span></a>
-            <a href="#courses"><span class="mc-icon">💼</span><span>Working Professionals</span></a>
-            <a href="#courses"><span class="mc-icon">🏢</span><span>Enterprises</span></a>
+            <a href="#courses"><span class="mc-icon">ðŸŽ’</span><span>School and College Students</span></a>
+            <a href="#courses"><span class="mc-icon">ðŸ§‘â€ðŸ’¼</span><span>Graduates</span></a>
+            <a href="#courses"><span class="mc-icon">ðŸ’¼</span><span>Working Professionals</span></a>
+            <a href="#courses"><span class="mc-icon">ðŸ¢</span><span>Enterprises</span></a>
           </div>
           <div class="mega-col">
             <h4>Popular Programs</h4>
-            <a href="course-fullstack.html"><span class="mc-icon">💻</span><span>Full Stack Development</span></a>
-            <a href="course-fintech.html"><span class="mc-icon">📊</span><span>FinTech &amp; Analytics</span></a>
-            <a href="course-graphicdesign.html"><span class="mc-icon">🎨</span><span>Graphic Design</span></a>
-            <a href="course-digitalmarketing.html"><span class="mc-icon">📱</span><span>Digital Marketing</span></a>
-            <a href="course-ai.html"><span class="mc-icon">🤖</span><span>AI &amp; GenAI</span></a>
-            <a href="course-dataanalytics.html"><span class="mc-icon">📈</span><span>Tally &amp; Accounting</span></a>
+            <a href="course-fullstack.html"><span class="mc-icon">ðŸ’»</span><span>Full Stack Development</span></a>
+            <a href="course-fintech.html"><span class="mc-icon">ðŸ“Š</span><span>FinTech &amp; Analytics</span></a>
+            <a href="course-dataanalytics.html"><span class="mc-icon">ðŸ“ˆ</span><span>Data Science</span></a>
+            <a href="course-digitalmarketing.html"><span class="mc-icon">ðŸ“±</span><span>Digital Marketing</span></a>
+            <a href="course-ai.html"><span class="mc-icon">ðŸ¤–</span><span>AI &amp; GenAI</span></a>
+            <a href="course-fintech.html"><span class="mc-icon">ðŸ“Š</span><span>Tally &amp; Accounting</span></a>
           </div>
         </div>
       </div>
       <div class="nav-item">
         <a class="nav-link" href="#">About Us <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></a>
         <div class="dropdown">
-          <a href="about.html"><div class="dd-icon">🏛️</div><div><div class="dd-label">About DVOC</div><div class="dd-desc">Our story &amp; mission</div></div></a>
-          <a href="about.html#founders"><div class="dd-icon">👤</div><div><div class="dd-label">The Founders</div><div class="dd-desc">Meet our leadership</div></div></a>
-          <a href="about.html#directors"><div class="dd-icon">✉️</div><div><div class="dd-label">Director's Desk</div><div class="dd-desc">A message from the top</div></div></a>
-          <a href="about.html#advisory"><div class="dd-icon">🤝</div><div><div class="dd-label">Advisory Board</div><div class="dd-desc">30+ years combined expertise</div></div></a>
+          <a href="about.html"><div class="dd-icon">ðŸ›ï¸</div><div><div class="dd-label">About DVOC</div><div class="dd-desc">Our story &amp; mission</div></div></a>
+          <a href="about.html#founders"><div class="dd-icon">ðŸ‘¤</div><div><div class="dd-label">The Founders</div><div class="dd-desc">Meet our leadership</div></div></a>
+          <a href="about.html#directors"><div class="dd-icon">âœ‰ï¸</div><div><div class="dd-label">Director's Desk</div><div class="dd-desc">A message from the top</div></div></a>
+          <a href="about.html#advisory"><div class="dd-icon">ðŸ¤</div><div><div class="dd-label">Advisory Board</div><div class="dd-desc">30+ years combined expertise</div></div></a>
         </div>
       </div>
       <div class="nav-item"><a class="nav-link" href="#batches">Our Events</a></div>
@@ -377,7 +415,7 @@ select.form-field option{color:var(--text);background:#fff;}
       <div class="nav-item"><a class="nav-link" href="#cta">Contact Us</a></div>
     </div>
     <div class="nav-cta">
-      <a href="tel:+917021733916" class="btn-outline">📞 Call Us</a>
+      <a href="tel:+917021733916" class="btn-outline">ðŸ“ž Call Us</a>
       <a href="#enroll" class="btn-orange">Enquire Now</a>
     </div>
   </div>
@@ -390,44 +428,46 @@ select.form-field option{color:var(--text);background:#fff;}
     <div>
       <div class="hero-badge"><span class="dot"></span> Mumbai's #1 Vocational IT Institute</div>
       <h1>Build Your <span>Tech Career</span><br>From the Ground Up</h1>
-      <p class="hero-desc">Government-certified, industry-aligned computer courses for school students, graduates &amp; working professionals. 3 branches across Mumbai. 10,000+ students trained.</p>
+      <p class="hero-desc">Government-certified, industry-aligned professional and skill development courses for school and college students, graduates, and working professionals. 3 branches across Mumbai. 30,000+ students trained.</p>
       <div class="hero-actions">
         <a href="#courses" class="btn-hero btn-hero-primary">Explore Courses <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-        <a href="tel:+917021733916" class="btn-hero btn-hero-ghost">📞 Call Now</a>
+        <a href="WHATSAPP_LINK_HERE" class="btn-hero btn-hero-ghost" target="_blank">Chat on WhatsApp</a>
       </div>
       <div class="hero-trust">
-        <span class="trust-chip">✅ NSDC Certified</span>
-        <span class="trust-chip">🏛️ Govt. Recognised</span>
-        <span class="trust-chip">💼 95% Placement Rate</span>
-        <span class="trust-chip">📍 3 Branches</span>
+        <span class="trust-chip">âœ… NSDC Certified</span>
+        <span class="trust-chip">ðŸ›ï¸ Govt. Recognised</span>
+        <span class="trust-chip"> 3 Branches</span>
       </div>
     </div>
-    <div class="hero-form-card">
+    <form class="hero-form-card" id="expert-enquiry-form">
       <div class="form-title">Talk to Our</div>
       <div class="form-heading"><span>EXPERTS</span></div>
-      <input type="text" class="form-field" placeholder="Your Name"/>
-      <input type="email" class="form-field" placeholder="Your Email"/>
-      <input type="tel" class="form-field" placeholder="Phone"/>
-      <select class="form-field"><option value="" disabled selected>I am a...</option><option>School Student</option><option>College Student</option><option>Graduate</option><option>Working Professional</option></select>
-      <select class="form-field"><option value="" disabled selected>Preferred Branch</option><option>Andheri</option><option>Vile Parle</option><option>Grant Road</option></select>
-      <button class="btn-submit">Submit →</button>
+      <input type="text" class="form-field" name="name" placeholder="Your Name"/>
+      <input type="email" class="form-field" name="email" placeholder="Your Email"/>
+      <input type="tel" class="form-field" name="phone" placeholder="Phone"/>
+      <select class="form-field" name="userType"><option value="" disabled selected>I am a...</option><option>School and College Student</option><option>Graduate</option><option>Working Professional</option><option>Other</option></select>
+      <select class="form-field" name="branch"><option value="" disabled selected>Preferred Branch</option><option>Andheri</option><option>Vile Parle</option><option>Grant Road</option><option>Other</option></select>
+      <button class="btn-submit">Submit â†’</button>
       <p class="form-note">Please note that your personal data will be used as per the <a href="#" style="color:var(--orange)">Privacy Policy</a>.</p>
-    </div>
+    </form>
   </div>
 </div>
 
-<!-- PARTNERS -->
-<div class="partners-strip">
-  <div class="partners-inner">
-    <div class="partners-label">Recognised By</div>
-    <div class="partner-logos">
-      <div class="partner-pill">NSDC</div>
-      <div class="partner-pill">MS-CIT</div>
-      <div class="partner-pill">Tally Institute</div>
-      <div class="partner-pill">MKCI</div>
-      <div class="partner-pill">NIELIT</div>
-      <div class="partner-pill">ISO Certified</div>
-    </div>
+<!-- LOGO CAROUSEL -->
+<div class="logo-carousel-container">
+  <div class="logo-carousel">
+    <div class="logo-carousel-item">NSDC Programs</div>
+    <div class="logo-carousel-item">MS-CIT Training</div>
+    <div class="logo-carousel-item">Tally Institute</div>
+    <div class="logo-carousel-item">MKCL Aligned</div>
+    <div class="logo-carousel-item">Government Certified</div>
+    <div class="logo-carousel-item">Industry Skills</div>
+    <div class="logo-carousel-item">NSDC Programs</div>
+    <div class="logo-carousel-item">MS-CIT Training</div>
+    <div class="logo-carousel-item">Tally Institute</div>
+    <div class="logo-carousel-item">MKCL Aligned</div>
+    <div class="logo-carousel-item">Government Certified</div>
+    <div class="logo-carousel-item">Industry Skills</div>
   </div>
 </div>
 
@@ -435,9 +475,9 @@ select.form-field option{color:var(--text);background:#fff;}
 <div class="stats-bar">
   <div class="stats-inner">
     <div class="stat-item fade-up"><span class="stat-num">30+</span><span class="stat-label">Years of Excellence</span></div>
-    <div class="stat-item fade-up"><span class="stat-num">10K+</span><span class="stat-label">Students Trained</span></div>
+    <div class="stat-item fade-up"><span class="stat-num">30K+</span><span class="stat-label">Students Trained</span></div>
     <div class="stat-item fade-up"><span class="stat-num">30+</span><span class="stat-label">Courses Offered</span></div>
-    <div class="stat-item fade-up"><span class="stat-num">95%</span><span class="stat-label">Placement Rate</span></div>
+    <div class="stat-item fade-up"><span class="stat-num">3</span><span class="stat-label">Mumbai Branches</span></div>
   </div>
 </div>
 
@@ -450,17 +490,17 @@ select.form-field option{color:var(--text);background:#fff;}
     </div>
     <div class="highlights-grid">
       <div class="highlight-card fade-up">
-        <div class="highlight-icon">🧑‍🏫</div>
+        <div class="highlight-icon">ðŸ§‘â€ðŸ«</div>
         <h3>Expert Faculty</h3>
         <p>Get guidance from our expert faculty with 10+ years of real-world industry experience. Practical, hands-on teaching that prepares you for the job.</p>
       </div>
       <div class="highlight-card fade-up">
-        <div class="highlight-icon">⚙️</div>
+        <div class="highlight-icon">âš™ï¸</div>
         <h3>Relevant Skills Training</h3>
         <p>With industry-level skills, get job-ready from day one. Our curriculum is updated every semester to match current employer demands.</p>
       </div>
       <div class="highlight-card fade-up">
-        <div class="highlight-icon">🏅</div>
+        <div class="highlight-icon">ðŸ…</div>
         <h3>Recognised Certificate</h3>
         <p>Get a government-recognised certificate after completing DVOC programs. Our certifications are accepted by top companies across India.</p>
       </div>
@@ -476,13 +516,6 @@ select.form-field option{color:var(--text);background:#fff;}
         <div class="section-label">Our Programs</div>
         <div class="section-title">Popular <span>Courses</span></div>
       </div>
-      <div class="tab-row">
-        <button class="tab-btn active">All</button>
-        <button class="tab-btn">Schools</button>
-        <button class="tab-btn">Colleges</button>
-        <button class="tab-btn">Graduates</button>
-        <button class="tab-btn">Professionals</button>
-      </div>
     </div>
     <div class="courses-grid">
 
@@ -490,12 +523,12 @@ select.form-field option{color:var(--text);background:#fff;}
         <div class="course-img">
           <div class="course-img-bg" style="background-image:url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=80');"></div>
           <div class="course-img-overlay"></div>
-          <div class="course-img-content"><span class="course-tag">🎓 Graduates</span><span class="popular-tag">⭐ Most Popular</span></div>
+          <div class="course-img-content"><span class="popular-tag">â­ Most Popular</span></div>
         </div>
         <div class="course-body">
           <div class="course-name">Advanced Program in Full Stack Software Development</div>
           <div class="course-desc">Master HTML, CSS, JavaScript, React, Node.js, and databases. Build real-world projects with full placement support.</div>
-          <div class="course-meta"><span class="cmeta">⏱ 6 Months</span><span class="cmeta">🎓 Certified</span><span class="cmeta">💼 Placement</span></div>
+          <div class="course-meta"><span class="cmeta">â± 6 Months</span><span class="cmeta">ðŸŽ“ Certified</span><span class="cmeta">ðŸ’¼ Placement</span></div>
           <span class="course-link">Know More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
         </div>
       </a>
@@ -504,12 +537,12 @@ select.form-field option{color:var(--text);background:#fff;}
         <div class="course-img">
           <div class="course-img-bg" style="background-image:url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80');"></div>
           <div class="course-img-overlay"></div>
-          <div class="course-img-content"><span class="course-tag">🏫 Colleges</span></div>
+          <div class="course-img-content"></div>
         </div>
         <div class="course-body">
           <div class="course-name">Advanced Program in FinTech and Business Analytics</div>
-          <div class="course-desc">Dual Qualification Program for College Students. Become a Professional @ 21 with real-world finance &amp; data skills.</div>
-          <div class="course-meta"><span class="cmeta">⏱ 1 Year</span><span class="cmeta">📜 Dual Cert</span><span class="cmeta">🏦 Industry</span></div>
+          <div class="course-desc">Dual Qualification Program for school and college students. Become a Professional @ 21 with real-world finance &amp; data skills.</div>
+          <div class="course-meta"><span class="cmeta">â± 1 Year</span><span class="cmeta">ðŸ“œ Dual Cert</span><span class="cmeta">ðŸ¦ Industry</span></div>
           <span class="course-link">Know More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
         </div>
       </a>
@@ -518,12 +551,12 @@ select.form-field option{color:var(--text);background:#fff;}
         <div class="course-img">
           <div class="course-img-bg" style="background-image:url('https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=600&q=80');"></div>
           <div class="course-img-overlay"></div>
-          <div class="course-img-content"><span class="course-tag">💼 Professionals</span></div>
+          <div class="course-img-content"></div>
         </div>
         <div class="course-body">
           <div class="course-name">Professional Program in Digital Marketing</div>
           <div class="course-desc">SEO, Google Ads, Meta Ads, content strategy &amp; analytics. Grow your career or launch your own business online.</div>
-          <div class="course-meta"><span class="cmeta">⏱ 3 Months</span><span class="cmeta">🎓 Certified</span><span class="cmeta">📅 Weekend</span></div>
+          <div class="course-meta"><span class="cmeta">â± 3 Months</span><span class="cmeta">ðŸŽ“ Certified</span><span class="cmeta">ðŸ“… Weekend</span></div>
           <span class="course-link">Know More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
         </div>
       </a>
@@ -532,26 +565,26 @@ select.form-field option{color:var(--text);background:#fff;}
         <div class="course-img">
           <div class="course-img-bg" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80');"></div>
           <div class="course-img-overlay"></div>
-          <div class="course-img-content"><span class="course-tag">📊 Graduates</span></div>
+          <div class="course-img-content"></div>
         </div>
         <div class="course-body">
           <div class="course-name">Professional Program in Data Analytics</div>
           <div class="course-desc">Excel, Power BI, Python basics, and data visualisation. Turn raw data into insights employers actually want.</div>
-          <div class="course-meta"><span class="cmeta">⏱ 4 Months</span><span class="cmeta">🎓 Certified</span><span class="cmeta">🤝 Placement</span></div>
+          <div class="course-meta"><span class="cmeta">â± 4 Months</span><span class="cmeta">ðŸŽ“ Certified</span><span class="cmeta">ðŸ¤ Placement</span></div>
           <span class="course-link">Know More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
         </div>
       </a>
 
-      <a class="course-card" href="course-graphicdesign.html">
+      <a class="course-card" href="course-dataanalytics.html">
         <div class="course-img">
-          <div class="course-img-bg" style="background-image:url('https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=80');"></div>
+          <div class="course-img-bg" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80');"></div>
           <div class="course-img-overlay"></div>
-          <div class="course-img-content"><span class="course-tag">🎨 All Levels</span></div>
+          <div class="course-img-content"></div>
         </div>
         <div class="course-body">
-          <div class="course-name">Foundation in Graphic Designing</div>
-          <div class="course-desc">Adobe Photoshop, Illustrator, Canva, and Figma. Build a creative portfolio that gets you hired in design roles.</div>
-          <div class="course-meta"><span class="cmeta">⏱ 3 Months</span><span class="cmeta">🎓 Certified</span><span class="cmeta">🖥 Portfolio</span></div>
+          <div class="course-name">Professional Program in Data Science</div>
+          <div class="course-desc">Master Python, Machine Learning, Statistical Analysis, and Data Visualization. Build predictive models and become a sought-after data scientist.</div>
+          <div class="course-meta"><span class="cmeta">â± 3 Months</span><span class="cmeta">ðŸŽ“ Certified</span><span class="cmeta">ðŸ–¥ Portfolio</span></div>
           <span class="course-link">Know More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
         </div>
       </a>
@@ -560,19 +593,40 @@ select.form-field option{color:var(--text);background:#fff;}
         <div class="course-img">
           <div class="course-img-bg" style="background-image:url('https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80');"></div>
           <div class="course-img-overlay"></div>
-          <div class="course-img-content"><span class="course-tag">🤖 All Levels</span><span class="popular-tag">🔥 Trending</span></div>
+          <div class="course-img-content"><span class="popular-tag">ðŸ”¥ Trending</span></div>
         </div>
         <div class="course-body">
           <div class="course-name">Professional Certificate in AI Essentials</div>
           <div class="course-desc">AI fundamentals, ChatGPT, prompt engineering, and automation tools. The most in-demand skill of this decade.</div>
-          <div class="course-meta"><span class="cmeta">⏱ 3 Months</span><span class="cmeta">🎓 Certified</span><span class="cmeta">🔥 Trending</span></div>
+          <div class="course-meta"><span class="cmeta">â± 3 Months</span><span class="cmeta">ðŸŽ“ Certified</span><span class="cmeta">ðŸ”¥ Trending</span></div>
           <span class="course-link">Know More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
         </div>
       </a>
 
     </div>
     <div style="text-align:center;margin-top:40px;">
-      <a href="#" class="btn-orange" style="font-size:14px;padding:13px 32px;display:inline-block;border-radius:8px;">View All Courses →</a>
+      <a href="#allcourses" class="btn-orange" style="font-size:14px;padding:13px 32px;display:inline-block;border-radius:8px;">View All Courses â†’</a>
+    </div>
+  </div>
+</section>
+
+<!-- ALL COURSES -->
+<section class="all-courses-section" id="allcourses">
+  <div class="section-inner">
+    <div class="section-center">
+      <div class="section-label">Complete Program List</div>
+      <div class="section-title">Explore All <span>Courses</span></div>
+      <div class="section-desc">Career-oriented training programs designed for School and College Students, graduates, and working professionals.</div>
+    </div>
+    <div class="all-courses-grid">
+      <a class="all-course-link fade-up" href="course-fullstack.html"><span class="all-course-name">Full Stack Software Development</span><span class="all-course-meta">Web development, databases, projects, and placement support.</span><span class="all-course-action">View Course</span></a>
+      <a class="all-course-link fade-up" href="course-fintech.html"><span class="all-course-name">FinTech and Business Analytics</span><span class="all-course-meta">Finance, analytics, business tools, and industry workflows.</span><span class="all-course-action">View Course</span></a>
+      <a class="all-course-link fade-up" href="course-digitalmarketing.html"><span class="all-course-name">Digital Marketing</span><span class="all-course-meta">SEO, ads, analytics, content strategy, and campaign execution.</span><span class="all-course-action">View Course</span></a>
+      <a class="all-course-link fade-up" href="course-dataanalytics.html"><span class="all-course-name">Data Analytics</span><span class="all-course-meta">Excel, Power BI, Python basics, reporting, and dashboards.</span><span class="all-course-action">View Course</span></a>
+      <a class="all-course-link fade-up" href="course-datascience.html"><span class="all-course-name">Data Science</span><span class="all-course-meta">Python, statistics, machine learning, models, and visualization.</span><span class="all-course-action">View Course</span></a>
+      <a class="all-course-link fade-up" href="course-ai.html"><span class="all-course-name">AI Essentials and GenAI</span><span class="all-course-meta">AI concepts, prompt engineering, automation, and productivity tools.</span><span class="all-course-action">View Course</span></a>
+      <a class="all-course-link fade-up" href="course-fintech.html"><span class="all-course-name">Tally and Accounting</span><span class="all-course-meta">Accounting fundamentals, Tally Prime, GST, and business finance.</span><span class="all-course-action">View Course</span></a>
+      <a class="all-course-link fade-up" href="index.html#cta"><span class="all-course-name">Custom Skill Development Programs</span><span class="all-course-meta">Speak with our counsellors for the right government-certified pathway.</span><span class="all-course-action">Enquire Now</span></a>
     </div>
   </div>
 </section>
@@ -585,15 +639,15 @@ select.form-field option{color:var(--text);background:#fff;}
       <div class="section-title">Our Upcoming <span>Batches</span></div>
     </div>
     <div class="batches-grid">
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">01</div></div><div class="batch-info"><div class="batch-days">MON – FRI</div><div class="batch-name">Foundation in IT</div><div class="batch-time">⏰ 05:30 – 07:00 PM</div></div></div>
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">15</div></div><div class="batch-info"><div class="batch-days">MON – WED – FRI</div><div class="batch-name">Graphic Designing</div><div class="batch-time">⏰ 01:30 – 03:30 PM</div></div></div>
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">04</div></div><div class="batch-info"><div class="batch-days">MON – FRI</div><div class="batch-name">Digital Skills &amp; GenAI</div><div class="batch-time">⏰ 10:30 – 12:30 PM</div></div></div>
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">04</div></div><div class="batch-info"><div class="batch-days">MON – FRI</div><div class="batch-name">Fin-Tech &amp; Data Analytics</div><div class="batch-time">⏰ 10:30 – 12:30 PM</div></div></div>
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">15</div></div><div class="batch-info"><div class="batch-days">MON – SAT</div><div class="batch-name">Full Stack Development</div><div class="batch-time">⏰ 05:30 – 07:30 PM</div></div></div>
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">15</div></div><div class="batch-info"><div class="batch-days">MON – WED – FRI</div><div class="batch-name">Digital Marketing</div><div class="batch-time">⏰ 01:30 – 03:30 PM</div></div></div>
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">15</div></div><div class="batch-info"><div class="batch-days">MON – WED – FRI</div><div class="batch-name">Artificial Intelligence (AI)</div><div class="batch-time">⏰ 05:30 – 07:30 PM</div></div></div>
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">08</div></div><div class="batch-info"><div class="batch-days">TUE – THU – SAT</div><div class="batch-name">Accounting with Tally Prime</div><div class="batch-time">⏰ 11:00 – 01:00 PM</div></div></div>
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">03</div></div><div class="batch-info"><div class="batch-days">MON – WED – FRI</div><div class="batch-name">Advanced Excel</div><div class="batch-time">⏰ 05:30 – 07:30 PM</div></div></div>
+      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">01</div></div><div class="batch-info"><div class="batch-days">MON â€“ FRI</div><div class="batch-name">Foundation in IT</div><div class="batch-time">â° 05:30 â€“ 07:00 PM</div></div></div>
+      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">15</div></div><div class="batch-info"><div class="batch-days">MON â€“ WED â€“ FRI</div><div class="batch-name">Data Science Essentials</div><div class="batch-time">â›° 01:30 â€“ 03:30 PM</div></div></div>
+      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">04</div></div><div class="batch-info"><div class="batch-days">MON â€“ FRI</div><div class="batch-name">Digital Skills &amp; GenAI</div><div class="batch-time">â° 10:30 â€“ 12:30 PM</div></div></div>
+      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">04</div></div><div class="batch-info"><div class="batch-days">MON â€“ FRI</div><div class="batch-name">Fin-Tech &amp; Data Analytics</div><div class="batch-time">â° 10:30 â€“ 12:30 PM</div></div></div>
+      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">15</div></div><div class="batch-info"><div class="batch-days">MON â€“ SAT</div><div class="batch-name">Full Stack Development</div><div class="batch-time">â° 05:30 â€“ 07:30 PM</div></div></div>
+      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">15</div></div><div class="batch-info"><div class="batch-days">MON â€“ WED â€“ FRI</div><div class="batch-name">Digital Marketing</div><div class="batch-time">â° 01:30 â€“ 03:30 PM</div></div></div>
+      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">15</div></div><div class="batch-info"><div class="batch-days">MON â€“ WED â€“ FRI</div><div class="batch-name">Artificial Intelligence (AI)</div><div class="batch-time">â° 05:30 â€“ 07:30 PM</div></div></div>
+      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">08</div></div><div class="batch-info"><div class="batch-days">TUE â€“ THU â€“ SAT</div><div class="batch-name">Accounting with Tally Prime</div><div class="batch-time">â° 11:00 â€“ 01:00 PM</div></div></div>
+      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">03</div></div><div class="batch-info"><div class="batch-days">MON â€“ WED â€“ FRI</div><div class="batch-name">Advanced Excel</div><div class="batch-time">â° 05:30 â€“ 07:30 PM</div></div></div>
     </div>
   </div>
 </section>
@@ -606,9 +660,8 @@ select.form-field option{color:var(--text);background:#fff;}
         <div class="why-image-overlay">
           <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.55);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">DVOC By The Numbers</div>
           <div class="why-pills">
-            <div class="why-pill">10,000+ Students</div>
+            <div class="why-pill">30,000+ Students</div>
             <div class="why-pill w">30+ Years</div>
-            <div class="why-pill">95% Placement</div>
             <div class="why-pill w">3 Branches</div>
           </div>
         </div>
@@ -616,12 +669,12 @@ select.form-field option{color:var(--text);background:#fff;}
       <div>
         <div class="section-label">Why Choose Us</div>
         <div class="section-title">Why to <span>Choose Us?</span></div>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.75;margin:16px 0 36px;">DVOC INSTITUTE focuses on delivering practical knowledge, as it is the key to a successful digital world career. With our skill-enhancing courses, students can learn the latest technologies that will help them grow beyond primary education and learn real-life skills.</p>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.75;margin:16px 0 36px;">DVOC INSTITUTE provides expert-led classroom training with hands-on practical learning and personalized guidance. Our skill-enhancing courses deliver real-world experience that prepares students for successful careers in the digital economy.</p>
         <div class="why-points">
-          <div class="why-point fade-up"><div class="point-num">01</div><div class="point-content"><h4>Concept and Practical Oriented Training</h4><p>We don't just teach theory. Every concept is reinforced with hands-on practice, real tools, and live projects.</p></div></div>
-          <div class="why-point fade-up"><div class="point-num">02</div><div class="point-content"><h4>Live Sessions – Classroom-like Experience</h4><p>Interactive live sessions that replicate a real classroom with direct faculty engagement and doubt resolution.</p></div></div>
+          <div class="why-point fade-up"><div class="point-num">01</div><div class="point-content"><h4>Expert-Led Classroom Training</h4><p>Real in-person classes with industry experts, not pre-recorded videos. Direct mentorship and immediate doubt resolution in a structured learning environment.</p></div></div>
+          <div class="why-point fade-up"><div class="point-num">02</div><div class="point-content"><h4>Practical Hands-On Learning</h4><p>Every concept is reinforced with hands-on practice, real tools, and live projects. Face-to-face interaction ensures personalized feedback and guidance throughout.</p></div></div>
           <div class="why-point fade-up"><div class="point-num">03</div><div class="point-content"><h4>30 Years of Advisory Board Expertise</h4><p>Our advisory board brings combined decades of industry leadership, guiding curriculum design to match market needs.</p></div></div>
-          <div class="why-point fade-up"><div class="point-num">04</div><div class="point-content"><h4>Government Recognised Certifications</h4><p>NSDC, MS-CIT, Tally Institute certified — your credentials carry real weight with employers across India.</p></div></div>
+          <div class="why-point fade-up"><div class="point-num">04</div><div class="point-content"><h4>Government Recognised Certifications</h4><p>NSDC, MS-CIT, Tally Institute certified â€” your credentials carry real weight with employers across India.</p></div></div>
         </div>
       </div>
     </div>
@@ -637,34 +690,97 @@ select.form-field option{color:var(--text);background:#fff;}
     </div>
     <div class="testi-grid">
       <div class="testi-card fade-up">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"DVOC INSTITUTE helped me grow from a beginner to a professional by focusing on practical learning and real-world skills. The course introduced me to new technologies that enhanced my career prospects. The faculty were very supportive and guided me throughout, and I'm fully satisfied with my placement."</div>
-        <div class="testi-author"><div class="testi-avatar">S</div><div><div class="testi-name">Shubham Pawar</div><div class="testi-role">Data Scientist – Insync Analytics</div></div></div>
+        <div class="testi-avatar-circle">S</div>
+        <div class="testi-stars">â˜…â˜…â˜…â˜…â˜…</div>
+        <div class="testi-text">"DVOC INSTITUTE helped me grow from a beginner to a professional by focusing on practical learning and real-world skills. The course introduced me to new technologies that enhanced my career prospects."</div>
+        <div class="testi-author"><div class="testi-name">Shubham Pawar</div><div class="testi-role">Data Scientist â€“ Insync Analytics</div></div>
       </div>
       <div class="testi-card fade-up">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"The Digital Marketing course at DVOC INSTITUTE was extensive and practical, helping me apply classroom concepts to real-world projects. The faculty were passionate and supportive throughout my learning journey. I'm grateful for the mentorship and for securing my placement at Tibro Pvt. Ltd."</div>
-        <div class="testi-author"><div class="testi-avatar">T</div><div><div class="testi-name">Tejal Jadhav</div><div class="testi-role">Digital Marketing Executive – Tibro</div></div></div>
+        <div class="testi-avatar-circle">T</div>
+        <div class="testi-stars">â˜…â˜…â˜…â˜…â˜…</div>
+        <div class="testi-text">"The Digital Marketing course at DVOC INSTITUTE was extensive and practical, helping me apply classroom concepts to real-world projects. The faculty were passionate and supportive throughout."</div>
+        <div class="testi-author"><div class="testi-name">Tejal Jadhav</div><div class="testi-role">Digital Marketing Executive â€“ Tibro</div></div>
       </div>
       <div class="testi-card fade-up">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"Joining DVOC INSTITUTE was one of the best decisions of my career. The hands-on training and real-world exposure gave me the confidence to crack interviews and land my role as a Trainee Software Engineer. The faculty's dedication and industry knowledge made all the difference."</div>
-        <div class="testi-author"><div class="testi-avatar">S</div><div><div class="testi-name">Sandeep Sain</div><div class="testi-role">Trainee Software Engineer – Infomatics</div></div></div>
+        <div class="testi-avatar-circle">S</div>
+        <div class="testi-stars">â˜…â˜…â˜…â˜…â˜…</div>
+        <div class="testi-text">"Joining DVOC INSTITUTE was one of the best decisions of my career. The hands-on training and real-world exposure gave me the confidence to crack interviews and land my role as a Trainee Software Engineer."</div>
+        <div class="testi-author"><div class="testi-name">Sandeep Sain</div><div class="testi-role">Trainee Software Engineer â€“ Infomatics</div></div>
       </div>
       <div class="testi-card fade-up">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"DVOC INSTITUTE gave me the skills and confidence to step into a managerial role at a reputed organisation. The curriculum was structured, the faculty was knowledgeable, and the placement support was outstanding. I highly recommend DVOC to anyone looking to advance their career."</div>
-        <div class="testi-author"><div class="testi-avatar">A</div><div><div class="testi-name">Ashwini Kundte</div><div class="testi-role">Assistant Manager – SBI Life Insurance</div></div></div>
+        <div class="testi-avatar-circle">A</div>
+        <div class="testi-stars">â˜…â˜…â˜…â˜…â˜…</div>
+        <div class="testi-text">"DVOC INSTITUTE gave me the skills and confidence to step into a managerial role at a reputed organisation. The curriculum was structured, the faculty was knowledgeable, and the placement support was outstanding."</div>
+        <div class="testi-author"><div class="testi-name">Ashwini Kundte</div><div class="testi-role">Assistant Manager â€“ SBI Life Insurance</div></div>
       </div>
-      <div class="testi-card fade-up">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"The training at DVOC INSTITUTE was thorough and industry-focused. I gained practical database skills that directly helped me secure my role at TATA AIG. The faculty were always approachable and made complex topics easy to understand. A truly transformative experience."</div>
-        <div class="testi-author"><div class="testi-avatar">A</div><div><div class="testi-name">Aryan Sangelkar</div><div class="testi-role">Database Developer – TATA AIG</div></div></div>
+      <div class="testi-card fade-up" style="display:none;">
+        <div class="testi-avatar-circle">A</div>
+        <div class="testi-stars">â˜…â˜…â˜…â˜…â˜…</div>
+        <div class="testi-text">"The training at DVOC INSTITUTE was thorough and industry-focused. I gained practical database skills that directly helped me secure my role at TATA AIG. The faculty were always approachable."</div>
+        <div class="testi-author"><div class="testi-name">Aryan Sangelkar</div><div class="testi-role">Database Developer â€“ TATA AIG</div></div>
       </div>
-      <div class="testi-card fade-up">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"DVOC INSTITUTE's program gave me the edge I needed in a competitive job market. The practical approach, combined with strong faculty mentorship, helped me grow both personally and professionally. I'm proud to be placed at Kotak Mahindra Bank thanks to the support I received here."</div>
-        <div class="testi-author"><div class="testi-avatar">S</div><div><div class="testi-name">Shweta Teli</div><div class="testi-role">Management Executive – Kotak Mahindra Bank</div></div></div>
+      <div class="testi-card fade-up" style="display:none;">
+        <div class="testi-avatar-circle">S</div>
+        <div class="testi-stars">â˜…â˜…â˜…â˜…â˜…</div>
+        <div class="testi-text">"DVOC INSTITUTE's program gave me the edge I needed in a competitive job market. The practical approach, combined with strong faculty mentorship, helped me grow both personally and professionally."</div>
+        <div class="testi-author"><div class="testi-name">Shweta Teli</div><div class="testi-role">Management Executive â€“ Kotak Mahindra Bank</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO TESTIMONIALS -->
+<section class="video-testi-section">
+  <div class="section-inner">
+    <div class="section-center">
+      <div class="section-label">Video Success Stories</div>
+      <div class="section-title">Meet Our <span>Successful Students</span></div>
+      <div class="section-desc">Real stories from students who transformed their careers through DVOC programs.</div>
+    </div>
+    <div class="video-testi-grid">
+      <div class="video-testi-card fade-up">
+        <div class="video-thumbnail">
+          <div style="font-size:48px;font-weight:700;color:rgba(255,255,255,0.3);">â–¶</div>
+          <div class="video-play-btn">â–¶</div>
+        </div>
+        <div class="video-testi-body">
+          <div class="video-testi-name">Shubham Pawar</div>
+          <div class="video-testi-course">Data Science Professional</div>
+          <div class="video-testi-desc">"DVOC gave me the skills I needed to land my dream job at Insync Analytics."</div>
+        </div>
+      </div>
+      <div class="video-testi-card fade-up">
+        <div class="video-thumbnail">
+          <div style="font-size:48px;font-weight:700;color:rgba(255,255,255,0.3);">â–¶</div>
+          <div class="video-play-btn">â–¶</div>
+        </div>
+        <div class="video-testi-body">
+          <div class="video-testi-name">Tejal Jadhav</div>
+          <div class="video-testi-course">Digital Marketing Professional</div>
+          <div class="video-testi-desc">"From beginner to marketing expert in just 3 months. DVOC made it possible."</div>
+        </div>
+      </div>
+      <div class="video-testi-card fade-up">
+        <div class="video-thumbnail">
+          <div style="font-size:48px;font-weight:700;color:rgba(255,255,255,0.3);">â–¶</div>
+          <div class="video-play-btn">â–¶</div>
+        </div>
+        <div class="video-testi-body">
+          <div class="video-testi-name">Sandeep Sain</div>
+          <div class="video-testi-course">Full Stack Developer</div>
+          <div class="video-testi-desc">"Intensive training and real projects helped me become a professional developer."</div>
+        </div>
+      </div>
+      <div class="video-testi-card fade-up">
+        <div class="video-thumbnail">
+          <div style="font-size:48px;font-weight:700;color:rgba(255,255,255,0.3);">â–¶</div>
+          <div class="video-play-btn">â–¶</div>
+        </div>
+        <div class="video-testi-body">
+          <div class="video-testi-name">Ashwini Kundte</div>
+          <div class="video-testi-course">Fintech Professional</div>
+          <div class="video-testi-desc">"Leadership skills combined with technical knowledge from DVOC led to my promotion."</div>
+        </div>
       </div>
     </div>
   </div>
@@ -679,9 +795,9 @@ select.form-field option{color:var(--text);background:#fff;}
       <div class="section-desc">Study close to home. All branches are metro and train accessible with flexible batch timings.</div>
     </div>
     <div class="locations-grid">
-      <div class="location-card fade-up"><div class="loc-icon">🏢</div><div class="loc-name">Andheri</div><div class="loc-area">101, 1st Floor, Matru Chhaya Building<br>Old Nagardas Road, Mumbai 400069<br>Mon–Sat: 8AM – 8PM</div><div class="loc-tag">Main Branch</div><a href="tel:+917021733916" class="loc-link">Call Branch <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
-      <div class="location-card fade-up"><div class="loc-icon">🏛️</div><div class="loc-name">Vile Parle</div><div class="loc-area">103, 1st Floor, Hari Leela<br>Off Nehru Road, Mumbai 400057<br>Mon–Sat: 8AM – 8PM</div><div class="loc-tag">New Branch</div><a href="tel:+917021733916" class="loc-link">Call Branch <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
-      <div class="location-card fade-up"><div class="loc-icon">📍</div><div class="loc-name">Grant Road</div><div class="loc-area">Fellowship School, August Kranti Maidan<br>Grant Road (W), Mumbai 400026<br>Mon–Sat: 8AM – 8PM</div><div class="loc-tag">Original Branch</div><a href="tel:+917021733916" class="loc-link">Call Branch <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+      <div class="location-card fade-up"><div class="loc-name">Andheri</div><div class="loc-area">101, 1st Floor, Matru Chhaya Building<br>Old Nagardas Road, Mumbai 400069<br>Monâ€“Sat: 8AM â€“ 8PM</div><a href="tel:+917021733916" class="loc-link">Call Branch <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+      <div class="location-card fade-up"><div class="loc-name">Vile Parle</div><div class="loc-area">103, 1st Floor, Hari Leela<br>Off Nehru Road, Mumbai 400057<br>Monâ€“Sat: 8AM â€“ 8PM</div><a href="tel:+917021733916" class="loc-link">Call Branch <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+      <div class="location-card fade-up"><div class="loc-name">Grant Road</div><div class="loc-area">Fellowship School, August Kranti Maidan<br>Grant Road (W), Mumbai 400026<br>Monâ€“Sat: 8AM â€“ 8PM</div><a href="tel:+917021733916" class="loc-link">Call Branch <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
     </div>
   </div>
 </section>
@@ -692,24 +808,25 @@ select.form-field option{color:var(--text);background:#fff;}
     <div class="cta-content">
       <div class="cta-tag">Start Today</div>
       <div class="cta-title">Your <span>Career in Tech</span><br>Starts with One Call</div>
-      <div class="cta-desc">Book a free 30-minute counselling session with our experts. No obligation — just clarity on which course is right for you.</div>
+      <div class="cta-desc">Book a free 30-minute counselling session with our experts. No obligation â€” just clarity on which course is right for you.</div>
       <div class="cta-buttons">
-        <a href="#enroll" class="btn-cta btn-cta-p">Book Free Counselling →</a>
-        <a href="tel:+917021733916" class="btn-cta btn-cta-g">📞 Call Now</a>
+        <a href="#enroll" class="btn-cta btn-cta-p">Book Free Counselling â†’</a>
+        <a href="WHATSAPP_LINK_HERE" class="btn-cta btn-cta-g" target="_blank">Chat on WhatsApp</a>
       </div>
       <a href="tel:+917021733916" class="cta-phone">+91 7021733916</a>
     </div>
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- WHATSAPP BUTTON -->
+<a href="WHATSAPP_LINK_HERE" class="whatsapp-btn" target="_blank" title="Chat with us on WhatsApp"><svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004c-2.759 0-5.327 1.273-7.046 3.405C2.675 13.049 2.675 16.209 4.001 18.928c1.326 2.719 4.02 4.676 7.046 4.676 2.305 0 4.428-.957 5.926-2.497l.529.528a.5.5 0 00.707-.707l-.528-.528c1.54-1.498 2.497-3.62 2.497-5.926 0-3.026-1.957-5.602-4.676-7.046m10.926 1.595c-1.354-2.617-4.068-4.676-7.046-4.676-2.305 0-4.428.957-5.926 2.497l-.529-.528a.5.5 0 10-.707.707l.528.528C3.632 9.152 2.675 11.275 2.675 13.58c0 3.026 1.957 5.602 4.676 7.046 1.354 2.617 4.068 4.676 7.046 4.676 2.305 0 4.428-.957 5.926-2.497l.529.528a.5.5 0 10.707-.707l-.528-.528c1.54-1.498 2.497-3.62 2.497-5.926 0-3.026-1.957-5.602-4.676-7.046"/></svg></a>
 <footer>
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
         <data:image/png;base64,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);">
-        <div class="footer-logo-sub" style="margin-top:6px;">Premium IT Training · Mumbai</div>
-        <p>Empowering Mumbai's youth with certified, industry-relevant IT and computer courses since 2008. Government recognised. Placement assisted. 3 branches citywide.</p>
+        <div class="footer-logo-sub" style="margin-top:6px;">Premium IT Training Â· Mumbai</div>
+        <p>Empowering Mumbai's youth with certified, industry-relevant professional and skill development programs since 1996. Government recognised. Placement assisted. 3 branches citywide.</p>
         <div class="footer-socials">
           <a href="https://www.facebook.com/page.dvocinstitute">f</a>
           <a href="https://www.instagram.com/dvoc_institute/">in</a>
@@ -719,41 +836,42 @@ select.form-field option{color:var(--text);background:#fff;}
       </div>
       <div class="footer-col">
         <h5>Courses</h5>
-        <a href="#">Full Stack Development</a>
-        <a href="#">FinTech &amp; Analytics</a>
-        <a href="#">Digital Marketing</a>
-        <a href="#">Graphic Design</a>
-        <a href="#">AI &amp; Data Science</a>
-        <a href="#">Tally &amp; Accounting</a>
-        <a href="#" style="color:var(--orange);font-weight:700;">View All Courses →</a>
+        <a href="course-fullstack.html">Full Stack Development</a>
+        <a href="course-fintech.html">FinTech &amp; Analytics</a>
+        <a href="course-datascience.html">Data Science</a>
+        <a href="course-digitalmarketing.html">Digital Marketing</a>
+        <a href="course-ai.html">AI &amp; GenAI</a>
+        <a href="course-fintech.html">Tally &amp; Accounting</a>
+        <a href="index.html#allcourses" style="color:var(--orange);font-weight:700;">View All Courses â†’</a>
       </div>
       <div class="footer-col">
         <h5>Institute</h5>
-        <a href="#">About DVOC</a>
-        <a href="#">The Founders</a>
-        <a href="#">Director's Desk</a>
-        <a href="#">Advisory Board</a>
-        <a href="#">Our Events</a>
-        <a href="#">Contact Us</a>
+        <a href="about.html">About DVOC</a>
+        <a href="about.html#founders">The Founders</a>
+        <a href="about.html#directors">Director's Desk</a>
+        <a href="about.html#advisory">Advisory Board</a>
+        <a href="index.html#batches">Our Events</a>
+        <a href="index.html#cta">Contact Us</a>
       </div>
       <div class="footer-col">
         <h5>Contact</h5>
-        <a href="tel:+917021733916">📞 +91 7021733916</a>
-        <a href="mailto:info@dvoc.in">✉️ info@dvoc.in</a>
-        <a href="#">📍 Andheri Branch</a>
-        <a href="#">📍 Vile Parle Branch</a>
-        <a href="#">📍 Grant Road Branch</a>
+        <a href="tel:+917021733916">ðŸ“ž +91 7021733916</a>
+        <a href="mailto:info@dvoc.in">âœ‰ï¸ info@dvoc.in</a>
+        <a href="index.html#locations">ðŸ“ Andheri Branch</a>
+        <a href="index.html#locations">ðŸ“ Vile Parle Branch</a>
+        <a href="index.html#locations">ðŸ“ Grant Road Branch</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2025 DVOC Institute. All rights reserved.</span>
+      <span>Â© 2025 DVOC Institute. All rights reserved.</span>
       <div class="footer-bl"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Refund Policy</a></div>
     </div>
   </div>
 </footer>
 
+<script src="form-handler.js"></script>
 <script>
-// ── Scroll reveal (staggered) ─────────────────────────────────
+// â”€â”€ Scroll reveal (staggered) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const obs = new IntersectionObserver((entries) => {
   const groups = new Map();
   entries.forEach(e => {
@@ -772,7 +890,7 @@ const obs = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 
-// ── Tab buttons ───────────────────────────────────────────────
+// â”€â”€ Tab buttons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -780,7 +898,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
-// ── Smooth scroll ─────────────────────────────────────────────
+// â”€â”€ Smooth scroll â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const id = a.getAttribute('href');
@@ -790,7 +908,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// ── Count-up (fast, 1.1s ease-out) ───────────────────────────
+// â”€â”€ Count-up (fast, 1.1s ease-out) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function countUp(el, target, suffix, duration) {
   const start = performance.now();
   (function tick(now) {
@@ -824,7 +942,7 @@ const statsObs = new IntersectionObserver(entries => {
 }, { threshold: 0.5 });
 statEls.forEach(el => statsObs.observe(el));
 
-// ── Parallax ──────────────────────────────────────────────────
+// â”€â”€ Parallax â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 (function() {
   const heroBg    = document.querySelector('.hero-bg-img');
   const heroForm  = document.querySelector('.hero-form-card');
@@ -861,7 +979,7 @@ statEls.forEach(el => statsObs.observe(el));
   }, { passive: true });
 })();
 
-// ── 3D card tilt ──────────────────────────────────────────────
+// â”€â”€ 3D card tilt â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function tilt(sel, maxDeg, lift) {
   document.querySelectorAll(sel).forEach(card => {
     card.addEventListener('mousemove', e => {

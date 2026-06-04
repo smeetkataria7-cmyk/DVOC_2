@@ -613,7 +613,15 @@ function createCourseCard(course) {
 
 function filterAndRenderCourses(filter = 'all', courses = topCourses, gridId = 'coursesGrid') {
   const filtered = filter === 'all' ? courses : courses.filter(c => c.segment === filter);
-  document.getElementById(gridId).innerHTML = filtered.map(createCourseCard).join('');
+  const grid = document.getElementById(gridId);
+  grid.innerHTML = filtered.map(createCourseCard).join('');
+  // Reveal dynamically-rendered cards: the global scroll observer only watches
+  // elements present at load, so trigger the fade-up animation manually here.
+  const cards = grid.querySelectorAll('.fade-up');
+  requestAnimationFrame(() => {
+    // Cap the per-card delay so large grids (all 36) still reveal quickly.
+    cards.forEach((card, i) => setTimeout(() => card.classList.add('in'), Math.min(i, 10) * 45));
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function() {

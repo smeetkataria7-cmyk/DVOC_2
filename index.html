@@ -635,13 +635,33 @@ function getCourseImage(course) {
   return null; // falls back to gradient + icon
 }
 
+// Map a course to its dedicated detail page. Courses without a page
+// fall back to the enquiry form. Order matters: most specific first.
+const coursePages = [
+  { kw: ['ai essentials', 'genai', 'digital skills'], page: 'course-ai.html' },
+  { kw: ['data science', 'machine learning', 'generative ai'], page: 'course-datascience.html' },
+  { kw: ['full stack', 'software development', 'web development', 'java', 'c#'], page: 'course-fullstack.html' },
+  { kw: ['fintech', 'business analytics'], page: 'course-fintech.html' },
+  { kw: ['digital marketing'], page: 'course-digitalmarketing.html' },
+  { kw: ['data analytics', 'data analysis'], page: 'course-dataanalytics.html' }
+];
+
+function getCoursePage(course) {
+  if (course.page) return course.page; // explicit page wins
+  const name = course.name.toLowerCase();
+  for (const p of coursePages) {
+    if (p.kw.some(k => name.includes(k))) return p.page;
+  }
+  return 'index.html#enroll'; // no dedicated page yet -> enquiry form
+}
+
 function createCourseCard(course) {
-  const courseLink = course.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  const courseLink = getCoursePage(course);
   const img = getCourseImage(course);
   const bg = img
     ? `background:url('${img}') center/cover no-repeat;`
     : `background:linear-gradient(135deg, #E87E26 0%, #C96B18 100%);`;
-  return `<a class="course-card fade-up" href="course-${courseLink}.html"><div class="course-img"><div class="course-img-bg" style="${bg}"></div><div class="course-img-overlay"></div></div><div class="course-body"><div class="course-name">${course.name}</div><div class="course-desc">${course.desc}</div><div class="course-meta"><span class="cmeta">${formatHours(course.hours)}</span><span class="cmeta">Certified</span></div><span class="course-link">Know More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></div></a>`;
+  return `<a class="course-card fade-up" href="${courseLink}"><div class="course-img"><div class="course-img-bg" style="${bg}"></div><div class="course-img-overlay"></div></div><div class="course-body"><div class="course-name">${course.name}</div><div class="course-desc">${course.desc}</div><div class="course-meta"><span class="cmeta">${formatHours(course.hours)}</span><span class="cmeta">Certified</span></div><span class="course-link">Know More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></div></a>`;
 }
 
 function filterAndRenderCourses(filter = 'all', courses = topCourses, gridId = 'coursesGrid') {

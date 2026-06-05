@@ -451,6 +451,7 @@ select.form-field option{color:var(--text);background:#fff;}
       <input type="email" class="form-field" placeholder="Your Email"/>
       <input type="tel" class="form-field" placeholder="Phone"/>
       <select class="form-field"><option value="" disabled selected>I am a...</option><option>School and College Student</option><option>Graduate</option><option>Working Professional</option><option>Other</option></select>
+      <select class="form-field" id="courseSelect"><option value="" disabled selected>Select Course</option></select>
       <select class="form-field"><option value="" disabled selected>Preferred Branch</option><option>Andheri</option><option>Vile Parle</option><option>Grant Road</option></select>
       <button class="btn-submit">Submit →</button>
       <p class="form-note">Please note that your personal data will be used as per the <a href="#" style="color:var(--orange)">Privacy Policy</a>.</p>
@@ -661,6 +662,23 @@ function filterAndRenderCourses(filter = 'all', courses = topCourses, gridId = '
 
 document.addEventListener('DOMContentLoaded', function() {
   filterAndRenderCourses('all', topCourses, 'coursesGrid');
+
+  // Populate the lead-form "Select Course" dropdown from the 36 courses
+  // (deduped by name), sorted alphabetically, with an "Other" fallback.
+  const courseSelect = document.getElementById('courseSelect');
+  if (courseSelect) {
+    const names = [...new Set(coursesData.map(c => c.name))].sort((a, b) => a.localeCompare(b));
+    names.forEach(name => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = name;
+      courseSelect.appendChild(opt);
+    });
+    const other = document.createElement('option');
+    other.value = 'Other';
+    other.textContent = 'Other';
+    courseSelect.appendChild(other);
+  }
 
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', function() {

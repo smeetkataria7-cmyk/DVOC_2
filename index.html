@@ -583,7 +583,7 @@ const coursesData = [
   {id: 15, name: "Database Management using SQL", hours: 36, segment: "any", icon: "🗄️", desc: "SQL, database design, optimization"},
   {id: 16, name: "HTML5", hours: 44, segment: "any", icon: "🌐", desc: "Web markup, semantics, responsive design"},
   {id: 17, name: "Advanced Excel", hours: 24, segment: "any", icon: "📊", desc: "Formulas, macros, pivot tables, automation"},
-  {id: 18, name: "Data Science Fundamentals", hours: 60, segment: "any", icon: "🤖", desc: "Data analysis, visualization, Python for data"},
+  {id: 18, name: "Graphic Designing", hours: 60, segment: "any", icon: "🎨", desc: "Photoshop, Illustrator, InDesign, branding & visual design"},
   {id: 19, name: "Power BI", hours: 36, segment: "any", icon: "📊", desc: "Business intelligence, dashboards, reporting"},
   {id: 20, name: "Tableau", hours: 36, segment: "any", icon: "📈", desc: "Data visualization, interactive dashboards"},
   {id: 21, name: "Tally Essentials 1", hours: 35, segment: "any", icon: "💼", desc: "Accounting basics, Tally fundamentals"},
@@ -646,8 +646,39 @@ const coursePages = [
   { kw: ['data analytics', 'data analysis'], page: 'course-dataanalytics.html' }
 ];
 
+// Exact course-name -> detail page (authoritative; checked before keywords).
+const coursePageByName = {
+  "Advanced Program in Full Stack Software Development": "course-fullstack.html",
+  "Advanced Program in Java Full Stack Development": "course-fullstack.html",
+  "Web Development with C# and ASP.Net Core": "course-webdev-csharp.html",
+  "Advanced Program in FinTech & Business Analytics": "course-fintech.html",
+  "Professional Program in FinTech & Business Analytics": "course-fintech.html",
+  "Professional Program in Digital Marketing": "course-digitalmarketing.html",
+  "Professional Program in Data Analytics": "course-dataanalytics.html",
+  "Data Analytics with Python": "course-dataanalytics.html",
+  "Advanced Program in Data Science, ML and Generative AI": "course-datascience.html",
+  "Professional Certificate in AI Essentials": "course-ai.html",
+  "Certificate in Digital Skills and GenAI": "course-ai.html",
+  "Graphic Designing": "course-graphicdesign.html",
+  "Java Programming": "course-java.html",
+  "Python Programming": "course-python.html",
+  "C++ Programming": "course-cpp.html",
+  "Database Management using SQL": "course-sql.html",
+  "HTML5": "course-html5.html",
+  "Advanced Excel": "course-excel.html",
+  "Power BI": "course-powerbi.html",
+  "Tableau": "course-tableau.html",
+  "Tally Essentials 1": "course-tally.html",
+  "Tally Essentials 2": "course-tally.html",
+  "Tally Essentials 3": "course-tally.html",
+  "Social Media Marketing": "course-socialmedia.html",
+  "SEO": "course-seo.html",
+  "Foundation in IT": "course-foundationit.html"
+};
+
 function getCoursePage(course) {
-  if (course.page) return course.page; // explicit page wins
+  if (course.page) return course.page;            // explicit page wins
+  if (coursePageByName[course.name]) return coursePageByName[course.name]; // exact match
   const name = course.name.toLowerCase();
   for (const p of coursePages) {
     if (p.kw.some(k => name.includes(k))) return p.page;

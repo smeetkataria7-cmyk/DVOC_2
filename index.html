@@ -216,9 +216,10 @@ section{padding:88px 32px;}
 .video-testi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:48px;}
 .video-testi-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.3s;position:relative;display:flex;flex-direction:column;}
 .video-testi-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--border-orange);}
-.video-thumbnail{height:200px;background:linear-gradient(135deg,var(--navy),#1a2d47);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;}
-.video-thumbnail::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,27,45,0.6) 0%,rgba(15,27,45,0.1) 60%);}
-.video-thumbnail img{width:100%;height:100%;object-fit:cover;}
+.video-thumbnail{aspect-ratio:9/16;height:auto;background:#000;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;}
+.video-thumbnail::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,27,45,0.4) 0%,transparent 50%);pointer-events:none;}
+.video-thumbnail img,.video-thumbnail>video.preview{width:100%;height:100%;object-fit:cover;display:block;}
+.video-thumbnail.playing{height:auto;overflow:visible;}
 .video-play-btn{position:absolute;z-index:3;width:60px;height:60px;background:rgba(255,255,255,0.95);color:var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;transition:all 0.3s;box-shadow:0 4px 20px rgba(0,0,0,0.25);padding-left:4px;}
 .video-testi-card:hover .video-play-btn{transform:scale(1.15);background:var(--orange);color:#fff;}
 .video-duration{position:absolute;z-index:3;bottom:12px;right:12px;background:rgba(0,0,0,0.7);color:#fff;font-size:11px;font-weight:600;padding:3px 8px;border-radius:5px;}
@@ -612,25 +613,40 @@ function formatHours(hours) {
   return `${hours} hours (${weeks} weeks)`;
 }
 
-// Topic-based placeholder images (Unsplash). When you receive the real
-// course photos, either add an `img` field to a course in coursesData
-// (it takes priority) or replace these URLs with your own files.
+// Course card background images. Local files live in the "course card images"
+// folder and are matched to a course by keyword (most specific first, first
+// match wins). To override for a single course, add an `img` field to that
+// course in coursesData (it takes priority over this list).
+const courseImgDir = 'Course%20card%20images/';
 const topicImages = [
-  { kw: ['full stack', 'software', 'web development', 'html', 'c#', 'c++'], url: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=80' },
-  { kw: ['java'], url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&q=80' },
-  { kw: ['python'], url: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=600&q=80' },
-  { kw: ['fintech', 'business analytics', 'tally', 'accounting'], url: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80' },
-  { kw: ['digital marketing', 'seo', 'sem', 'social media'], url: 'https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=600&q=80' },
-  { kw: ['data analytics', 'data analysis', 'power bi', 'tableau', 'excel', 'sql', 'r programming'], url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80' },
-  { kw: ['data science', 'machine learning', 'generative ai', 'ai '], url: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80' },
-  { kw: ['digital skills', 'genai', 'ai essentials', 'ms office', 'foundation in it', 'mscit'], url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80' }
+  { kw: ['data science', 'machine learning', 'generative ai'], file: 'Data Science.png' },
+  { kw: ['ai essentials', 'genai', 'digital skills'],          file: 'AI & GEN AI.png' },
+  { kw: ['fintech', 'business analytics'],                     file: 'Fintech.png' },
+  { kw: ['digital marketing'],                                 file: 'Digital Marketing.png' },
+  { kw: ['social media'],                                      file: 'Social Media Marketing.png' },
+  { kw: ['seo'],                                               file: 'SEO.png' },
+  { kw: ['sem'],                                               file: 'Digital Marketing.png' },
+  { kw: ['data analytics', 'data analysis', 'r programming'],  file: 'Data analytics.png' },
+  { kw: ['power bi'],                                          file: 'Power BI.png' },
+  { kw: ['tableau'],                                           file: 'Tableau.png' },
+  { kw: ['excel'],                                             file: 'Advanced Excel.png' },
+  { kw: ['tally'],                                             file: 'Tally.png' },
+  { kw: ['sql'],                                               file: 'Database managmant SQL.png' },
+  { kw: ['java'],                                              file: 'Java programming.png' },
+  { kw: ['python'],                                            file: 'Python programming.png' },
+  { kw: ['c++'],                                               file: 'C++ programming.png' },
+  { kw: ['html'],                                              file: 'Web Designing with HTML5.png' },
+  { kw: ['c#', 'asp.net'],                                     file: 'Web Development with C# & ASP.Net Core.png' },
+  { kw: ['graphic'],                                           file: 'Graphic Designing.png' },
+  { kw: ['foundation in it', 'mscit', 'ms office'],            file: 'Foundation to IT.png' },
+  { kw: ['full stack', 'software development'],                file: 'Web dev with C++.png' }
 ];
 
 function getCourseImage(course) {
-  if (course.img) return course.img; // real image takes priority
+  if (course.img) return course.img; // explicit per-course image wins
   const name = course.name.toLowerCase();
   for (const t of topicImages) {
-    if (t.kw.some(k => name.includes(k))) return t.url;
+    if (t.kw.some(k => name.includes(k))) return courseImgDir + encodeURIComponent(t.file);
   }
   return null; // falls back to gradient + icon
 }
@@ -772,56 +788,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- BATCHES -->
-<section class="batches-section" id="batches">
-  <div class="section-inner">
-    <div class="section-center">
-      <div class="section-label">Schedule</div>
-      <div class="section-title">Our Upcoming <span>Batches</span></div>
-    </div>
-    <div class="batches-grid">
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">01</div></div><div class="batch-info"><div class="batch-days">MON – FRI</div><div class="batch-name">Foundation in IT</div><div class="batch-time">⏰ 05:30 – 07:00 PM</div></div></div>
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">15</div></div><div class="batch-info"><div class="batch-days">MON – WED – FRI</div><div class="batch-name">Data Science Essentials</div><div class="batch-time">⛰ 01:30 – 03:30 PM</div></div></div>
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">04</div></div><div class="batch-info"><div class="batch-days">MON – FRI</div><div class="batch-name">Digital Skills &amp; GenAI</div><div class="batch-time">⏰ 10:30 – 12:30 PM</div></div></div>
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">04</div></div><div class="batch-info"><div class="batch-days">MON – FRI</div><div class="batch-name">Fin-Tech &amp; Data Analytics</div><div class="batch-time">⏰ 10:30 – 12:30 PM</div></div></div>
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">15</div></div><div class="batch-info"><div class="batch-days">MON – SAT</div><div class="batch-name">Full Stack Development</div><div class="batch-time">⏰ 05:30 – 07:30 PM</div></div></div>
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">15</div></div><div class="batch-info"><div class="batch-days">MON – WED – FRI</div><div class="batch-name">Digital Marketing</div><div class="batch-time">⏰ 01:30 – 03:30 PM</div></div></div>
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">15</div></div><div class="batch-info"><div class="batch-days">MON – WED – FRI</div><div class="batch-name">Artificial Intelligence (AI)</div><div class="batch-time">⏰ 05:30 – 07:30 PM</div></div></div>
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">08</div></div><div class="batch-info"><div class="batch-days">TUE – THU – SAT</div><div class="batch-name">Accounting with Tally Prime</div><div class="batch-time">⏰ 11:00 – 01:00 PM</div></div></div>
-      <div class="batch-card fade-up"><div class="batch-date"><div class="batch-month">Jun</div><div class="batch-day">03</div></div><div class="batch-info"><div class="batch-days">MON – WED – FRI</div><div class="batch-name">Advanced Excel</div><div class="batch-time">⏰ 05:30 – 07:30 PM</div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- WHY DVOC -->
-<section class="why-section">
-  <div class="section-inner">
-    <div class="why-grid">
-      <div class="why-image-block fade-up">
-        <div class="why-image-overlay">
-          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.55);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">DVOC By The Numbers</div>
-          <div class="why-pills">
-            <div class="why-pill">30,000+ Students</div>
-            <div class="why-pill w">30+ Years</div>
-            <div class="why-pill">Since 1996</div>
-            <div class="why-pill w">3 Branches</div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="section-label">Why Choose Us</div>
-        <div class="section-title">Why to <span>Choose Us?</span></div>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.75;margin:16px 0 36px;">DVOC INSTITUTE provides expert-led classroom training with hands-on practical learning and personalized guidance. Our skill-enhancing courses deliver real-world experience that prepares students for successful careers in the digital economy.</p>
-        <div class="why-points">
-          <div class="why-point fade-up"><div class="point-num">01</div><div class="point-content"><h4>Expert-Led Classroom Training</h4><p>Real in-person classes with industry experts, not pre-recorded videos. Direct mentorship and immediate doubt resolution in a structured learning environment.</p></div></div>
-          <div class="why-point fade-up"><div class="point-num">02</div><div class="point-content"><h4>Practical Hands-On Learning</h4><p>Every concept is reinforced with hands-on practice, real tools, and live projects. Face-to-face interaction ensures personalized feedback and guidance throughout.</p></div></div>
-          <div class="why-point fade-up"><div class="point-num">03</div><div class="point-content"><h4>30 Years of Advisory Board Expertise</h4><p>Our advisory board brings combined decades of industry leadership, guiding curriculum design to match market needs.</p></div></div>
-          <div class="why-point fade-up"><div class="point-num">04</div><div class="point-content"><h4>Government Recognised Certifications</h4><p>NSDC, MS-CIT, Tally Institute certified — your credentials carry real weight with employers across India.</p></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- TESTIMONIALS -->
 <section class="testi-section">
@@ -882,74 +848,70 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="video-testi-grid">
       <!-- Video Card 1 -->
       <div class="video-testi-card fade-up">
-        <div class="video-thumbnail" data-video="VIDEO_LINK_HERE">
-          <!-- Replace with: <img src="thumbnails/shubham.jpg" alt="Shubham Pawar"> -->
+        <div class="video-thumbnail" data-video="Tiya Fonsecs.mp4">
+          <video class="preview" src="Tiya Fonsecs.mp4" muted preload="metadata" style="pointer-events:none;"></video>
           <div class="video-play-btn">▶</div>
-          <span class="video-duration">2:14</span>
         </div>
         <div class="video-testi-body">
           <div class="video-testi-head">
-            <div class="video-testi-photo">SP<!-- <img src="photos/shubham.jpg" alt="Shubham Pawar"> --></div>
+            <div class="video-testi-photo">TF</div>
             <div class="video-testi-meta">
-              <div class="video-testi-name">Shubham Pawar</div>
-              <div class="video-testi-course">Data Science Professional</div>
+              <div class="video-testi-name">Tiya Fonsecs</div>
+              <div class="video-testi-course">DVOC Student</div>
             </div>
           </div>
-          <div class="video-testi-desc">"DVOC gave me the skills I needed to land my dream job at Insync Analytics."</div>
+          <div class="video-testi-desc">"DVOC gave me the skills I needed to transform my career."</div>
         </div>
       </div>
       <!-- Video Card 2 -->
       <div class="video-testi-card fade-up">
-        <div class="video-thumbnail" data-video="VIDEO_LINK_HERE">
-          <!-- Replace with: <img src="thumbnails/tejal.jpg" alt="Tejal Jadhav"> -->
+        <div class="video-thumbnail" data-video="Akhilesh.mp4">
+          <video class="preview" src="Akhilesh.mp4" muted preload="metadata" style="pointer-events:none;"></video>
           <div class="video-play-btn">▶</div>
-          <span class="video-duration">1:47</span>
         </div>
         <div class="video-testi-body">
           <div class="video-testi-head">
-            <div class="video-testi-photo">TJ<!-- <img src="photos/tejal.jpg" alt="Tejal Jadhav"> --></div>
+            <div class="video-testi-photo">A</div>
             <div class="video-testi-meta">
-              <div class="video-testi-name">Tejal Jadhav</div>
-              <div class="video-testi-course">Digital Marketing Professional</div>
+              <div class="video-testi-name">Akhilesh</div>
+              <div class="video-testi-course">DVOC Student</div>
             </div>
           </div>
-          <div class="video-testi-desc">"From beginner to marketing expert in just 3 months. DVOC made it possible."</div>
+          <div class="video-testi-desc">"From beginner to professional in just a few months. DVOC made it possible."</div>
         </div>
       </div>
       <!-- Video Card 3 -->
       <div class="video-testi-card fade-up">
-        <div class="video-thumbnail" data-video="VIDEO_LINK_HERE">
-          <!-- Replace with: <img src="thumbnails/sandeep.jpg" alt="Sandeep Sain"> -->
+        <div class="video-thumbnail" data-video="Owez Asif Shaikh.mp4">
+          <video class="preview" src="Owez Asif Shaikh.mp4" muted preload="metadata" style="pointer-events:none;"></video>
           <div class="video-play-btn">▶</div>
-          <span class="video-duration">3:02</span>
         </div>
         <div class="video-testi-body">
           <div class="video-testi-head">
-            <div class="video-testi-photo">SS<!-- <img src="photos/sandeep.jpg" alt="Sandeep Sain"> --></div>
+            <div class="video-testi-photo">OA</div>
             <div class="video-testi-meta">
-              <div class="video-testi-name">Sandeep Sain</div>
-              <div class="video-testi-course">Full Stack Developer</div>
+              <div class="video-testi-name">Owez Asif Shaikh</div>
+              <div class="video-testi-course">DVOC Student</div>
             </div>
           </div>
-          <div class="video-testi-desc">"Intensive training and real projects helped me become a professional developer."</div>
+          <div class="video-testi-desc">"Intensive training and real projects helped me become a professional."</div>
         </div>
       </div>
       <!-- Video Card 4 -->
       <div class="video-testi-card fade-up">
-        <div class="video-thumbnail" data-video="VIDEO_LINK_HERE">
-          <!-- Replace with: <img src="thumbnails/ashwini.jpg" alt="Ashwini Kundte"> -->
+        <div class="video-thumbnail" data-video="Jay Dave.mp4">
+          <video class="preview" src="Jay Dave.mp4" muted preload="metadata" style="pointer-events:none;"></video>
           <div class="video-play-btn">▶</div>
-          <span class="video-duration">2:38</span>
         </div>
         <div class="video-testi-body">
           <div class="video-testi-head">
-            <div class="video-testi-photo">AK<!-- <img src="photos/ashwini.jpg" alt="Ashwini Kundte"> --></div>
+            <div class="video-testi-photo">JD</div>
             <div class="video-testi-meta">
-              <div class="video-testi-name">Ashwini Kundte</div>
-              <div class="video-testi-course">Fintech Professional</div>
+              <div class="video-testi-name">Jay Dave</div>
+              <div class="video-testi-course">DVOC Student</div>
             </div>
           </div>
-          <div class="video-testi-desc">"Leadership skills combined with technical knowledge from DVOC led to my promotion."</div>
+          <div class="video-testi-desc">"The knowledge and skills from DVOC opened doors I never thought possible."</div>
         </div>
       </div>
     </div>
@@ -962,18 +924,41 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 // ==================== VIDEO TESTIMONIALS PLAYER ====================
 document.addEventListener('DOMContentLoaded', function() {
+  // Seek each preview video to first frame once metadata loads
+  document.querySelectorAll('.video-thumbnail video.preview').forEach(v => {
+    v.addEventListener('loadedmetadata', () => { v.currentTime = 0.001; });
+  });
+
   document.querySelectorAll('.video-thumbnail').forEach(thumb => {
     thumb.addEventListener('click', function() {
       const videoUrl = this.dataset.video;
-      // When real video links are added, replace placeholder with actual URL/embed
-      if (videoUrl && videoUrl !== 'VIDEO_LINK_HERE') {
-        // Embed video player in place of thumbnail
-        this.innerHTML = `<iframe src="${videoUrl}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;height:100%;"></iframe>`;
-        this.style.cursor = 'default';
-      } else {
-        // Placeholder behavior until videos are uploaded
-        console.log('Video coming soon — add MP4/YouTube link to data-video attribute.');
+      if (!videoUrl) return;
+
+      // If already in playing mode, toggle play/pause
+      if (this.classList.contains('playing')) {
+        const playingVideo = this.querySelector('video');
+        if (playingVideo) {
+          playingVideo.paused ? playingVideo.play() : playingVideo.pause();
+        }
+        return;
       }
+
+      // Reset any other card that is currently playing
+      document.querySelectorAll('.video-thumbnail.playing').forEach(other => {
+        const savedUrl = other.dataset.video;
+        other.classList.remove('playing');
+        other.style.height = '320px';
+        other.style.cursor = 'pointer';
+        other.innerHTML = `<video class="preview" src="${savedUrl}" muted preload="metadata" style="pointer-events:none;"></video><div class="video-play-btn">▶</div>`;
+        other.dataset.video = savedUrl;
+        const prev = other.querySelector('video.preview');
+        prev.addEventListener('loadedmetadata', () => { prev.currentTime = 0.001; });
+      });
+
+      // Switch this card to playing mode
+      this.classList.add('playing');
+      this.style.cursor = 'default';
+      this.innerHTML = `<video src="${videoUrl}" controls autoplay style="width:100%;height:100%;object-fit:contain;background:#000;display:block;"></video>`;
     });
   });
 });

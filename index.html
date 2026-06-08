@@ -680,7 +680,7 @@ function getCourseImage(course) {
   if (course.img) return course.img; // explicit per-course image wins
   const name = course.name.toLowerCase();
   for (const t of topicImages) {
-    if (t.kw.some(k => name.includes(k))) return courseImgDir + encodeURIComponent(t.file);
+    if (t.kw.some(k => name.includes(k))) return courseImgDir + t.file;
   }
   return null; // falls back to gradient + icon
 }

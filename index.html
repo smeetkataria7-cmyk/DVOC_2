@@ -638,9 +638,7 @@ const coursesData = [
   {id: 12, name: "Graphic Designing",             hours: 60,  segment: "any", icon: "", desc: "Photoshop, Illustrator, InDesign, branding & visual design"},
   {id: 13, name: "Power BI",                      hours: 36,  segment: "any", icon: "", desc: "Business intelligence, dashboards, reporting"},
   {id: 14, name: "Tableau",                       hours: 36,  segment: "any", icon: "", desc: "Data visualization, interactive dashboards"},
-  {id: 15, name: "Tally Essentials 1",            hours: 35,  segment: "any", icon: "", desc: "Accounting basics, Tally fundamentals"},
-  {id: 16, name: "Tally Essentials 2",            hours: 35,  segment: "any", icon: "", desc: "GST, invoicing, tax management"},
-  {id: 17, name: "Tally Essentials 3",            hours: 36,  segment: "any", icon: "", desc: "Advanced accounting, payroll, auditing"},
+  {id: 15, name: "Tally Essentials",              hours: 106, segment: "any", icon: "", desc: "Accounting, GST, invoicing, payroll & advanced Tally"},
   {id: 18, name: "Social Media Marketing",        hours: 40,  segment: "any", icon: "", desc: "Instagram, Facebook, LinkedIn, content strategy"},
   {id: 19, name: "SEO",                           hours: 18,  segment: "any", icon: "", desc: "Search optimization, keyword research, ranking"},
   {id: 20, name: "SEM",                           hours: 18,  segment: "any", icon: "", desc: "Google Ads, paid search, campaign management"},
@@ -653,7 +651,8 @@ const coursesData = [
 ];
 
 // One card per dedicated course page (24 pages = 24 cards)
-const topCourses = coursesData.filter(c => [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,17,18,19,20,21,22,23,24,25,26].includes(c.id));
+// One card per dedicated course page (24 courses = 24 cards)
+const topCourses = coursesData.filter(c => [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24].includes(c.id));
 
 function formatHours(hours) {
   if (!hours) return "Duration TBD";
@@ -732,9 +731,7 @@ const coursePageByName = {
   "Advanced Excel":                                      "course card/course-excel.html",
   "Power BI":                                            "course card/course-powerbi.html",
   "Tableau":                                             "course card/course-tableau.html",
-  "Tally Essentials 1":                                  "course card/course-tally.html",
-  "Tally Essentials 2":                                  "course card/course-tally.html",
-  "Tally Essentials 3":                                  "course card/course-tally.html",
+  "Tally Essentials":                                    "course card/course-tally.html",
   "Social Media Marketing":                              "course card/course-socialmedia.html",
   "SEO":                                                 "course card/course-seo.html",
   "SEM":                                                 "course card/course-sem.html",

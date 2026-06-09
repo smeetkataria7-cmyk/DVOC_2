@@ -1047,6 +1047,18 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
 </div>
 
+<!-- WHATSAPP FLOATING BUTTON -->
+<a id="wa-float" href="https://wa.me/917021733916" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="30" height="30" fill="#fff">
+    <path d="M16 2C8.268 2 2 8.268 2 16c0 2.492.655 4.83 1.8 6.856L2 30l7.338-1.775A13.94 13.94 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.5a11.44 11.44 0 0 1-5.82-1.588l-.418-.248-4.352 1.053 1.084-4.234-.272-.434A11.46 11.46 0 0 1 4.5 16C4.5 9.596 9.596 4.5 16 4.5S27.5 9.596 27.5 16 22.404 27.5 16 27.5zm6.29-8.388c-.344-.172-2.035-1.004-2.35-1.117-.316-.115-.546-.172-.775.172-.23.344-.888 1.117-1.09 1.347-.2.23-.4.258-.744.086-.344-.172-1.452-.535-2.766-1.707-1.022-.912-1.712-2.038-1.912-2.382-.2-.344-.021-.53.15-.701.155-.154.344-.4.516-.6.172-.2.23-.344.344-.573.115-.23.058-.43-.028-.602-.086-.172-.775-1.87-1.062-2.56-.28-.673-.564-.582-.775-.592l-.66-.011c-.23 0-.602.086-.917.43-.316.344-1.204 1.176-1.204 2.868s1.232 3.328 1.404 3.557c.172.23 2.424 3.7 5.873 5.19.82.354 1.46.566 1.96.724.823.262 1.572.225 2.164.137.66-.099 2.035-.832 2.322-1.635.287-.803.287-1.49.2-1.635-.085-.143-.315-.23-.659-.4z"/>
+  </svg>
+</a>
+<style>
+  #wa-float{position:fixed;bottom:96px;right:24px;z-index:99;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.5);transition:transform 0.15s,box-shadow 0.15s;text-decoration:none;}
+  #wa-float:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,211,102,0.65);}
+  @media(max-width:768px){#wa-float{bottom:92px;right:20px;width:52px;height:52px;}}
+</style>
+
 <!-- COURSE FINDER QUIZ WIDGET -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css" />
 <div id="chat-bubble">

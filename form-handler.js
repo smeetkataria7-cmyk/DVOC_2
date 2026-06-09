@@ -3,7 +3,7 @@
  * Submits to Google Sheets via Apps Script (same spreadsheet, "Course Enquiries" tab)
  */
 
-const COURSE_FORM_URL = "https://script.google.com/macros/s/AKfycbwmvMZ5daJPI2xk8Kt79-kM2RNZBUPMNKOep0098K9zMDLc5821Wi5gcUkhaxS2ec-zMQ/exec";
+const COURSE_FORM_URL = "https://script.google.com/macros/s/AKfycbzz0cUP-3ZdQi7xfQul3mRJ9545x2jpokFOIU6N04Mi2V3AR6MAd-P7Vdr-enlim909DQ/exec";
 
 // ── Toast notifications ──────────────────────────────────────────────────────
 function showCourseToast(msg, ok) {

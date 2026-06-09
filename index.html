@@ -242,6 +242,13 @@ section{padding:88px 32px;}
 .loc-area{font-size:13.5px;color:var(--text-muted);margin-bottom:20px;line-height:1.6;}
 .loc-link{display:flex;align-items:center;justify-content:center;gap:6px;color:var(--orange);font-size:13.5px;font-weight:700;text-decoration:none;transition:gap 0.2s;}
 .loc-link:hover{gap:10px;}
+.location-card.has-photo{background-size:cover;background-position:center;background-repeat:no-repeat;position:relative;overflow:hidden;min-height:220px;display:flex;flex-direction:column;justify-content:flex-end;padding:0;}
+.location-card.has-photo::before{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,27,45,0.92) 40%,rgba(15,27,45,0.3) 100%);}
+.location-card.has-photo .loc-inner{position:relative;z-index:1;padding:24px 28px;}
+.location-card.has-photo .loc-name{color:#fff;}
+.location-card.has-photo .loc-area{color:rgba(255,255,255,0.7);}
+.location-card.has-photo .loc-link{color:var(--orange-light);}
+.location-card.has-photo .loc-link:hover{color:#fff;}
 
 /* CTA */
 .cta-section{padding:0;}
@@ -1026,7 +1033,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="locations-grid">
       <div class="location-card fade-up"><div class="loc-name">Andheri</div><div class="loc-area">101, 1st Floor, Matru Chhaya Building<br>Old Nagardas Road, Mumbai 400069<br>MonSat: 8AM  8PM</div><a href="tel:+917021733916" class="loc-link">Call Branch <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
       <div class="location-card fade-up"><div class="loc-name">Vile Parle</div><div class="loc-area">103, 1st Floor, Hari Leela<br>Off Nehru Road, Mumbai 400057<br>MonSat: 8AM  8PM</div><a href="tel:+917021733916" class="loc-link">Call Branch <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
-      <div class="location-card fade-up"><div class="loc-name">Grant Road</div><div class="loc-area">Fellowship School, August Kranti Maidan<br>Grant Road (W), Mumbai 400026<br>MonSat: 8AM  8PM</div><a href="tel:+917021733916" class="loc-link">Call Branch <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+      <div class="location-card has-photo fade-up" style="background-image:url('pictures/Grant Road.webp')"><div class="loc-inner"><div class="loc-name">Grant Road</div><div class="loc-area">Fellowship School, August Kranti Maidan<br>Grant Road (W), Mumbai 400026<br>Mon–Sat: 8AM – 8PM</div><a href="tel:+917021733916" class="loc-link">Call Branch <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div></div>
     </div>
   </div>
 </section>

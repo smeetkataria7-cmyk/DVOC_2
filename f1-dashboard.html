@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>The Pit Wall · F1 2025 Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --surface2: #1a1a1a;
+      --border: #2a2a2a;
+      --text: #f0f0f0;
+      --muted: #888;
+      --accent: #e10600;
+      --driver-color: #e10600;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .mono { font-family: 'Space Mono', monospace; }
+
+    /* ───── ONBOARDING ───── */
+    #onboarding {
+      position: fixed; inset: 0; background: var(--bg);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      z-index: 999; padding: 24px;
+    }
+    #onboarding h1 { font-size: clamp(1.6rem, 5vw, 2.4rem); font-weight: 700; text-align: center; }
+    #onboarding p.sub { color: var(--muted); margin-top: 8px; text-align: center; font-size: 0.9rem; }
+    #onboarding .step { width: 100%; max-width: 480px; margin-top: 32px; }
+    #onboarding input[type=text] {
+      width: 100%; padding: 14px 18px; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 12px; color: var(--text); font-size: 1rem; font-family: inherit; outline: none;
+      transition: border-color .2s;
+    }
+    #onboarding input:focus { border-color: var(--accent); }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent); color: #fff; border: none;
+      padding: 13px 28px; border-radius: 12px; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; transition: opacity .2s; font-family: inherit;
+    }
+    .btn:hover { opacity: .85; }
+    .btn.ghost { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+    .driver-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px; max-height: 60vh; overflow-y: auto; padding-right: 4px;
+    }
+    .driver-card {
+      background: var(--surface2); border: 2px solid var(--border); border-radius: 12px;
+      padding: 14px 12px; cursor: pointer; transition: border-color .2s, transform .15s;
+      text-align: center;
+    }
+    .driver-card:hover { transform: translateY(-2px); }
+    .driver-card.selected { border-color: var(--driver-color); background: color-mix(in srgb, var(--driver-color) 12%, var(--surface2)); }
+    .driver-card .num { font-size: 1.8rem; font-weight: 700; font-family: 'Space Mono', monospace; }
+    .driver-card .name { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+    .driver-card .team { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+    #step1 { display: flex; flex-direction: column; gap: 16px; }
+    #step2 { display: none; flex-direction: column; gap: 16px; }
+    .step-actions { display: flex; gap: 12px; justify-content: flex-end; }
+
+    /* ───── HEADER ───── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,10,.9); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { font-size: 1rem; font-weight: 600; }
+    .logo span { color: var(--driver-color); }
+    .tagline { font-size: 0.72rem; color: var(--muted); font-style: italic; }
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .profile-chip {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 999px; padding: 6px 14px; font-size: 0.82rem; cursor: pointer;
+      position: relative;
+    }
+    .profile-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--driver-color); }
+    .profile-menu {
+      display: none; position: absolute; top: calc(100% + 8px); right: 0;
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; min-width: 160px;
+    }
+    .profile-menu.open { display: block; }
+    .profile-menu button {
+      display: block; width: 100%; padding: 11px 16px; background: none;
+      border: none; color: var(--text); text-align: left; font-family: inherit;
+      font-size: 0.85rem; cursor: pointer;
+    }
+    .profile-menu button:hover { background: var(--border); }
+
+    /* ───── MAIN LAYOUT ───── */
+    main { max-width: 1100px; margin: 0 auto; padding: 28px 20px 80px; }
+    .section-title {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 14px;
+    }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px;
+    }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .mt { margin-top: 28px; }
+
+    /* ───── COUNTDOWN ───── */
+    .countdown-wrap { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+    .countdown-unit { text-align: center; }
+    .countdown-num {
+      font-family: 'Space Mono', monospace; font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 700; color: var(--driver-color); line-height: 1;
+      min-width: 80px; display: block;
+    }
+    .countdown-label { font-size: 0.65rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-top: 4px; }
+    .countdown-sep { font-size: 2rem; color: var(--border); line-height: 3rem; }
+    .race-name { font-size: 1.3rem; font-weight: 700; }
+    .race-meta { color: var(--muted); font-size: 0.82rem; margin-top: 4px; }
+    .race-circuit { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--muted); }
+    .pill {
+      display: inline-block; padding: 3px 10px; border-radius: 999px;
+      font-size: 0.7rem; font-weight: 600; background: color-mix(in srgb, var(--driver-color) 18%, transparent);
+      color: var(--driver-color); border: 1px solid color-mix(in srgb, var(--driver-color) 30%, transparent);
+    }
+
+    /* ───── STANDINGS ───── */
+    .standings-list { display: flex; flex-direction: column; gap: 4px; }
+    .standing-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 9px 12px; border-radius: 10px; transition: background .15s;
+    }
+    .standing-row:hover { background: var(--surface2); }
+    .standing-row.highlight { background: color-mix(in srgb, var(--driver-color) 10%, var(--surface2)); }
+    .standing-pos { font-size: 0.75rem; color: var(--muted); width: 22px; text-align: right; flex-shrink: 0; }
+    .standing-bar-wrap { flex: 1; height: 3px; background: var(--border); border-radius: 2px; }
+    .standing-bar { height: 100%; border-radius: 2px; background: var(--driver-color); transition: width .6s ease; }
+    .standing-name { font-size: 0.85rem; font-weight: 500; min-width: 110px; }
+    .standing-pts { font-family: 'Space Mono', monospace; font-size: 0.82rem; color: var(--muted); }
+    .color-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ───── WEATHER ───── */
+    .weather-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-top: 8px; }
+    .weather-tile { background: var(--surface2); border-radius: 12px; padding: 14px; text-align: center; }
+    .weather-val { font-size: 1.4rem; font-weight: 700; font-family: 'Space Mono', monospace; }
+    .weather-key { font-size: 0.68rem; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: .08em; }
+
+    /* ───── TIRE ───── */
+    .tire-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .tire-badge {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--surface2); border-radius: 10px; padding: 10px 14px;
+    }
+    .tire-circle { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; color: #000; }
+    .tire-info .drv { font-size: 0.82rem; font-weight: 600; }
+    .tire-info .laps { font-size: 0.7rem; color: var(--muted); }
+
+    /* ───── LAST RACE ───── */
+    .results-list { display: flex; flex-direction: column; gap: 6px; }
+    .result-row { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border-radius: 10px; }
+    .result-row:hover { background: var(--surface2); }
+    .result-pos { font-family: 'Space Mono', monospace; font-size: 0.82rem; width: 28px; flex-shrink: 0; }
+    .result-name { flex: 1; font-size: 0.85rem; }
+    .result-team { font-size: 0.72rem; color: var(--muted); }
+    .result-time { font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--muted); }
+    .fastest { color: #b044ff; }
+
+    /* ───── LOADING ───── */
+    .skeleton {
+      background: linear-gradient(90deg, var(--surface2) 25%, var(--border) 50%, var(--surface2) 75%);
+      background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 8px;
+    }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+    .skel-line { height: 14px; margin: 6px 0; }
+
+    /* ───── FOOTER ───── */
+    footer { text-align: center; padding: 32px 20px; color: var(--muted); font-size: 0.75rem; border-top: 1px solid var(--border); }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    /* ───── LIVE BADGE ───── */
+    .live-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: color-mix(in srgb, #00c853 15%, transparent);
+      color: #00c853; padding: 3px 10px; border-radius: 999px;
+      font-size: 0.7rem; font-weight: 600; border: 1px solid #00c85350;
+    }
+    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #00c853; animation: blink 1.2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* ───── RESPONSIVE ───── */
+    @media(max-width:600px) {
+      main { padding: 20px 14px 60px; }
+      .countdown-num { font-size: 2rem; min-width: 60px; }
+      .countdown-sep { display: none; }
+    }
+
+    /* ───── SCROLLBAR ───── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- ─── ONBOARDING ─── -->
+<div id="onboarding">
+  <h1>🏁 The Pit Wall</h1>
+  <p class="sub">Your personal F1 2025 live dashboard</p>
+  <div class="step">
+    <div id="step1">
+      <p style="color:var(--muted);font-size:.9rem">Let's personalize your dashboard</p>
+      <input type="text" id="nameInput" placeholder="Enter your name…" maxlength="30" />
+      <div class="step-actions">
+        <button class="btn" onclick="goToStep2()">Next →</button>
+      </div>
+    </div>
+    <div id="step2">
+      <p style="color:var(--muted);font-size:.9rem">Pick your favourite driver</p>
+      <div class="driver-grid" id="driverGrid">
+        <!-- populated by JS -->
+      </div>
+      <div class="step-actions">
+        <button class="btn ghost" onclick="goToStep1()">← Back</button>
+        <button class="btn" onclick="finishOnboarding()">Let's Go 🚀</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── HEADER ─── -->
+<header id="appHeader" style="display:none">
+  <div>
+    <div class="logo">The Pit <span>Wall</span></div>
+    <div class="tagline">tuning the radio · warming the tyres</div>
+  </div>
+  <div class="header-right">
+    <div class="profile-chip" onclick="toggleMenu()">
+      <div class="profile-dot"></div>
+      <span id="headerName">—</span>
+      <span style="font-size:.7rem;color:var(--muted)">▾</span>
+      <div class="profile-menu" id="profileMenu">
+        <button onclick="resetProfile()">Edit Profile</button>
+        <button onclick="location.reload()">Refresh Data</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ─── MAIN ─── -->
+<main id="appMain" style="display:none">
+
+  <!-- Next Race + Countdown -->
+  <div class="section-title">Next Race</div>
+  <div class="card">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div>
+        <div id="raceName" class="race-name skeleton skel-line" style="width:220px"></div>
+        <div id="raceMeta" class="race-meta" style="margin-top:8px"></div>
+        <div id="raceCircuit" class="race-circuit"></div>
+      </div>
+      <span id="roundPill" class="pill"></span>
+    </div>
+    <div class="countdown-wrap mt" style="margin-top:20px">
+      <div class="countdown-unit"><span class="countdown-num mono" id="cd-d">--</span><div class="countdown-label">Days</div></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num mono" id="cd-h">--</span><div class="countdown-label">Hours</div></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num mono" id="cd-m">--</span><div class="countdown-label">Mins</div></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num mono" id="cd-s">--</span><div class="countdown-label">Secs</div></div>
+    </div>
+  </div>
+
+  <!-- Driver & Constructor Standings -->
+  <div class="grid-2 mt">
+    <div>
+      <div class="section-title">Drivers' Championship</div>
+      <div class="card" style="padding:16px">
+        <div class="standings-list" id="driverStandings">
+          <div class="skeleton skel-line"></div>
+          <div class="skeleton skel-line"></div>
+          <div class="skeleton skel-line"></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="section-title">Constructors' Championship</div>
+      <div class="card" style="padding:16px">
+        <div class="standings-list" id="constructorStandings">
+          <div class="skeleton skel-line"></div>
+          <div class="skeleton skel-line"></div>
+          <div class="skeleton skel-line"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Last Race Results -->
+  <div class="mt">
+    <div class="section-title">Last Race Results</div>
+    <div class="card" style="padding:16px">
+      <div id="lastRaceHeader" style="margin-bottom:12px;font-weight:600"></div>
+      <div class="results-list" id="lastRaceResults">
+        <div class="skeleton skel-line"></div>
+        <div class="skeleton skel-line"></div>
+        <div class="skeleton skel-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weather & Tires (OpenF1 live) -->
+  <div class="grid-2 mt">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <div class="section-title" style="margin-bottom:0">Track Conditions</div>
+        <span class="live-badge"><span class="live-dot"></span>Live</span>
+      </div>
+      <div class="card">
+        <div class="weather-grid" id="weatherGrid">
+          <div class="skeleton skel-line" style="height:60px"></div>
+          <div class="skeleton skel-line" style="height:60px"></div>
+          <div class="skeleton skel-line" style="height:60px"></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <div class="section-title" style="margin-bottom:0">Tyre Strategy</div>
+        <span class="live-badge"><span class="live-dot"></span>Live</span>
+      </div>
+      <div class="card">
+        <div id="tyreList" class="tire-list">
+          <div class="skeleton skel-line" style="width:100%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Your Driver Card -->
+  <div class="mt">
+    <div class="section-title">Your Driver</div>
+    <div class="card" id="myDriverCard" style="display:none">
+      <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap">
+        <div style="font-size:3rem;font-weight:700;font-family:'Space Mono',monospace;color:var(--driver-color)" id="myDriverNum"></div>
+        <div>
+          <div style="font-size:1.2rem;font-weight:700" id="myDriverName"></div>
+          <div style="font-size:.85rem;color:var(--muted)" id="myDriverTeam"></div>
+          <div style="margin-top:10px;display:flex;gap:16px;flex-wrap:wrap" id="myDriverStats"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer id="appFooter" style="display:none">
+  <p>An unofficial fan project · Not affiliated with F1, FIA, or any team</p>
+  <p style="margin-top:6px">Data: <a href="https://jolpi.ca" target="_blank">Jolpica F1 API</a> · <a href="https://openf1.org" target="_blank">OpenF1</a></p>
+</footer>
+
+<script>
+// ── Driver database ──────────────────────────────────────────────────────────
+const DRIVERS = [
+  { id:'max_verstappen',   num:1,   name:'Max Verstappen',      short:'VER', team:'Red Bull Racing',   color:'#3671C6' },
+  { id:'lando_norris',     num:4,   name:'Lando Norris',        short:'NOR', team:'McLaren',            color:'#FF8000' },
+  { id:'charles_leclerc',  num:16,  name:'Charles Leclerc',     short:'LEC', team:'Ferrari',            color:'#E8002D' },
+  { id:'oscar_piastri',    num:81,  name:'Oscar Piastri',       short:'PIA', team:'McLaren',            color:'#FF8000' },
+  { id:'carlos_sainz',     num:55,  name:'Carlos Sainz',        short:'SAI', team:'Williams',           color:'#64C4FF' },
+  { id:'george_russell',   num:63,  name:'George Russell',      short:'RUS', team:'Mercedes',           color:'#27F4D2' },
+  { id:'lewis_hamilton',   num:44,  name:'Lewis Hamilton',      short:'HAM', team:'Ferrari',            color:'#E8002D' },
+  { id:'fernando_alonso',  num:14,  name:'Fernando Alonso',     short:'ALO', team:'Aston Martin',       color:'#229971' },
+  { id:'pierre_gasly',     num:10,  name:'Pierre Gasly',        short:'GAS', team:'Alpine',             color:'#FF87BC' },
+  { id:'lance_stroll',     num:18,  name:'Lance Stroll',        short:'STR', team:'Aston Martin',       color:'#229971' },
+  { id:'nico_hulkenberg',  num:27,  name:'Nico Hülkenberg',     short:'HUL', team:'Sauber',             color:'#52E252' },
+  { id:'yuki_tsunoda',     num:22,  name:'Yuki Tsunoda',        short:'TSU', team:'Red Bull Racing',    color:'#3671C6' },
+  { id:'esteban_ocon',     num:31,  name:'Esteban Ocon',        short:'OCO', team:'Haas',               color:'#B6BABD' },
+  { id:'oliver_bearman',   num:87,  name:'Oliver Bearman',      short:'BEA', team:'Haas',               color:'#B6BABD' },
+  { id:'isack_hadjar',     num:6,   name:'Isack Hadjar',        short:'HAD', team:'Racing Bulls',       color:'#6692FF' },
+  { id:'jack_doohan',      num:7,   name:'Jack Doohan',         short:'DOO', team:'Alpine',             color:'#FF87BC' },
+  { id:'gabriel_bortoleto',num:5,   name:'Gabriel Bortoleto',   short:'BOR', team:'Sauber',             color:'#52E252' },
+  { id:'liam_lawson',      num:30,  name:'Liam Lawson',         short:'LAW', team:'Red Bull Racing',    color:'#3671C6' },
+  { id:'alexander_albon',  num:23,  name:'Alexander Albon',     short:'ALB', team:'Williams',           color:'#64C4FF' },
+  { id:'andrea_kimi_antonelli', num:12, name:'Kimi Antonelli', short:'ANT', team:'Mercedes',           color:'#27F4D2' },
+];
+
+const TIRE_COLORS = { SOFT:'#E8002D', MEDIUM:'#FFD700', HARD:'#f0f0f0', INTERMEDIATE:'#00c853', WET:'#00aaff' };
+
+// ── State ────────────────────────────────────────────────────────────────────
+let userName = '', selectedDriver = null, raceDate = null;
+
+// ── Onboarding ───────────────────────────────────────────────────────────────
+function buildDriverGrid() {
+  const grid = document.getElementById('driverGrid');
+  grid.innerHTML = DRIVERS.map(d => `
+    <div class="driver-card" data-id="${d.id}" onclick="selectDriver('${d.id}')" style="--driver-color:${d.color}">
+      <div class="num" style="color:${d.color}">${d.num}</div>
+      <div class="name">${d.name}</div>
+      <div class="team">${d.team}</div>
+    </div>`).join('');
+}
+
+function selectDriver(id) {
+  selectedDriver = DRIVERS.find(d => d.id === id);
+  document.querySelectorAll('.driver-card').forEach(c => c.classList.remove('selected'));
+  document.querySelector(`[data-id="${id}"]`).classList.add('selected');
+}
+
+function goToStep2() {
+  const n = document.getElementById('nameInput').value.trim();
+  if (!n) { document.getElementById('nameInput').focus(); return; }
+  userName = n;
+  document.getElementById('step1').style.display = 'none';
+  document.getElementById('step2').style.display = 'flex';
+}
+function goToStep1() {
+  document.getElementById('step2').style.display = 'none';
+  document.getElementById('step1').style.display = 'flex';
+}
+
+function finishOnboarding() {
+  if (!selectedDriver) { alert('Please pick a driver!'); return; }
+  setDriverColor(selectedDriver.color);
+  document.getElementById('headerName').textContent = userName;
+  localStorage.setItem('f1_name', userName);
+  localStorage.setItem('f1_driver', selectedDriver.id);
+  showApp();
+}
+
+function showApp() {
+  document.getElementById('onboarding').style.display = 'none';
+  document.getElementById('appHeader').style.display = '';
+  document.getElementById('appMain').style.display = '';
+  document.getElementById('appFooter').style.display = '';
+  loadAllData();
+}
+
+function setDriverColor(color) {
+  document.documentElement.style.setProperty('--driver-color', color);
+}
+
+function toggleMenu() {
+  document.getElementById('profileMenu').classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.profile-chip')) document.getElementById('profileMenu')?.classList.remove('open');
+});
+
+function resetProfile() {
+  localStorage.removeItem('f1_name'); localStorage.removeItem('f1_driver');
+  location.reload();
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+buildDriverGrid();
+const savedName = localStorage.getItem('f1_name');
+const savedDriver = localStorage.getItem('f1_driver');
+if (savedName && savedDriver) {
+  userName = savedName;
+  selectedDriver = DRIVERS.find(d => d.id === savedDriver) || DRIVERS[0];
+  setDriverColor(selectedDriver.color);
+  document.getElementById('headerName').textContent = userName;
+  showApp();
+}
+
+// ── Countdown ────────────────────────────────────────────────────────────────
+function pad(n) { return String(n).padStart(2,'0'); }
+function updateCountdown() {
+  if (!raceDate) return;
+  const diff = raceDate - Date.now();
+  if (diff <= 0) { ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent = '00'); return; }
+  const d = Math.floor(diff/86400000);
+  const h = Math.floor((diff%86400000)/3600000);
+  const m = Math.floor((diff%3600000)/60000);
+  const s = Math.floor((diff%60000)/1000);
+  document.getElementById('cd-d').textContent = pad(d);
+  document.getElementById('cd-h').textContent = pad(h);
+  document.getElementById('cd-m').textContent = pad(m);
+  document.getElementById('cd-s').textContent = pad(s);
+}
+setInterval(updateCountdown, 1000);
+
+// ── API helpers ──────────────────────────────────────────────────────────────
+async function jolpica(path) {
+  const r = await fetch(`https://api.jolpi.ca/ergast/f1/${path}`);
+  return r.json();
+}
+async function openf1(path) {
+  const r = await fetch(`https://api.openf1.org/v1/${path}`);
+  return r.json();
+}
+
+// ── Load all data ────────────────────────────────────────────────────────────
+async function loadAllData() {
+  loadNextRace();
+  loadDriverStandings();
+  loadConstructorStandings();
+  loadLastRace();
+  loadWeatherAndTyres();
+  showMyDriverCard();
+}
+
+// ── Next Race ────────────────────────────────────────────────────────────────
+async function loadNextRace() {
+  try {
+    const data = await jolpica('current/next.json');
+    const race = data?.MRData?.RaceTable?.Races?.[0];
+    if (!race) return;
+    const dt = new Date(`${race.date}T${race.time || '14:00:00Z'}`);
+    raceDate = dt;
+    document.getElementById('raceName').textContent = race.raceName;
+    document.getElementById('raceName').classList.remove('skeleton','skel-line');
+    document.getElementById('raceMeta').textContent =
+      `Round ${race.round} · ${dt.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}`;
+    document.getElementById('raceCircuit').textContent =
+      `📍 ${race.Circuit?.circuitName}, ${race.Circuit?.Location?.locality}, ${race.Circuit?.Location?.country}`;
+    document.getElementById('roundPill').textContent = `Round ${race.round}`;
+    updateCountdown();
+  } catch(e) { console.error('Next race error', e); }
+}
+
+// ── Driver Standings ─────────────────────────────────────────────────────────
+async function loadDriverStandings() {
+  try {
+    const data = await jolpica('current/driverStandings.json');
+    const list = data?.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings || [];
+    const maxPts = Number(list[0]?.points || 1);
+    const container = document.getElementById('driverStandings');
+    container.innerHTML = list.slice(0,10).map(s => {
+      const drvId = s.Driver?.driverId;
+      const known = DRIVERS.find(d => d.id === drvId);
+      const color = known?.color || '#888';
+      const isMe = selectedDriver?.id === drvId;
+      const pct = Math.round(Number(s.points)/maxPts*100);
+      const name = `${s.Driver?.givenName?.charAt(0)}. ${s.Driver?.familyName}`;
+      return `<div class="standing-row${isMe?' highlight':''}">
+        <span class="standing-pos">${s.position}</span>
+        <span class="color-dot" style="background:${color}"></span>
+        <span class="standing-name">${name}</span>
+        <div class="standing-bar-wrap"><div class="standing-bar" style="width:${pct}%;background:${color}"></div></div>
+        <span class="standing-pts">${s.points}</span>
+      </div>`;
+    }).join('');
+  } catch(e) { console.error('Driver standings error', e); }
+}
+
+// ── Constructor Standings ────────────────────────────────────────────────────
+const TEAM_COLORS = {
+  'red_bull':'#3671C6','mclaren':'#FF8000','ferrari':'#E8002D',
+  'mercedes':'#27F4D2','aston_martin':'#229971','alpine':'#FF87BC',
+  'haas':'#B6BABD','racing_bulls':'#6692FF','williams':'#64C4FF','sauber':'#52E252'
+};
+async function loadConstructorStandings() {
+  try {
+    const data = await jolpica('current/constructorStandings.json');
+    const list = data?.MRData?.StandingsTable?.StandingsLists?.[0]?.ConstructorStandings || [];
+    const maxPts = Number(list[0]?.points || 1);
+    const container = document.getElementById('constructorStandings');
+    container.innerHTML = list.slice(0,10).map(s => {
+      const cid = s.Constructor?.constructorId;
+      const color = TEAM_COLORS[cid] || '#888';
+      const pct = Math.round(Number(s.points)/maxPts*100);
+      return `<div class="standing-row">
+        <span class="standing-pos">${s.position}</span>
+        <span class="color-dot" style="background:${color}"></span>
+        <span class="standing-name">${s.Constructor?.name}</span>
+        <div class="standing-bar-wrap"><div class="standing-bar" style="width:${pct}%;background:${color}"></div></div>
+        <span class="standing-pts">${s.points}</span>
+      </div>`;
+    }).join('');
+  } catch(e) { console.error('Constructor standings error', e); }
+}
+
+// ── Last Race ────────────────────────────────────────────────────────────────
+async function loadLastRace() {
+  try {
+    const data = await jolpica('current/last/results.json');
+    const race = data?.MRData?.RaceTable?.Races?.[0];
+    if (!race) return;
+    document.getElementById('lastRaceHeader').textContent =
+      `${race.raceName} · Round ${race.round}`;
+    const results = race.Results || [];
+    const fastest = results.find(r => r.FastestLap?.rank === '1')?.Driver?.driverId;
+    const container = document.getElementById('lastRaceResults');
+    container.innerHTML = results.slice(0,10).map(r => {
+      const drvId = r.Driver?.driverId;
+      const known = DRIVERS.find(d => d.id === drvId);
+      const color = known?.color || '#888';
+      const isFastest = drvId === fastest;
+      const name = `${r.Driver?.givenName?.charAt(0)}. ${r.Driver?.familyName}`;
+      const time = r.status === 'Finished' ? (r.Time?.time || r.status) : r.status;
+      return `<div class="result-row">
+        <span class="result-pos" style="color:${['1','2','3'].includes(r.position)?'var(--driver-color)':'var(--muted)'}">${r.position}</span>
+        <span class="color-dot" style="background:${color}"></span>
+        <div style="flex:1">
+          <div class="result-name">${name}${isFastest ? ' <span class="fastest" title="Fastest Lap">⚡</span>':''}</div>
+          <div class="result-team">${r.Constructor?.name}</div>
+        </div>
+        <span class="result-time">${time}</span>
+      </div>`;
+    }).join('');
+  } catch(e) { console.error('Last race error', e); }
+}
+
+// ── Weather & Tyres (OpenF1) ─────────────────────────────────────────────────
+async function loadWeatherAndTyres() {
+  try {
+    const weather = await openf1('weather?session_key=latest&order_by=date&limit=1');
+    const w = Array.isArray(weather) ? weather[weather.length-1] : null;
+    const wGrid = document.getElementById('weatherGrid');
+    if (w) {
+      wGrid.innerHTML = `
+        <div class="weather-tile"><div class="weather-val">${w.air_temperature?.toFixed(1) ?? '--'}°C</div><div class="weather-key">Air Temp</div></div>
+        <div class="weather-tile"><div class="weather-val">${w.track_temperature?.toFixed(1) ?? '--'}°C</div><div class="weather-key">Track Temp</div></div>
+        <div class="weather-tile"><div class="weather-val">${w.humidity ?? '--'}%</div><div class="weather-key">Humidity</div></div>
+        <div class="weather-tile"><div class="weather-val">${w.wind_speed?.toFixed(1) ?? '--'} m/s</div><div class="weather-key">Wind</div></div>
+        <div class="weather-tile"><div class="weather-val">${w.rainfall ? '🌧️ Yes' : '☀️ No'}</div><div class="weather-key">Rainfall</div></div>
+        <div class="weather-tile"><div class="weather-val">${w.pressure?.toFixed(0) ?? '--'}</div><div class="weather-key">Pressure hPa</div></div>`;
+    } else {
+      wGrid.innerHTML = `<p style="color:var(--muted);font-size:.85rem;grid-column:1/-1">No live session data</p>`;
+    }
+  } catch(e) {
+    document.getElementById('weatherGrid').innerHTML = `<p style="color:var(--muted);font-size:.85rem">Weather unavailable</p>`;
+  }
+
+  try {
+    const stints = await openf1('stints?session_key=latest');
+    const tyreEl = document.getElementById('tyreList');
+    if (Array.isArray(stints) && stints.length) {
+      // latest stint per driver
+      const map = {};
+      stints.forEach(s => { map[s.driver_number] = s; });
+      const entries = Object.values(map).slice(0,12);
+      tyreEl.innerHTML = entries.map(s => {
+        const comp = s.compound || 'UNKNOWN';
+        const color = TIRE_COLORS[comp] || '#888';
+        const textColor = ['HARD'].includes(comp) ? '#000' : (comp==='MEDIUM'?'#000':'#fff');
+        return `<div class="tire-badge">
+          <div class="tire-circle" style="background:${color};color:${textColor}">${comp.charAt(0)}</div>
+          <div class="tire-info">
+            <div class="drv">#${s.driver_number}</div>
+            <div class="laps">${s.lap_start ? `Lap ${s.lap_start}+` : ''}</div>
+          </div>
+        </div>`;
+      }).join('');
+    } else {
+      tyreEl.innerHTML = `<p style="color:var(--muted);font-size:.85rem">No live tyre data</p>`;
+    }
+  } catch(e) {
+    document.getElementById('tyreList').innerHTML = `<p style="color:var(--muted);font-size:.85rem">Tyre data unavailable</p>`;
+  }
+}
+
+// ── My Driver Card ───────────────────────────────────────────────────────────
+async function showMyDriverCard() {
+  if (!selectedDriver) return;
+  document.getElementById('myDriverCard').style.display = '';
+  document.getElementById('myDriverNum').textContent = selectedDriver.num;
+  document.getElementById('myDriverName').textContent = selectedDriver.name;
+  document.getElementById('myDriverTeam').textContent = selectedDriver.team;
+
+  try {
+    const data = await jolpica('current/driverStandings.json');
+    const list = data?.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings || [];
+    const entry = list.find(s => s.Driver?.driverId === selectedDriver.id);
+    if (entry) {
+      document.getElementById('myDriverStats').innerHTML = `
+        <div style="text-align:center"><div style="font-size:1.3rem;font-weight:700;font-family:'Space Mono',monospace">${entry.points}</div><div style="font-size:.7rem;color:var(--muted)">Points</div></div>
+        <div style="text-align:center"><div style="font-size:1.3rem;font-weight:700;font-family:'Space Mono',monospace">P${entry.position}</div><div style="font-size:.7rem;color:var(--muted)">Position</div></div>
+        <div style="text-align:center"><div style="font-size:1.3rem;font-weight:700;font-family:'Space Mono',monospace">${entry.wins}</div><div style="font-size:.7rem;color:var(--muted)">Wins</div></div>`;
+    }
+  } catch(e) {}
+}
+
+// Auto-refresh live data every 60s
+setInterval(() => { loadWeatherAndTyres(); }, 60000);
+</script>
+</body>
+</html>

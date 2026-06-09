@@ -153,7 +153,7 @@ section{padding:88px 32px;}
 .tab-row{display:flex;gap:6px;flex-wrap:wrap;}
 .tab-btn,.tab-btn-all{padding:8px 18px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:#fff;color:var(--text-muted);font-family:'Poppins',sans-serif;transition:all 0.2s;}
 .tab-btn.active,.tab-btn:hover,.tab-btn-all.active,.tab-btn-all:hover{background:var(--orange);border-color:var(--orange);color:#fff;}
-.courses-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.courses-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
 .course-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.3s;text-decoration:none;color:inherit;display:flex;flex-direction:column;}
 .course-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--border-orange);}
 .course-img{height:180px;display:flex;align-items:flex-end;padding:20px;position:relative;overflow:hidden;}
@@ -561,7 +561,7 @@ select.form-field option{color:var(--text);background:#fff;}
     <div class="courses-header">
       <div>
         <div class="section-label">Our Programs</div>
-        <div class="section-title">Popular <span>Courses</span></div>
+        <div class="section-title">Explore All <span>20 Courses</span></div>
       </div>
       <div class="tab-row">
         <button class="tab-btn active" data-filter="all">All</button>
@@ -572,7 +572,7 @@ select.form-field option{color:var(--text);background:#fff;}
     </div>
     <div class="courses-grid" id="coursesGrid"></div>
     <div style="text-align:center;margin-top:40px;">
-      <button id="viewAllBtn" class="btn-orange" style="font-size:14px;padding:13px 32px;display:inline-block;border-radius:8px;border:none;cursor:pointer;">View All Courses </button>
+      <button id="viewAllBtn" class="btn-orange" style="font-size:14px;padding:13px 32px;display:inline-block;border-radius:8px;border:none;cursor:pointer;">View All 36 Programs &#8594;</button>
     </div>
   </div>
 </section>
@@ -640,7 +640,8 @@ const coursesData = [
   {id: 36, name: "Certificate in Data Analysis using Python and R", hours: 0, segment: "grad", icon: "", desc: "Advanced analytics, both Python and R"}
 ];
 
-const topCourses = coursesData.filter(c => [2, 1, 7, 12, 3, 6].includes(c.id));
+// One card per dedicated course page (20 pages = 20 cards)
+const topCourses = coursesData.filter(c => [34,7,2,1,5,6,33,18,13,14,32,15,16,17,19,20,21,24,25,31].includes(c.id));
 
 function formatHours(hours) {
   if (!hours) return "Duration TBD";

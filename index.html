@@ -583,7 +583,7 @@ select.form-field option{color:var(--text);background:#fff;}
     <div class="courses-header">
       <div>
         <div class="section-label">Our Programs</div>
-        <div class="section-title">Explore All <span>20 Courses</span></div>
+        <div class="section-title">Explore All <span>24 Courses</span></div>
       </div>
       <div class="tab-row">
         <button class="tab-btn active" data-filter="all">All</button>
@@ -624,46 +624,36 @@ select.form-field option{color:var(--text);background:#fff;}
 <script>
 // ==================== COURSES SYSTEM ====================
 const coursesData = [
-  {id: 1, name: "Advanced Program in FinTech & Business Analytics", hours: 492, segment: "ug", icon: "", desc: "Finance, analytics, data-driven decision making"},
-  {id: 2, name: "Advanced Program in Full Stack Software Development", hours: 524, segment: "ug", icon: "", desc: "Web development, backend, databases, real-world projects"},
-  {id: 3, name: "Advanced Program in Java Full Stack Development", hours: 288, segment: "ug", icon: "", desc: "Java, Spring Boot, microservices, enterprise apps"},
-  {id: 4, name: "Professional Program in FinTech & Business Analytics", hours: 288, segment: "ug", icon: "", desc: "Finance fundamentals, analytics tools, business intelligence"},
-  {id: 5, name: "Professional Program in Digital Marketing", hours: 110, segment: "ug", icon: "", desc: "SEO, ads, content strategy, campaign management"},
-  {id: 6, name: "Professional Program in Data Analytics", hours: 180, segment: "ug", icon: "", desc: "Excel, Power BI, Python, dashboards, reporting"},
-  {id: 7, name: "Advanced Program in Data Science, ML and Generative AI", hours: 380, segment: "ug", icon: "", desc: "Machine learning, AI models, Python, statistics"},
-  {id: 8, name: "Advanced Program in Java Full Stack Development", hours: 288, segment: "grad", icon: "", desc: "Enterprise Java, microservices, cloud platforms"},
-  {id: 9, name: "Professional Program in FinTech & Business Analytics", hours: 288, segment: "grad", icon: "", desc: "Advanced finance, analytics, investment analysis"},
-  {id: 10, name: "Professional Program in Digital Marketing", hours: 110, segment: "grad", icon: "", desc: "Digital strategy, marketing automation, analytics"},
-  {id: 11, name: "Professional Program in Data Analytics", hours: 180, segment: "grad", icon: "", desc: "Advanced analytics, business intelligence, SQL"},
-  {id: 12, name: "Advanced Program in Data Science, ML and Generative AI", hours: 380, segment: "grad", icon: "", desc: "Deep learning, NLP, generative models, AI"},
-  {id: 13, name: "Java Programming", hours: 48, segment: "any", icon: "", desc: "Core Java, OOP concepts, problem solving"},
-  {id: 14, name: "Python Programming", hours: 30, segment: "any", icon: "", desc: "Python basics, automation, scripting"},
-  {id: 15, name: "Database Management using SQL", hours: 36, segment: "any", icon: "", desc: "SQL, database design, optimization"},
-  {id: 16, name: "HTML5", hours: 44, segment: "any", icon: "", desc: "Web markup, semantics, responsive design"},
-  {id: 17, name: "Advanced Excel", hours: 24, segment: "any", icon: "", desc: "Formulas, macros, pivot tables, automation"},
-  {id: 18, name: "Graphic Designing", hours: 60, segment: "any", icon: "", desc: "Photoshop, Illustrator, InDesign, branding & visual design"},
-  {id: 19, name: "Power BI", hours: 36, segment: "any", icon: "", desc: "Business intelligence, dashboards, reporting"},
-  {id: 20, name: "Tableau", hours: 36, segment: "any", icon: "", desc: "Data visualization, interactive dashboards"},
-  {id: 21, name: "Tally Essentials 1", hours: 35, segment: "any", icon: "", desc: "Accounting basics, Tally fundamentals"},
-  {id: 22, name: "Tally Essentials 2", hours: 35, segment: "any", icon: "", desc: "GST, invoicing, tax management"},
-  {id: 23, name: "Tally Essentials 3", hours: 36, segment: "any", icon: "", desc: "Advanced accounting, payroll, auditing"},
-  {id: 24, name: "Social Media Marketing", hours: 40, segment: "any", icon: "", desc: "Instagram, Facebook, TikTok, content strategy"},
-  {id: 25, name: "SEO", hours: 18, segment: "any", icon: "", desc: "Search optimization, keyword research, ranking"},
-  {id: 26, name: "SEM", hours: 18, segment: "any", icon: "", desc: "Paid search, Google Ads, conversion optimization"},
-  {id: 27, name: "MS Office with ChatGPT", hours: 36, segment: "any", icon: "", desc: "Word, Excel, PowerPoint automation with AI"},
-  {id: 28, name: "R Programming", hours: 36, segment: "any", icon: "", desc: "Statistical computing, data analysis, ggplot2"},
-  {id: 29, name: "Data Analytics with Python", hours: 48, segment: "any", icon: "", desc: "Pandas, NumPy, data cleaning, visualization"},
-  {id: 30, name: "Certificate in Digital Skills and GenAI", hours: 80, segment: "any", icon: "", desc: "Digital literacy, AI tools, productivity"},
-  {id: 31, name: "Foundation in IT", hours: 80, segment: "any", icon: "", desc: "Computer basics, internet, productivity software"},
-  {id: 32, name: "C++ Programming", hours: 36, segment: "any", icon: "", desc: "C++ syntax, OOP, system programming"},
-  {id: 33, name: "Web Development with C# and ASP.Net Core", hours: 88, segment: "ug", icon: "", desc: "C#, .Net, web APIs, cloud deployment", img: "pictures/Web dev with C++.webp"},
-  {id: 34, name: "Professional Certificate in AI Essentials", hours: 36, segment: "any", icon: "", desc: "AI basics, ChatGPT, prompt engineering"},
-  {id: 35, name: "MSCIT", hours: 144, segment: "any", icon: "", desc: "Maharashtra State IT certification program"},
-  {id: 36, name: "Certificate in Data Analysis using Python and R", hours: 0, segment: "grad", icon: "", desc: "Advanced analytics, both Python and R"}
+  {id: 1,  name: "Advanced Program in Java Full Stack Development",     hours: 288, segment: "ug",   icon: "", desc: "Java, Spring Boot, microservices, enterprise web apps"},
+  {id: 2,  name: "Advanced Program in Full Stack Software Development", hours: 524, segment: "ug",   icon: "", desc: "Web development, backend, databases, real-world projects"},
+  {id: 3,  name: "Professional Program in FinTech & Business Analytics",hours: 288, segment: "ug",   icon: "", desc: "Finance fundamentals, analytics tools, business intelligence"},
+  {id: 4,  name: "Advanced Program in FinTech & Business Analytics",    hours: 492, segment: "ug",   icon: "", desc: "Advanced finance, data analysis, investment & portfolio skills"},
+  {id: 5,  name: "Professional Program in Digital Marketing",           hours: 110, segment: "ug",   icon: "", desc: "SEO, ads, content strategy, campaign management"},
+  {id: 6,  name: "Professional Program in Data Analytics",              hours: 180, segment: "ug",   icon: "", desc: "Excel, Power BI, Python, dashboards, reporting"},
+  {id: 7,  name: "Java Programming",              hours: 48,  segment: "any", icon: "", desc: "Core Java, OOP concepts, problem solving"},
+  {id: 8,  name: "Python Programming",            hours: 30,  segment: "any", icon: "", desc: "Python basics, automation, scripting"},
+  {id: 9,  name: "Database Management using SQL", hours: 36,  segment: "any", icon: "", desc: "SQL, database design, optimization"},
+  {id: 10, name: "HTML5",                         hours: 44,  segment: "any", icon: "", desc: "Web markup, semantics, responsive design"},
+  {id: 11, name: "Advanced Excel",                hours: 24,  segment: "any", icon: "", desc: "Formulas, macros, pivot tables, automation"},
+  {id: 12, name: "Graphic Designing",             hours: 60,  segment: "any", icon: "", desc: "Photoshop, Illustrator, InDesign, branding & visual design"},
+  {id: 13, name: "Power BI",                      hours: 36,  segment: "any", icon: "", desc: "Business intelligence, dashboards, reporting"},
+  {id: 14, name: "Tableau",                       hours: 36,  segment: "any", icon: "", desc: "Data visualization, interactive dashboards"},
+  {id: 15, name: "Tally Essentials 1",            hours: 35,  segment: "any", icon: "", desc: "Accounting basics, Tally fundamentals"},
+  {id: 16, name: "Tally Essentials 2",            hours: 35,  segment: "any", icon: "", desc: "GST, invoicing, tax management"},
+  {id: 17, name: "Tally Essentials 3",            hours: 36,  segment: "any", icon: "", desc: "Advanced accounting, payroll, auditing"},
+  {id: 18, name: "Social Media Marketing",        hours: 40,  segment: "any", icon: "", desc: "Instagram, Facebook, LinkedIn, content strategy"},
+  {id: 19, name: "SEO",                           hours: 18,  segment: "any", icon: "", desc: "Search optimization, keyword research, ranking"},
+  {id: 20, name: "SEM",                           hours: 18,  segment: "any", icon: "", desc: "Google Ads, paid search, campaign management"},
+  {id: 21, name: "Ms Office",                     hours: 36,  segment: "any", icon: "", desc: "Word, Excel, PowerPoint, Outlook — office productivity"},
+  {id: 22, name: "R-Programming",                 hours: 36,  segment: "any", icon: "", desc: "Statistical computing, data analysis, ggplot2"},
+  {id: 23, name: "Data Analytics with Python",    hours: 48,  segment: "any", icon: "", desc: "Pandas, NumPy, data cleaning, visualization"},
+  {id: 24, name: "Career-Edge",                   hours: 80,  segment: "any", icon: "", desc: "Multi-disciplinary intro to digital, analytics & coding"},
+  {id: 25, name: "Foundation in IT",              hours: 80,  segment: "any", icon: "", desc: "Computer basics, internet, productivity software"},
+  {id: 26, name: "C++ Programming",               hours: 36,  segment: "any", icon: "", desc: "C++ syntax, OOP, system programming"},
 ];
 
-// One card per dedicated course page (20 pages = 20 cards)
-const topCourses = coursesData.filter(c => [34,7,2,1,5,6,33,18,13,14,32,15,16,17,19,20,21,24,25,31].includes(c.id));
+// One card per dedicated course page (24 pages = 24 cards)
+const topCourses = coursesData.filter(c => [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,17,18,19,20,21,22,23,24,25,26].includes(c.id));
 
 function formatHours(hours) {
   if (!hours) return "Duration TBD";
@@ -722,32 +712,32 @@ const coursePages = [
 
 // Exact course-name -> detail page (authoritative; checked before keywords).
 const coursePageByName = {
+  "Advanced Program in Java Full Stack Development":     "course card/course-fullstack.html",
   "Advanced Program in Full Stack Software Development": "course card/course-fullstack.html",
-  "Advanced Program in Java Full Stack Development": "course card/course-fullstack.html",
-  "Web Development with C# and ASP.Net Core": "course card/course-webdev-csharp.html",
-  "Advanced Program in FinTech & Business Analytics": "course card/course-fintech.html",
-  "Professional Program in FinTech & Business Analytics": "course card/course-fintech.html",
-  "Professional Program in Digital Marketing": "course card/course-digitalmarketing.html",
-  "Professional Program in Data Analytics": "course card/course-dataanalytics.html",
-  "Data Analytics with Python": "course card/course-dataanalytics.html",
-  "Advanced Program in Data Science, ML and Generative AI": "course card/course-datascience.html",
-  "Professional Certificate in AI Essentials": "course card/course-ai.html",
-  "Certificate in Digital Skills and GenAI": "course card/course-ai.html",
-  "Graphic Designing": "course card/course-graphicdesign.html",
-  "Java Programming": "course card/course-java.html",
-  "Python Programming": "course card/course-python.html",
-  "C++ Programming": "course card/course-cpp.html",
-  "Database Management using SQL": "course card/course-sql.html",
-  "HTML5": "course card/course-html5.html",
-  "Advanced Excel": "course card/course-excel.html",
-  "Power BI": "course card/course-powerbi.html",
-  "Tableau": "course card/course-tableau.html",
-  "Tally Essentials 1": "course card/course-tally.html",
-  "Tally Essentials 2": "course card/course-tally.html",
-  "Tally Essentials 3": "course card/course-tally.html",
-  "Social Media Marketing": "course card/course-socialmedia.html",
-  "SEO": "course card/course-seo.html",
-  "Foundation in IT": "course card/course-foundationit.html"
+  "Advanced Program in FinTech & Business Analytics":    "course card/course-fintech.html",
+  "Professional Program in FinTech & Business Analytics":"course card/course-fintech.html",
+  "Professional Program in Digital Marketing":           "course card/course-digitalmarketing.html",
+  "Professional Program in Data Analytics":              "course card/course-dataanalytics.html",
+  "Data Analytics with Python":                          "course card/course-dataanalytics.html",
+  "Graphic Designing":                                   "course card/course-graphicdesign.html",
+  "Java Programming":                                    "course card/course-java.html",
+  "Python Programming":                                  "course card/course-python.html",
+  "C++ Programming":                                     "course card/course-cpp.html",
+  "Database Management using SQL":                       "course card/course-sql.html",
+  "HTML5":                                               "course card/course-html5.html",
+  "Advanced Excel":                                      "course card/course-excel.html",
+  "Power BI":                                            "course card/course-powerbi.html",
+  "Tableau":                                             "course card/course-tableau.html",
+  "Tally Essentials 1":                                  "course card/course-tally.html",
+  "Tally Essentials 2":                                  "course card/course-tally.html",
+  "Tally Essentials 3":                                  "course card/course-tally.html",
+  "Social Media Marketing":                              "course card/course-socialmedia.html",
+  "SEO":                                                 "course card/course-seo.html",
+  "SEM":                                                 "course card/course-sem.html",
+  "Ms Office":                                           "course card/course-msoffice.html",
+  "R-Programming":                                       "course card/course-rprogramming.html",
+  "Career-Edge":                                         "course card/course-careeredge.html",
+  "Foundation in IT":                                    "course card/course-foundationit.html"
 };
 
 function getCoursePage(course) {

@@ -886,7 +886,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="video-testi-card fade-up">
         <div class="video-thumbnail" data-video="Tiya Fonsecs.mp4">
           <video class="preview" src="Tiya Fonsecs.mp4" muted preload="metadata" style="pointer-events:none;"></video>
-          <div class="video-play-btn"></div>
+          <div class="video-play-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg></div>
         </div>
         <div class="video-testi-body">
           <div class="video-testi-head">
@@ -903,7 +903,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="video-testi-card fade-up">
         <div class="video-thumbnail" data-video="Akhilesh.mp4">
           <video class="preview" src="Akhilesh.mp4" muted preload="metadata" style="pointer-events:none;"></video>
-          <div class="video-play-btn"></div>
+          <div class="video-play-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg></div>
         </div>
         <div class="video-testi-body">
           <div class="video-testi-head">
@@ -920,7 +920,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="video-testi-card fade-up">
         <div class="video-thumbnail" data-video="Owez Asif Shaikh.mp4">
           <video class="preview" src="Owez Asif Shaikh.mp4" muted preload="metadata" style="pointer-events:none;"></video>
-          <div class="video-play-btn"></div>
+          <div class="video-play-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg></div>
         </div>
         <div class="video-testi-body">
           <div class="video-testi-head">
@@ -937,7 +937,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="video-testi-card fade-up">
         <div class="video-thumbnail" data-video="Jay Dave.mp4">
           <video class="preview" src="Jay Dave.mp4" muted preload="metadata" style="pointer-events:none;"></video>
-          <div class="video-play-btn"></div>
+          <div class="video-play-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg></div>
         </div>
         <div class="video-testi-body">
           <div class="video-testi-head">
@@ -985,7 +985,7 @@ document.addEventListener('DOMContentLoaded', function() {
         other.classList.remove('playing');
         other.style.height = '320px';
         other.style.cursor = 'pointer';
-        other.innerHTML = `<video class="preview" src="${savedUrl}" muted preload="metadata" style="pointer-events:none;"></video><div class="video-play-btn"></div>`;
+        other.innerHTML = `<video class="preview" src="${savedUrl}" muted preload="metadata" style="pointer-events:none;"></video><div class="video-play-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg></div>`;
         other.dataset.video = savedUrl;
         const prev = other.querySelector('video.preview');
         prev.addEventListener('loadedmetadata', () => { prev.currentTime = 0.001; });

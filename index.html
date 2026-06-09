@@ -650,9 +650,8 @@ const coursesData = [
   {id: 26, name: "C++ Programming",               hours: 36,  segment: "any", icon: "", desc: "C++ syntax, OOP, system programming"},
 ];
 
-// One card per dedicated course page (24 pages = 24 cards)
-// One card per dedicated course page (24 courses = 24 cards)
-const topCourses = coursesData.filter(c => [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24].includes(c.id));
+// Show all 24 courses — one card per dedicated page
+const topCourses = coursesData;
 
 function formatHours(hours) {
   if (!hours) return "Duration TBD";

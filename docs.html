@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DVOC Institute – Project Documentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange:#E87E26;--navy:#1F3864;--light:#FFF8F2;--border:#eee;
+    --radius:14px;--shadow:0 4px 24px rgba(0,0,0,0.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Poppins',sans-serif;background:#f7f8fa;color:#222;min-height:100vh}
+
+  /* NAV */
+  nav{background:#fff;border-bottom:3px solid var(--orange);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
+  .nav-logo{font-size:18px;font-weight:800;color:var(--navy)}
+  .nav-logo span{color:var(--orange)}
+  .nav-badge{background:var(--orange);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:100px;letter-spacing:1px;text-transform:uppercase}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,var(--navy) 0%,#2d4f8a 100%);color:#fff;padding:80px 40px 60px;text-align:center}
+  .hero h1{font-size:clamp(28px,5vw,52px);font-weight:800;margin-bottom:12px}
+  .hero h1 span{color:var(--orange)}
+  .hero p{font-size:16px;opacity:0.7;margin-bottom:32px}
+  .hero-stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap}
+  .stat{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:18px 32px;min-width:120px}
+  .stat-num{font-size:32px;font-weight:800;color:var(--orange)}
+  .stat-label{font-size:12px;opacity:0.7;margin-top:4px;letter-spacing:1px;text-transform:uppercase}
+
+  /* LAYOUT */
+  .container{max-width:1200px;margin:0 auto;padding:48px 24px}
+  .grid{display:grid;grid-template-columns:260px 1fr;gap:32px;align-items:start}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+
+  /* SIDEBAR */
+  .sidebar{position:sticky;top:80px}
+  .sidebar-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+  .sidebar-title{background:var(--navy);color:#fff;padding:16px 20px;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+  .sidebar-links{padding:8px 0}
+  .sidebar-links a{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:13.5px;color:#444;text-decoration:none;transition:all 0.2s;border-left:3px solid transparent}
+  .sidebar-links a:hover,.sidebar-links a.active{background:var(--light);color:var(--orange);border-left-color:var(--orange)}
+  .sidebar-links a .dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0}
+  .sidebar-links a.active .dot,.sidebar-links a:hover .dot{background:var(--orange)}
+
+  /* SECTIONS */
+  section{margin-bottom:56px}
+  .section-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--orange);font-weight:700;margin-bottom:8px}
+  .section-title{font-size:26px;font-weight:800;color:var(--navy);margin-bottom:24px}
+
+  /* PHASE CARDS */
+  .phases{display:flex;flex-direction:column;gap:20px}
+  .phase{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--border)}
+  .phase-header{background:linear-gradient(90deg,var(--navy),#2d4f8a);color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none}
+  .phase-header:hover{background:linear-gradient(90deg,#2d4f8a,var(--navy))}
+  .phase-num{background:var(--orange);color:#fff;font-size:12px;font-weight:800;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .phase-title{font-size:15px;font-weight:700;margin-left:12px;flex:1}
+  .phase-date{font-size:11px;opacity:0.7}
+  .phase-chevron{transition:transform 0.3s;font-size:18px}
+  .phase.open .phase-chevron{transform:rotate(180deg)}
+  .phase-body{padding:20px 24px;display:none;border-top:1px solid var(--border)}
+  .phase.open .phase-body{display:block}
+  .phase-body ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+  .phase-body li{display:flex;gap:10px;font-size:13.5px;line-height:1.6;color:#555}
+  .phase-body li::before{content:"✓";color:var(--orange);font-weight:800;flex-shrink:0;margin-top:2px}
+
+  /* COMMIT LOG */
+  .commit-filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+  .filter-btn{padding:7px 18px;border-radius:100px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif}
+  .filter-btn:hover,.filter-btn.active{background:var(--orange);border-color:var(--orange);color:#fff}
+  #commit-search{padding:10px 16px;border:1.5px solid var(--border);border-radius:100px;font-size:13px;font-family:'Poppins',sans-serif;width:260px;outline:none;transition:border 0.2s}
+  #commit-search:focus{border-color:var(--orange)}
+  .commit-list{display:flex;flex-direction:column;gap:10px}
+  .commit-item{background:#fff;border-radius:12px;padding:16px 20px;box-shadow:var(--shadow);border:1px solid var(--border);display:flex;gap:16px;align-items:flex-start;transition:all 0.2s}
+  .commit-item:hover{border-color:var(--orange);transform:translateY(-2px)}
+  .commit-hash{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--orange);background:var(--light);padding:4px 10px;border-radius:6px;white-space:nowrap;flex-shrink:0}
+  .commit-info{flex:1}
+  .commit-msg{font-size:14px;font-weight:600;color:#222;margin-bottom:4px}
+  .commit-meta{font-size:12px;color:#888}
+  .commit-date-badge{font-size:11px;background:var(--navy);color:#fff;padding:3px 10px;border-radius:100px;white-space:nowrap;flex-shrink:0}
+  .loading{text-align:center;padding:48px;color:#888;font-size:15px}
+  .loading-spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--orange);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* FOLDER STRUCTURE */
+  .folder-tree{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:2}
+  .folder-tree .folder{color:var(--navy);font-weight:600}
+  .folder-tree .file{color:#555;padding-left:24px}
+  .folder-tree .comment{color:#aaa;font-size:11px;margin-left:12px}
+
+  /* TEAM */
+  .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+  .team-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;text-align:center;border:1px solid var(--border);transition:all 0.2s}
+  .team-card:hover{border-color:var(--orange);transform:translateY(-3px)}
+  .team-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--orange),#f5a05a);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:#fff;margin:0 auto 14px}
+  .team-name{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px}
+  .team-role{font-size:12px;color:var(--orange);font-weight:600}
+
+  /* STATS SECTION */
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+  .stat-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;text-align:center;border:1px solid var(--border)}
+  .stat-card .num{font-size:36px;font-weight:800;color:var(--orange)}
+  .stat-card .lbl{font-size:12px;color:#888;margin-top:4px;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+
+  /* FOOTER */
+  footer{background:var(--navy);color:#fff;text-align:center;padding:32px;font-size:13px;opacity:0.8}
+  footer a{color:var(--orange);text-decoration:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">DVOC <span>INSTITUTE</span></div>
+  <span class="nav-badge">Live Docs</span>
+</nav>
+
+<div class="hero">
+  <h1>Project <span>Documentation</span></h1>
+  <p>Live documentation for the DVOC Institute website — auto-updates with every GitHub commit</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num" id="stat-commits">—</div><div class="stat-label">Total Commits</div></div>
+    <div class="stat"><div class="stat-num">20</div><div class="stat-label">Course Pages</div></div>
+    <div class="stat"><div class="stat-num">94%</div><div class="stat-label">Image Reduction</div></div>
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">Dev Phases</div></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="grid">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">Contents</div>
+        <div class="sidebar-links">
+          <a href="#overview"><span class="dot"></span> Overview</a>
+          <a href="#structure"><span class="dot"></span> Folder Structure</a>
+          <a href="#phases"><span class="dot"></span> Dev Phases</a>
+          <a href="#commits"><span class="dot"></span> Live Commit Log</a>
+          <a href="#team"><span class="dot"></span> Team</a>
+          <a href="#stats"><span class="dot"></span> Key Stats</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+      <!-- OVERVIEW -->
+      <section id="overview">
+        <div class="section-label">About This Project</div>
+        <div class="section-title">Project Overview</div>
+        <p style="font-size:14.5px;line-height:1.8;color:#555;margin-bottom:16px">
+          This is the complete development documentation for the <strong>DVOC Institute</strong> website —
+          Mumbai's premier professional IT training institute with 3 branches and 30,000+ students trained since 1996.
+        </p>
+        <p style="font-size:14.5px;line-height:1.8;color:#555">
+          The website was built from scratch, optimised for performance, and hosted on GitHub at
+          <a href="https://github.com/smeetkataria7-cmyk/DVOC_2" target="_blank" style="color:var(--orange);font-weight:600">smeetkataria7-cmyk/DVOC_2</a>.
+          This documentation page is live and reflects every commit automatically.
+        </p>
+      </section>
+
+      <!-- FOLDER STRUCTURE -->
+      <section id="structure">
+        <div class="section-label">Repository Layout</div>
+        <div class="section-title">Folder Structure</div>
+        <div class="folder-tree">
+          <div class="folder">📁 DVOC_2/</div>
+          <div class="file">📄 index.html <span class="comment">— Main homepage</span></div>
+          <div class="file">📄 about.html <span class="comment">— About us & team</span></div>
+          <div class="file">📄 support-chatbot.html <span class="comment">— Live chat support</span></div>
+          <div class="file">📄 DVOC_2-index-quiz.html <span class="comment">— Interactive quiz</span></div>
+          <div class="file">📄 docs.html <span class="comment">— This page</span></div>
+          <div class="folder" style="padding-left:24px">📁 course card/ <span class="comment">— 20 course pages</span></div>
+          <div class="file" style="padding-left:48px">📄 course-ai.html</div>
+          <div class="file" style="padding-left:48px">📄 course-python.html</div>
+          <div class="file" style="padding-left:48px">📄 course-fullstack.html</div>
+          <div class="file" style="padding-left:48px; color:#aaa">📄 ... 17 more courses</div>
+          <div class="folder" style="padding-left:24px">📁 pictures/ <span class="comment">— 26 WebP images</span></div>
+          <div class="file" style="padding-left:48px">🖼️ AI & GEN AI.webp</div>
+          <div class="file" style="padding-left:48px">🖼️ Owner & Director.webp</div>
+          <div class="file" style="padding-left:48px; color:#aaa">🖼️ ... 24 more images</div>
+        </div>
+      </section>
+
+      <!-- PHASES -->
+      <section id="phases">
+        <div class="section-label">Development History</div>
+        <div class="section-title">Development Phases</div>
+        <div class="phases">
+
+          <div class="phase open">
+            <div class="phase-header" onclick="togglePhase(this)">
+              <div class="phase-num">1</div>
+              <div class="phase-title">Initial Setup & Foundation</div>
+              <div class="phase-date">3 Jun 2026</div>
+              <div class="phase-chevron">&#8963;</div>
+            </div>
+            <div class="phase-body">
+              <ul>
+                <li>Set up base HTML structure for the DVOC Institute website</li>
+                <li>Established brand design language: orange (#E87E26) and navy (#1F3864)</li>
+                <li>Created homepage layout with navigation, hero section, and footer</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-header" onclick="togglePhase(this)">
+              <div class="phase-num">2</div>
+              <div class="phase-title">Content & Data Updates</div>
+              <div class="phase-date">4 Jun 2026</div>
+              <div class="phase-chevron">&#8963;</div>
+            </div>
+            <div class="phase-body">
+              <ul>
+                <li>Aligned all content with official dvoc.in data</li>
+                <li>Rebranded consistently to "DVOC INSTITUTE" in uppercase across all pages</li>
+                <li>Implemented dynamic course system covering all 36 courses</li>
+                <li>Added 3D tilt effect and hover animations on course cards</li>
+                <li>Implemented infinite auto-scroll logo carousel (NSDC, MS-CIT, KCLI, Tally, MKCL)</li>
+                <li>Enhanced Video Testimonials section with photos and custom player</li>
+                <li>Fixed broken footer with missing tags and malformed logo</li>
+                <li>Replaced WhatsApp button text with official WhatsApp logo icon</li>
+                <li>Fixed text corruption (mojibake encoding issues) across all pages</li>
+                <li>Fixed invisible course cards caused by fade-up animation bug</li>
+                <li>Added topic-based background images to course cards</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-header" onclick="togglePhase(this)">
+              <div class="phase-num">3</div>
+              <div class="phase-title">Course Detail Pages</div>
+              <div class="phase-date">5–6 Jun 2026</div>
+              <div class="phase-chevron">&#8963;</div>
+            </div>
+            <div class="phase-body">
+              <ul>
+                <li>Created 20 dedicated course detail HTML pages</li>
+                <li>Linked all course cards to their respective detail pages</li>
+                <li>Added Course dropdown to hero lead form for better UX</li>
+                <li>Added local course card background images via getCourseImage()</li>
+                <li>Courses: AI & GenAI, Data Science, Full Stack, FinTech, Digital Marketing, Data Analytics, Python, Java, C++, SQL, Power BI, Tableau, Excel, Tally, SEO, Social Media, Graphic Design, Web Design, Web Dev (C#), Foundation to IT</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-header" onclick="togglePhase(this)">
+              <div class="phase-num">4</div>
+              <div class="phase-title">Image Optimisation & Performance</div>
+              <div class="phase-date">8 Jun 2026</div>
+              <div class="phase-chevron">&#8963;</div>
+            </div>
+            <div class="phase-body">
+              <ul>
+                <li>Converted 25 PNG images to WebP using Python Pillow</li>
+                <li>Total image payload reduced from ~32 MB to ~2 MB (94% reduction)</li>
+                <li>Added loading="lazy" to all img tags for faster initial page load</li>
+                <li>Updated all 23 HTML files to reference new .webp filenames</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-header" onclick="togglePhase(this)">
+              <div class="phase-num">5</div>
+              <div class="phase-title">Website Restructure</div>
+              <div class="phase-date">8 Jun 2026</div>
+              <div class="phase-chevron">&#8963;</div>
+            </div>
+            <div class="phase-body">
+              <ul>
+                <li>Moved all 20 course pages into dedicated "course card/" subfolder</li>
+                <li>Moved all 26 WebP images into dedicated "pictures/" subfolder</li>
+                <li>Updated all internal links and image paths across every HTML file</li>
+                <li>Updated JS chatbot page references to new subfolder paths</li>
+                <li>Removed outdated files: README, v2/, files(1)/, dvoc-server/ folders</li>
+                <li>Force-pushed clean structure to DVOC_2 GitHub repository</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-header" onclick="togglePhase(this)">
+              <div class="phase-num">6</div>
+              <div class="phase-title">About Page Overhaul</div>
+              <div class="phase-date">8 Jun 2026</div>
+              <div class="phase-chevron">&#8963;</div>
+            </div>
+            <div class="phase-body">
+              <ul>
+                <li>Director's Desk: Added Ashish Bafna's name and personal biography</li>
+                <li>Updated director section to use Owner & Director.webp photo</li>
+                <li>Lajwanti Shah — Chief Business Officer: real photo and warm personal bio</li>
+                <li>Dhruv Bafna — Director: real photo and personal bio</li>
+                <li>Poonam Patil — Head of Placements: real photo and personal bio</li>
+                <li>Fixed team card image aspect ratio to 4:5 portrait</li>
+                <li>Fixed incorrect image path prefix causing blank photos</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-header" onclick="togglePhase(this)">
+              <div class="phase-num">7</div>
+              <div class="phase-title">UI Fixes & Polish</div>
+              <div class="phase-date">8 Jun 2026</div>
+              <div class="phase-chevron">&#8963;</div>
+            </div>
+            <div class="phase-body">
+              <ul>
+                <li>Removed orange WA floating button from all pages except index.html</li>
+                <li>Fixed course card images broken by encodeURIComponent encoding spaces</li>
+                <li>Added missing icons to highlight cards and About Us nav dropdown</li>
+                <li>Replaced raw emoji with HTML entities to fix broken code display</li>
+                <li>Fixed all image path references after folder restructuring</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- LIVE COMMIT LOG -->
+      <section id="commits">
+        <div class="section-label">GitHub API — Live</div>
+        <div class="section-title">Commit Log</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:20px">
+          <input type="text" id="commit-search" placeholder="&#128269; Search commits..." oninput="filterCommits()">
+          <div class="commit-filters" id="date-filters"></div>
+        </div>
+        <div class="commit-list" id="commit-list">
+          <div class="loading">
+            <div class="loading-spinner"></div>
+            Loading commits from GitHub...
+          </div>
+        </div>
+        <div id="commit-count" style="margin-top:12px;font-size:13px;color:#888;text-align:right"></div>
+      </section>
+
+      <!-- TEAM -->
+      <section id="team">
+        <div class="section-label">Leadership</div>
+        <div class="section-title">Team Featured on Website</div>
+        <div class="team-grid">
+          <div class="team-card">
+            <div class="team-avatar">AB</div>
+            <div class="team-name">Ashish Bafna</div>
+            <div class="team-role">Founder & Director</div>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar">LS</div>
+            <div class="team-name">Lajwanti Shah</div>
+            <div class="team-role">Chief Business Officer</div>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar">DB</div>
+            <div class="team-name">Dhruv Bafna</div>
+            <div class="team-role">Director</div>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar">PP</div>
+            <div class="team-name">Poonam Patil</div>
+            <div class="team-role">Head of Placements</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATS -->
+      <section id="stats">
+        <div class="section-label">At a Glance</div>
+        <div class="section-title">Key Achievements</div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="num">94%</div><div class="lbl">Image Size Reduced</div></div>
+          <div class="stat-card"><div class="num">20</div><div class="lbl">Course Pages Built</div></div>
+          <div class="stat-card"><div class="num">32MB</div><div class="lbl">Saved in Images</div></div>
+          <div class="stat-card"><div class="num">26</div><div class="lbl">WebP Images</div></div>
+          <div class="stat-card"><div class="num">4</div><div class="lbl">Team Members Added</div></div>
+          <div class="stat-card"><div class="num">7</div><div class="lbl">Dev Phases</div></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<footer>
+  Built for <strong>DVOC Institute</strong> &nbsp;|&nbsp;
+  <a href="https://github.com/smeetkataria7-cmyk/DVOC_2" target="_blank">GitHub Repository</a>
+  &nbsp;|&nbsp; Documentation auto-updates with every push
+</footer>
+
+<script>
+  const REPO = 'smeetkataria7-cmyk/DVOC_2';
+  let allCommits = [];
+
+  async function loadCommits() {
+    try {
+      let commits = [];
+      let page = 1;
+      while(true) {
+        const res = await fetch(`https://api.github.com/repos/${REPO}/commits?per_page=100&page=${page}`);
+        const data = await res.json();
+        if (!Array.isArray(data) || data.length === 0) break;
+        commits = commits.concat(data);
+        if (data.length < 100) break;
+        page++;
+      }
+      allCommits = commits;
+      document.getElementById('stat-commits').textContent = commits.length;
+      buildDateFilters(commits);
+      renderCommits(commits);
+    } catch(e) {
+      document.getElementById('commit-list').innerHTML = '<div class="loading">&#9888; Could not load commits. Check your connection.</div>';
+    }
+  }
+
+  function buildDateFilters(commits) {
+    const dates = [...new Set(commits.map(c => c.commit.author.date.slice(0,10)))];
+    const container = document.getElementById('date-filters');
+    container.innerHTML = '<button class="filter-btn active" onclick="setFilter(this,null)">All</button>';
+    dates.forEach(d => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn';
+      btn.textContent = formatDate(d);
+      btn.onclick = () => setFilter(btn, d);
+      container.appendChild(btn);
+    });
+  }
+
+  let activeDate = null;
+  function setFilter(btn, date) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeDate = date;
+    filterCommits();
+  }
+
+  function filterCommits() {
+    const q = document.getElementById('commit-search').value.toLowerCase();
+    const filtered = allCommits.filter(c => {
+      const msg = c.commit.message.toLowerCase();
+      const dateMatch = !activeDate || c.commit.author.date.startsWith(activeDate);
+      const searchMatch = !q || msg.includes(q) || c.sha.startsWith(q);
+      return dateMatch && searchMatch;
+    });
+    renderCommits(filtered);
+    document.getElementById('commit-count').textContent = `Showing ${filtered.length} of ${allCommits.length} commits`;
+  }
+
+  function renderCommits(commits) {
+    const list = document.getElementById('commit-list');
+    if (commits.length === 0) {
+      list.innerHTML = '<div class="loading">No commits match your search.</div>';
+      return;
+    }
+    list.innerHTML = commits.map(c => {
+      const msg = c.commit.message.split('\n')[0];
+      const date = formatDate(c.commit.author.date.slice(0,10));
+      const hash = c.sha.slice(0,7);
+      const url = c.html_url;
+      return `
+        <div class="commit-item">
+          <a href="${url}" target="_blank" style="text-decoration:none">
+            <div class="commit-hash">${hash}</div>
+          </a>
+          <div class="commit-info">
+            <div class="commit-msg">${escHtml(msg)}</div>
+            <div class="commit-meta">by ${escHtml(c.commit.author.name)}</div>
+          </div>
+          <div class="commit-date-badge">${date}</div>
+        </div>`;
+    }).join('');
+  }
+
+  function formatDate(iso) {
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function togglePhase(header) {
+    header.parentElement.classList.toggle('open');
+  }
+
+  // Sidebar active link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+    document.querySelectorAll('.sidebar-links a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+
+  loadCommits();
+</script>
+</body>
+</html>

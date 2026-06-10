@@ -776,7 +776,7 @@ function filterAndRenderCourses(filter = 'all', courses = topCourses, gridId = '
   // elements present at load, so trigger the fade-up animation manually here.
   const cards = grid.querySelectorAll('.fade-up');
   requestAnimationFrame(() => {
-    // Cap the per-card delay so large grids (all 36) still reveal quickly.
+    // Cap the per-card delay so large grids (all 27) still reveal quickly.
     cards.forEach((card, i) => setTimeout(() => card.classList.add('in'), Math.min(i, 10) * 45));
   });
   // Re-apply the 3D tilt/parallax effect to the freshly-rendered cards

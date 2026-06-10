@@ -400,6 +400,30 @@ select.form-field option{color:var(--text);background:#fff;}
   .logo-carousel{gap:32px;padding:0 16px;animation:scroll-left 25s linear infinite;}
   .logo-carousel-item{width:110px;height:60px;font-size:12px;border-radius:8px;}
 }
+/* MOBILE NAV (hamburger menu) */
+.hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:42px;height:42px;border:none;background:var(--orange-pale);border-radius:var(--radius-sm);cursor:pointer;margin-left:auto;flex-shrink:0;transition:background 0.2s;}
+.hamburger span{display:block;width:20px;height:2px;background:var(--orange);border-radius:2px;transition:all 0.3s cubic-bezier(0.23,1,0.32,1);}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:998;opacity:0;pointer-events:none;transition:opacity 0.3s ease;backdrop-filter:blur(4px);}
+.mobile-nav-overlay.open{opacity:1;pointer-events:auto;}
+.mobile-nav{position:fixed;top:0;right:0;width:min(320px,90vw);height:100%;background:#fff;z-index:999;transform:translateX(100%);transition:transform 0.38s cubic-bezier(0.23,1,0.32,1);box-shadow:-8px 0 40px rgba(0,0,0,0.18);display:flex;flex-direction:column;overflow-y:auto;}
+.mobile-nav.open{transform:translateX(0);}
+.mobile-nav-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--border);background:var(--navy);}
+.mobile-nav-close{width:36px;height:36px;border:none;background:rgba(255,255,255,0.12);border-radius:8px;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;}
+.mobile-nav-links{flex:1;padding:12px 0;}
+.mn-link{display:flex;align-items:center;gap:12px;padding:14px 22px;font-size:15px;font-weight:600;color:var(--text);text-decoration:none;border-bottom:1px solid var(--border);transition:background 0.18s,color 0.18s;}
+.mn-link:hover{background:var(--orange-pale);color:var(--orange);}
+.mn-link .mn-emoji{font-size:17px;width:26px;text-align:center;}
+.mn-section{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--orange);font-weight:700;padding:16px 22px 6px;}
+.mobile-nav-footer{padding:18px 20px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:10px;}
+.mn-btn{display:block;text-align:center;padding:13px;border-radius:var(--radius-sm);font-size:14px;font-weight:700;text-decoration:none;transition:all 0.2s;font-family:'Poppins',sans-serif;}
+.mn-btn-primary{background:var(--orange);color:#fff;}
+.mn-btn-primary:hover{background:var(--orange-dark);}
+.mn-btn-outline{background:transparent;color:var(--orange);border:1.5px solid var(--orange);}
+.mn-btn-outline:hover{background:var(--orange-pale);}
+@media(max-width:768px){.hamburger{display:flex;}}
 </style>
 </head>
 <body>
@@ -472,8 +496,36 @@ select.form-field option{color:var(--text);background:#fff;}
       <a href="tel:+917021733916" class="btn-outline"> Call Us</a>
       <a href="#enroll" class="btn-orange">Enquire Now</a>
     </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
+<div class="mobile-nav-overlay" id="mob-overlay"></div>
+<div class="mobile-nav" id="mob-nav">
+  <div class="mobile-nav-header">
+    <span style="color:#fff;font-size:16px;font-weight:800;letter-spacing:1.5px;">DVOC INSTITUTE</span>
+    <button class="mobile-nav-close" id="mob-close">✕</button>
+  </div>
+  <div class="mobile-nav-links">
+    <div class="mn-section">Navigate</div>
+    <a href="#" class="mn-link"><span class="mn-emoji">🏠</span> Home</a>
+    <a href="#courses" class="mn-link"><span class="mn-emoji">📚</span> Courses</a>
+    <a href="about.html" class="mn-link"><span class="mn-emoji">🏛️</span> About Us</a>
+    <a href="#batches" class="mn-link"><span class="mn-emoji">📅</span> Our Events</a>
+    <a href="#locations" class="mn-link"><span class="mn-emoji">📍</span> Locations</a>
+    <a href="#cta" class="mn-link"><span class="mn-emoji">✉️</span> Contact Us</a>
+    <div class="mn-section">Popular Courses</div>
+    <a href="course card/course-fullstack.html" class="mn-link"><span class="mn-emoji">💻</span> Full Stack Dev</a>
+    <a href="course card/course-fintech.html" class="mn-link"><span class="mn-emoji">📊</span> FinTech &amp; Analytics</a>
+    <a href="course card/course-datascience.html" class="mn-link"><span class="mn-emoji">🤖</span> Data Science</a>
+    <a href="course card/course-digitalmarketing.html" class="mn-link"><span class="mn-emoji">📱</span> Digital Marketing</a>
+    <a href="course card/course-ai.html" class="mn-link"><span class="mn-emoji">✨</span> AI &amp; GenAI</a>
+    <a href="course card/course-dataanalytics.html" class="mn-link"><span class="mn-emoji">📈</span> Data Analytics</a>
+  </div>
+  <div class="mobile-nav-footer">
+    <a href="tel:+917021733916" class="mn-btn mn-btn-outline">📞 Call Us</a>
+    <a href="#enroll" class="mn-btn mn-btn-primary">Enquire Now</a>
+  </div>
+</div>
 
 <!-- HERO -->
 <div class="hero" id="enroll">
@@ -1751,6 +1803,18 @@ tilt('.location-card',  5, -4);
       }
     });
   }
+})();
+</script>
+<script>
+(function(){
+  var hb=document.getElementById('hamburger'),mn=document.getElementById('mob-nav'),ov=document.getElementById('mob-overlay'),cl=document.getElementById('mob-close');
+  if(!hb||!mn||!ov)return;
+  function toggle(){var o=mn.classList.contains('open');hb.classList.toggle('open',!o);mn.classList.toggle('open',!o);ov.classList.toggle('open',!o);document.body.style.overflow=o?'':'hidden';}
+  function close(){hb.classList.remove('open');mn.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}
+  hb.addEventListener('click',toggle);
+  if(cl)cl.addEventListener('click',close);
+  ov.addEventListener('click',close);
+  mn.querySelectorAll('.mn-link, .mn-btn').forEach(function(l){l.addEventListener('click',close);});
 })();
 </script>
 </body>

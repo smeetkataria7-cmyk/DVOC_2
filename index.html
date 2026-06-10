@@ -154,6 +154,13 @@ section{padding:88px 32px;}
 .tab-btn,.tab-btn-all{padding:8px 18px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:#fff;color:var(--text-muted);font-family:'Poppins',sans-serif;transition:all 0.2s;}
 .tab-btn.active,.tab-btn:hover,.tab-btn-all.active,.tab-btn-all:hover{background:var(--orange);border-color:var(--orange);color:#fff;}
 .courses-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+/* Main courses row scrolls horizontally to keep the page short */
+#coursesGrid{display:flex;grid-template-columns:none;overflow-x:auto;gap:22px;scroll-snap-type:x proximity;padding:4px 2px 18px;scrollbar-width:thin;scrollbar-color:var(--orange) transparent;scroll-behavior:smooth;}
+#coursesGrid::-webkit-scrollbar{height:8px;}
+#coursesGrid::-webkit-scrollbar-track{background:transparent;}
+#coursesGrid::-webkit-scrollbar-thumb{background:var(--border-orange);border-radius:10px;}
+#coursesGrid::-webkit-scrollbar-thumb:hover{background:var(--orange);}
+#coursesGrid .course-card{flex:0 0 290px;scroll-snap-align:start;}
 .course-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.3s;text-decoration:none;color:inherit;display:flex;flex-direction:column;}
 .course-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--border-orange);}
 .course-img{height:180px;display:flex;align-items:flex-end;padding:20px;position:relative;overflow:hidden;}

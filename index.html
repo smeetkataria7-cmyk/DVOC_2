@@ -720,13 +720,7 @@ const topCourses = coursesData;
 
 function formatHours(hours) {
   if (!hours) return "Duration TBD";
-  // Classes run ~2 hrs/day, 6 days/week => ~12 hrs/week
-  const weeks = Math.ceil(hours / 12);
-  if (weeks >= 9) {
-    const months = Math.round(weeks / 4.33);
-    return `${hours} hours (~${months} month${months > 1 ? 's' : ''})`;
-  }
-  return `${hours} hours (~${weeks} week${weeks > 1 ? 's' : ''})`;
+  return `${hours} hours`;
 }
 
 // Course card background images. Local files live in the "course card images"

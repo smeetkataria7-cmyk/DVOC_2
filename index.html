@@ -604,7 +604,7 @@ select.form-field option{color:var(--text);background:#fff;}
   <div class="stats-inner">
     <div class="stat-item fade-up"><span class="stat-num">30+</span><span class="stat-label">Years of Excellence</span></div>
     <div class="stat-item fade-up"><span class="stat-num">30K+</span><span class="stat-label">Students Trained</span></div>
-    <div class="stat-item fade-up"><span class="stat-num">27</span><span class="stat-label">Career Programs</span></div>
+    <div class="stat-item fade-up"><span class="stat-num">22</span><span class="stat-label">Career Programs</span></div>
     <div class="stat-item fade-up"><span class="stat-num">3</span><span class="stat-label">Branches in Mumbai</span></div>
   </div>
 </div>
@@ -642,7 +642,7 @@ select.form-field option{color:var(--text);background:#fff;}
     <div class="courses-header">
       <div>
         <div class="section-label">Our Programs</div>
-        <div class="section-title">Explore All <span>27 Courses</span></div>
+        <div class="section-title">Explore All <span>Courses</span></div>
       </div>
       <div class="tab-row">
         <button class="tab-btn active" data-filter="all">All</button>
@@ -653,7 +653,7 @@ select.form-field option{color:var(--text);background:#fff;}
     </div>
     <div class="courses-grid" id="coursesGrid"></div>
     <div style="text-align:center;margin-top:40px;">
-      <button id="viewAllBtn" class="btn-orange" style="font-size:14px;padding:13px 32px;display:inline-block;border-radius:8px;border:none;cursor:pointer;">View All 27 Programs &#8594;</button>
+      <button id="viewAllBtn" class="btn-orange" style="font-size:14px;padding:13px 32px;display:inline-block;border-radius:8px;border:none;cursor:pointer;">View All Courses &#8594;</button>
     </div>
   </div>
 </section>
@@ -664,7 +664,7 @@ select.form-field option{color:var(--text);background:#fff;}
     <div class="courses-header">
       <div>
         <div class="section-label">Complete Program List</div>
-        <div class="section-title">Explore All <span>27 Courses</span></div>
+        <div class="section-title">Explore All <span>Courses</span></div>
       </div>
       <div class="tab-row">
         <button class="tab-btn-all active" data-filter="all">All</button>
@@ -691,12 +691,6 @@ const coursesData = [
   {id: 5,  name: "Professional Program in Digital Marketing",           hours: 110, segment: "ug",   icon: "", desc: "SEO, ads, content strategy, campaign management"},
   {id: 6,  name: "Professional Program in Data Analytics",              hours: 180, segment: "ug",   icon: "", desc: "Excel, Power BI, Python, dashboards, reporting"},
   {id: 7,  name: "Advanced Program in Data Science, ML & Generative AI",hours: 380, segment: "ug",   icon: "", desc: "Machine learning, deep learning, generative AI, real projects"},
-  // ── Graduate programs ──
-  {id: 8,  name: "Advanced Program in Java Full Stack Development (Graduates)",      hours: 288, segment: "grad", icon: "", desc: "Java, Spring Boot, microservices, enterprise web apps"},
-  {id: 9,  name: "Professional Program in FinTech & Business Analytics (Graduates)",hours: 288, segment: "grad", icon: "", desc: "Finance fundamentals, analytics tools, business intelligence"},
-  {id: 10, name: "Professional Program in Digital Marketing (Graduates)",           hours: 110, segment: "grad", icon: "", desc: "SEO, ads, content strategy, campaign management"},
-  {id: 11, name: "Professional Program in Data Analytics (Graduates)",              hours: 180, segment: "grad", icon: "", desc: "Excel, Power BI, Python, dashboards, reporting"},
-  {id: 12, name: "Advanced Program in Data Science, ML & Generative AI (Graduates)",hours: 380, segment: "grad", icon: "", desc: "Machine learning, deep learning, generative AI, real projects"},
   // ── Skill-building / upskilling courses ──
   {id: 13, name: "Java Programming",              hours: 48,  segment: "any", icon: "", desc: "Core Java, OOP concepts, problem solving"},
   {id: 14, name: "Python Programming",            hours: 30,  segment: "any", icon: "", desc: "Python basics, automation, scripting"},
@@ -715,7 +709,7 @@ const coursesData = [
   {id: 27, name: "MS-CIT",                         hours: 144, segment: "any", icon: "", desc: "Maharashtra govt-certified computer literacy programme"},
 ];
 
-// Show all 27 courses — one card per program (College + Graduate variants split)
+// One card per unique course (degree programs serve both college students & graduates)
 const topCourses = coursesData;
 
 function formatHours(hours) {
@@ -785,11 +779,6 @@ const coursePageByName = {
   "Professional Program in Digital Marketing":                       "course card/course-digitalmarketing.html",
   "Professional Program in Data Analytics":                          "course card/course-dataanalytics.html",
   "Advanced Program in Data Science, ML & Generative AI":            "course card/course-datascience.html",
-  "Advanced Program in Java Full Stack Development (Graduates)":      "course card/course-fullstack-grad.html",
-  "Professional Program in FinTech & Business Analytics (Graduates)":"course card/course-fintech-grad.html",
-  "Professional Program in Digital Marketing (Graduates)":           "course card/course-digitalmarketing-grad.html",
-  "Professional Program in Data Analytics (Graduates)":              "course card/course-dataanalytics-grad.html",
-  "Advanced Program in Data Science, ML & Generative AI (Graduates)":"course card/course-datascience-grad.html",
   "Java Programming":                                                "course card/course-java.html",
   "Python Programming":                                              "course card/course-python.html",
   "Advanced Excel":                                                  "course card/course-excel.html",
@@ -827,7 +816,7 @@ function createCourseCard(course) {
 }
 
 function filterAndRenderCourses(filter = 'all', courses = topCourses, gridId = 'coursesGrid') {
-  const filtered = filter === 'all' ? courses : courses.filter(c => c.segment === filter);
+  const filtered = filter === 'all' ? courses : courses.filter(c => c.segment === filter || (filter === 'grad' && c.segment === 'ug'));
   const grid = document.getElementById(gridId);
   grid.innerHTML = filtered.map(createCourseCard).join('');
   // Reveal dynamically-rendered cards: the global scroll observer only watches

@@ -684,29 +684,29 @@ select.form-field option{color:var(--text);background:#fff;}
 // ==================== COURSES SYSTEM ====================
 const coursesData = [
   // ── College / Undergraduate programs ──
-  {id: 1,  name: "Advanced Program in Java Full Stack Development",     hours: 288, segment: "ug",   icon: "", desc: "Java, Spring Boot, microservices, enterprise web apps"},
-  {id: 2,  name: "Advanced Program in Full Stack Software Development", hours: 524, segment: "ug",   icon: "", desc: "Web development, backend, databases, real-world projects"},
-  {id: 3,  name: "Professional Program in FinTech & Business Analytics",hours: 288, segment: "ug",   icon: "", desc: "Finance fundamentals, analytics tools, business intelligence"},
-  {id: 4,  name: "Advanced Program in FinTech & Business Analytics",    hours: 492, segment: "ug",   icon: "", desc: "Advanced finance, data analysis, investment & portfolio skills"},
-  {id: 5,  name: "Professional Program in Digital Marketing",           hours: 110, segment: "ug",   icon: "", desc: "SEO, ads, content strategy, campaign management"},
-  {id: 6,  name: "Professional Program in Data Analytics",              hours: 180, segment: "ug",   icon: "", desc: "Excel, Power BI, Python, dashboards, reporting"},
-  {id: 7,  name: "Advanced Program in Data Science, ML & Generative AI",hours: 380, segment: "ug",   icon: "", desc: "Machine learning, deep learning, generative AI, real projects"},
+  {id: 1,  name: "Advanced Program in Java Full Stack Development",     hours: 288, segments: ["ug","grad"],   icon: "", desc: "Java, Spring Boot, microservices, enterprise web apps"},
+  {id: 2,  name: "Advanced Program in Full Stack Software Development", hours: 524, segments: ["ug"],   icon: "", desc: "Web development, backend, databases, real-world projects"},
+  {id: 3,  name: "Professional Program in FinTech & Business Analytics",hours: 288, segments: ["ug","grad"],   icon: "", desc: "Finance fundamentals, analytics tools, business intelligence"},
+  {id: 4,  name: "Advanced Program in FinTech & Business Analytics",    hours: 492, segments: ["ug"],   icon: "", desc: "Advanced finance, data analysis, investment & portfolio skills"},
+  {id: 5,  name: "Professional Program in Digital Marketing",           hours: 110, segments: ["ug","grad"],   icon: "", desc: "SEO, ads, content strategy, campaign management"},
+  {id: 6,  name: "Professional Program in Data Analytics",              hours: 180, segments: ["ug","grad"],   icon: "", desc: "Excel, Power BI, Python, dashboards, reporting"},
+  {id: 7,  name: "Advanced Program in Data Science, ML & Generative AI",hours: 380, segments: ["ug","grad"],   icon: "", desc: "Machine learning, deep learning, generative AI, real projects"},
   // ── Skill-building / upskilling courses ──
-  {id: 13, name: "Java Programming",              hours: 48,  segment: "any", icon: "", desc: "Core Java, OOP concepts, problem solving"},
-  {id: 14, name: "Python Programming",            hours: 30,  segment: "any", icon: "", desc: "Python basics, automation, scripting"},
-  {id: 15, name: "Advanced Excel",                hours: 24,  segment: "any", icon: "", desc: "Formulas, macros, pivot tables, automation"},
-  {id: 16, name: "Graphic Designing",             hours: 60,  segment: "any", icon: "", desc: "Photoshop, Illustrator, InDesign, branding & visual design"},
-  {id: 17, name: "Power BI",                      hours: 36,  segment: "any", icon: "", desc: "Business intelligence, dashboards, reporting"},
-  {id: 18, name: "Tally Essentials 1",            hours: 35,  segment: "any", icon: "", desc: "Accounting basics, company setup, vouchers, GST foundations"},
-  {id: 19, name: "Tally Essentials 2",            hours: 35,  segment: "any", icon: "", desc: "Advanced accounting, inventory, banking & GST returns"},
-  {id: 20, name: "Tally Essentials 3",            hours: 36,  segment: "any", icon: "", desc: "Payroll, cost centres, advanced reporting & data security"},
-  {id: 21, name: "Social Media Marketing",        hours: 40,  segment: "any", icon: "", desc: "Instagram, Facebook, LinkedIn, content strategy"},
-  {id: 22, name: "R-Programming",                 hours: 36,  segment: "any", icon: "", desc: "Statistical computing, data analysis, ggplot2"},
-  {id: 23, name: "Data Analytics with Python",    hours: 48,  segment: "any", icon: "", desc: "Pandas, NumPy, data cleaning, visualization"},
-  {id: 24, name: "Career-Edge",                   hours: 80,  segment: "any", icon: "", desc: "Certificate in Digital Skills & GenAI — digital, analytics & coding"},
-  {id: 25, name: "Foundation in IT",              hours: 80,  segment: "any", icon: "", desc: "Computer basics, internet, productivity software"},
-  {id: 26, name: "Professional Certificate in AI Essentials", hours: 36, segment: "any", icon: "", desc: "AI fundamentals, prompt engineering, applied GenAI tools"},
-  {id: 27, name: "MS-CIT",                         hours: 144, segment: "any", icon: "", desc: "Maharashtra govt-certified computer literacy programme"},
+  {id: 13, name: "Java Programming",              hours: 48,  segments: ["any"], icon: "", desc: "Core Java, OOP concepts, problem solving"},
+  {id: 14, name: "Python Programming",            hours: 30,  segments: ["any"], icon: "", desc: "Python basics, automation, scripting"},
+  {id: 15, name: "Advanced Excel",                hours: 24,  segments: ["any"], icon: "", desc: "Formulas, macros, pivot tables, automation"},
+  {id: 16, name: "Graphic Designing",             hours: 60,  segments: ["any"], icon: "", desc: "Photoshop, Illustrator, InDesign, branding & visual design"},
+  {id: 17, name: "Power BI",                      hours: 36,  segments: ["any"], icon: "", desc: "Business intelligence, dashboards, reporting"},
+  {id: 18, name: "Tally Essentials 1",            hours: 35,  segments: ["any"], icon: "", desc: "Accounting basics, company setup, vouchers, GST foundations"},
+  {id: 19, name: "Tally Essentials 2",            hours: 35,  segments: ["any"], icon: "", desc: "Advanced accounting, inventory, banking & GST returns"},
+  {id: 20, name: "Tally Essentials 3",            hours: 36,  segments: ["any"], icon: "", desc: "Payroll, cost centres, advanced reporting & data security"},
+  {id: 21, name: "Social Media Marketing",        hours: 40,  segments: ["any"], icon: "", desc: "Instagram, Facebook, LinkedIn, content strategy"},
+  {id: 22, name: "R-Programming",                 hours: 36,  segments: ["any"], icon: "", desc: "Statistical computing, data analysis, ggplot2"},
+  {id: 23, name: "Data Analytics with Python",    hours: 48,  segments: ["any"], icon: "", desc: "Pandas, NumPy, data cleaning, visualization"},
+  {id: 24, name: "Career-Edge",                   hours: 80,  segments: ["any"], icon: "", desc: "Certificate in Digital Skills & GenAI — digital, analytics & coding"},
+  {id: 25, name: "Foundation in IT",              hours: 80,  segments: ["any"], icon: "", desc: "Computer basics, internet, productivity software"},
+  {id: 26, name: "Professional Certificate in AI Essentials", hours: 36, segments: ["any"], icon: "", desc: "AI fundamentals, prompt engineering, applied GenAI tools"},
+  {id: 27, name: "MS-CIT",                         hours: 144, segments: ["any"], icon: "", desc: "Maharashtra govt-certified computer literacy programme"},
 ];
 
 // One card per unique course (degree programs serve both college students & graduates)
@@ -816,7 +816,7 @@ function createCourseCard(course) {
 }
 
 function filterAndRenderCourses(filter = 'all', courses = topCourses, gridId = 'coursesGrid') {
-  const filtered = filter === 'all' ? courses : courses.filter(c => c.segment === filter || (filter === 'grad' && c.segment === 'ug'));
+  const filtered = filter === 'all' ? courses : courses.filter(c => (c.segments || []).includes(filter));
   const grid = document.getElementById(gridId);
   grid.innerHTML = filtered.map(createCourseCard).join('');
   // Reveal dynamically-rendered cards: the global scroll observer only watches

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://dvoc.in/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://dvoc.in/about/</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://dvoc.in/docs.html</loc><priority>0.5</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://dvoc.in/courses/ai/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/careeredge/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/dataanalytics-python/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/dataanalytics/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/datascience/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/digitalmarketing/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/excel/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/fintech-advanced/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/fintech/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/foundationit/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/fullstack-software/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/fullstack/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/graphicdesign/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/java/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/mscit/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/powerbi/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/python/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/rprogramming/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/socialmedia/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/tally/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/tally2/</loc><priority>0.7</priority></url>
+  <url><loc>https://dvoc.in/courses/tally3/</loc><priority>0.7</priority></url>
+</urlset>

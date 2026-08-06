@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Career Counselling | DVOC Institute Mumbai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;font-family:'Poppins',sans-serif;overflow-x:hidden;}
+
+body{
+  background:var(--navy);
+  --orange:#E87E26;
+  --orange-dark:#C96B18;
+  --orange-light:#F5A54A;
+  --orange-pale:#FEF3E8;
+  --navy:#0F1B2D;
+  --white:#fff;
+  --border:#E2DDD7;
+  --text:#1C1C1E;
+  --text-light:#6B7A8D;
+}
+
+/* PAGE */
+.page{
+  min-height:100vh;
+  background:var(--navy);
+  display:flex;
+  flex-direction:column;
+}
+
+/* NAV */
+.nav{
+  padding:10px 32px;
+  background:#fff;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--border);
+}
+.nav-logo img{height:96px;width:auto;display:block;}
+.nav-phone{display:flex;align-items:center;gap:7px;color:var(--orange);font-size:14px;font-weight:700;text-decoration:none;}
+.nav-phone i{font-size:12px;}
+
+/* HERO */
+.hero{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  max-width:600px;
+  margin:0 auto;
+  width:100%;
+  padding:48px 24px 56px;
+  gap:0;
+}
+
+/* HEADLINE */
+.badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(232,126,38,0.15);border:1px solid rgba(232,126,38,0.3);
+  color:var(--orange-light);padding:5px 14px;border-radius:100px;
+  font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  margin-bottom:16px;
+}
+.hero-title{
+  font-size:clamp(26px,4vw,42px);font-weight:800;color:#fff;
+  line-height:1.1;margin-bottom:8px;text-align:center;
+}
+.hero-title span{color:var(--orange-light);}
+.hero-sub{font-size:13.5px;color:rgba(255,255,255,0.45);line-height:1.7;text-align:center;margin-bottom:28px;}
+
+/* FORM CARD */
+.form-card{
+  background:#fff;
+  border-radius:20px;
+  padding:32px;
+  border-top:4px solid var(--orange);
+  box-shadow:0 32px 80px rgba(0,0,0,0.35);
+  width:100%;
+}
+
+/* BELOW FORM: desc + stats */
+.below-form{
+  width:100%;
+  margin-top:28px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.below-desc{font-size:13.5px;color:rgba(255,255,255,0.45);line-height:1.7;text-align:center;}
+.stats{
+  display:flex;justify-content:center;gap:0;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;overflow:hidden;
+}
+.stat{flex:1;padding:16px 12px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);}
+.stat:last-child{border-right:none;}
+.stat-num{font-size:22px;font-weight:800;color:var(--orange-light);line-height:1;display:block;}
+.stat-label{font-size:11px;color:rgba(255,255,255,0.35);margin-top:3px;display:block;}
+.form-tag{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--orange);font-weight:700;margin-bottom:6px;}
+.form-title{font-size:20px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+.form-desc{font-size:13px;color:var(--text-light);margin-bottom:22px;line-height:1.55;}
+
+.lead-form{display:flex;flex-direction:column;gap:12px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+.fg{display:flex;flex-direction:column;gap:4px;}
+.flabel{font-size:11px;font-weight:700;color:#3A4A5C;letter-spacing:0.3px;text-transform:uppercase;}
+.req{color:var(--orange);}
+
+.fi,.fs{
+  width:100%;padding:10px 13px;
+  border:1.5px solid var(--border);border-radius:8px;
+  font-size:13.5px;color:var(--text);font-family:'Poppins',sans-serif;
+  background:#fff;outline:none;appearance:none;-webkit-appearance:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+.fi:focus,.fs:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(232,126,38,0.1);}
+.fi::placeholder{color:#B0BBBF;}
+.sw{position:relative;}
+.sw::after{content:'';position:absolute;right:12px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid #9AA5B4;pointer-events:none;}
+.sw .fs{padding-right:30px;}
+
+#college-other-wrap{display:none;}
+
+.consent-row{display:flex;align-items:flex-start;gap:9px;margin-top:2px;}
+.consent-row input{width:15px;height:15px;accent-color:var(--orange);flex-shrink:0;margin-top:2px;cursor:pointer;}
+.consent-text{font-size:11.5px;color:var(--text-light);line-height:1.5;}
+.consent-text a{color:var(--orange);}
+
+.btn-submit{
+  width:100%;padding:14px;background:var(--orange);color:#fff;
+  border:none;border-radius:8px;font-size:15px;font-weight:700;
+  font-family:'Poppins',sans-serif;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:background 0.2s,transform 0.2s,box-shadow 0.2s;
+  margin-top:4px;
+}
+.btn-submit:hover{background:var(--orange-dark);transform:translateY(-1px);box-shadow:0 8px 24px rgba(232,126,38,0.4);}
+.btn-submit:disabled{opacity:0.65;pointer-events:none;}
+.spinner{display:none;width:17px;height:17px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.btn-submit.loading .btn-text{display:none;}
+.btn-submit.loading .spinner{display:block;}
+
+.form-note{text-align:center;font-size:11.5px;color:var(--text-light);display:flex;align-items:center;justify-content:center;gap:5px;margin-top:6px;}
+.form-note i{color:var(--orange);font-size:10px;}
+
+.ferr{font-size:11px;color:#D93025;display:none;margin-top:1px;}
+.fi.err,.fs.err{border-color:#D93025;}
+
+/* SUCCESS */
+.success-card{display:none;flex-direction:column;align-items:center;text-align:center;padding:32px 16px;}
+.success-icon{width:64px;height:64px;border-radius:50%;background:var(--orange-pale);display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:24px;margin-bottom:16px;}
+.success-title{font-size:20px;font-weight:800;color:var(--navy);margin-bottom:8px;}
+.success-desc{font-size:13.5px;color:var(--text-light);line-height:1.65;max-width:280px;margin-bottom:20px;}
+.btn-call{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--orange);color:#fff;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;}
+.btn-call:hover{background:var(--orange-dark);}
+
+/* MOBILE */
+@media(max-width:600px){
+  .nav{padding:12px 16px;}
+  .nav-logo img{height:80px;}
+  .hero{padding:32px 16px 48px;}
+  .form-card{padding:22px 16px;}
+  .row2{grid-template-columns:1fr;}
+  .stats{flex-direction:row;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="https://dvoc.in" class="nav-logo">
+      <img src="pictures/dvoc-logo.jpg" alt="DVOC INSTITUTE">
+    </a>
+    <a href="tel:+918879922911" class="nav-phone">
+      <i class="fa-solid fa-phone"></i> +91 88799 22911
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+
+    <div class="badge"><i class="fa-solid fa-shield-check"></i> Government Certified</div>
+    <h1 class="hero-title">Launch Your <span>Tech Career</span> in Mumbai</h1>
+    <p class="hero-sub">Free career counselling — we'll call you within 24 hours.</p>
+
+    <!-- FORM -->
+    <div class="form-card" id="form-card">
+
+      <div id="form-state">
+        <div class="form-tag">Free Career Counselling</div>
+        <div class="form-title">Book Your Free Session</div>
+        <p class="form-desc">Fill in your details — our counsellor will call you within 24 hours.</p>
+
+        <form class="lead-form" id="leadForm" novalidate>
+
+          <div class="row2">
+            <div class="fg">
+              <label class="flabel" for="fname">Full Name <span class="req">*</span></label>
+              <input class="fi" type="text" id="fname" name="name" placeholder="Your name" required autocomplete="name">
+              <span class="ferr" id="fname-err">Please enter your name</span>
+            </div>
+            <div class="fg">
+              <label class="flabel" for="phone">Phone <span class="req">*</span></label>
+              <input class="fi" type="tel" id="phone" name="phone" placeholder="10-digit number" required autocomplete="tel" maxlength="10">
+              <span class="ferr" id="phone-err">Enter a valid 10-digit number</span>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label class="flabel" for="email">Email Address <span class="req">*</span></label>
+            <input class="fi" type="email" id="email" name="email" placeholder="you@email.com" required autocomplete="email">
+            <span class="ferr" id="email-err">Enter a valid email</span>
+          </div>
+
+          <div class="row2">
+            <div class="fg">
+              <label class="flabel" for="edu">Education <span class="req">*</span></label>
+              <div class="sw">
+                <select class="fs" id="edu" name="education" required>
+                  <option value="" disabled selected>Select level</option>
+                  <option>10th Pass</option>
+                  <option>12th Pass</option>
+                  <option>Pursuing Graduation</option>
+                  <option>Graduate</option>
+                  <option>Post Graduate</option>
+                  <option>Working Professional</option>
+                </select>
+              </div>
+              <span class="ferr" id="edu-err">Please select</span>
+            </div>
+            <div class="fg">
+              <label class="flabel" for="branch">Branch <span class="req">*</span></label>
+              <div class="sw">
+                <select class="fs" id="branch" name="branch" required>
+                  <option value="" disabled selected>Select branch</option>
+                  <option>Andheri</option>
+                  <option>Vile Parle</option>
+                  <option>Grant Road</option>
+                  <option>No Preference</option>
+                </select>
+              </div>
+              <span class="ferr" id="branch-err">Please select</span>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label class="flabel" for="college">College / School <span class="req">*</span></label>
+            <div class="sw">
+              <select class="fs" id="college" name="college" required>
+                <option value="" disabled selected>Select your college</option>
+                <optgroup label="Popular Mumbai Colleges">
+                  <option>Mithibai College</option>
+                  <option>HR College of Commerce</option>
+                  <option>Jai Hind College</option>
+                  <option>K.C. College</option>
+                  <option>St. Xavier's College</option>
+                  <option>Sophia College</option>
+                  <option>Wilson College</option>
+                  <option>Ruia College</option>
+                  <option>Sathaye College</option>
+                  <option>Narsee Monjee College</option>
+                  <option>VES College</option>
+                  <option>Rizvi College</option>
+                  <option>Bhavans College</option>
+                  <option>Elphinstone College</option>
+                  <option>Sydenham College</option>
+                  <option>VG Vaze College</option>
+                  <option>St. Andrews College</option>
+                  <option>Don Bosco College</option>
+                  <option>Thadomal Shahani Engineering College</option>
+                  <option>DJ Sanghvi College</option>
+                  <option>KJ Somaiya College</option>
+                  <option>SIES College</option>
+                  <option>NMIMS University</option>
+                  <option>SP Jain Institute</option>
+                  <option>NM College</option>
+                  <option>RD National College</option>
+                </optgroup>
+                <optgroup label="School">
+                  <option>Currently in School (10th)</option>
+                  <option>Currently in School (12th)</option>
+                </optgroup>
+                <option value="other">Other (specify below)</option>
+              </select>
+            </div>
+            <span class="ferr" id="college-err">Please select your college</span>
+          </div>
+
+          <div class="fg" id="college-other-wrap">
+            <label class="flabel" for="college-other">College Name <span class="req">*</span></label>
+            <input class="fi" type="text" id="college-other" name="college_other" placeholder="Enter your college name">
+            <span class="ferr" id="college-other-err">Please enter your college name</span>
+          </div>
+
+          <div class="fg">
+            <label class="flabel" for="course">Course Interested In <span class="req">*</span></label>
+            <div class="sw">
+              <select class="fs" id="course" name="course" required>
+                <option value="" disabled selected>Select a course</option>
+                <optgroup label="IT & Programming">
+                  <option>Full Stack Development</option>
+                  <option>Python Programming</option>
+                  <option>Java Programming</option>
+                  <option>Foundation IT / Computer Basics</option>
+                  <option>MS-CIT</option>
+                </optgroup>
+                <optgroup label="Data & Analytics">
+                  <option>Data Science</option>
+                  <option>Data Analytics</option>
+                  <option>Data Analytics with Python</option>
+                  <option>Power BI</option>
+                </optgroup>
+                <optgroup label="AI">
+                  <option>Artificial Intelligence & Machine Learning</option>
+                </optgroup>
+                <optgroup label="Finance & Accounting">
+                  <option>Tally (Basic)</option>
+                  <option>Tally with GST</option>
+                  <option>Tally Advanced</option>
+                  <option>Advanced Excel</option>
+                  <option>FinTech</option>
+                  <option>FinTech Advanced</option>
+                </optgroup>
+                <optgroup label="Marketing & Design">
+                  <option>Digital Marketing</option>
+                  <option>Social Media Marketing</option>
+                  <option>Graphic Design</option>
+                </optgroup>
+                <option value="not-sure">Not Sure — Need Guidance</option>
+              </select>
+            </div>
+            <span class="ferr" id="course-err">Please select a course</span>
+          </div>
+
+          <div class="fg">
+            <label class="flabel" for="timing">Preferred Timing</label>
+            <div class="sw">
+              <select class="fs" id="timing" name="timing">
+                <option value="" disabled selected>Select timing (optional)</option>
+                <option>Morning (9am – 12pm)</option>
+                <option>Afternoon (12pm – 3pm)</option>
+                <option>Evening (4pm – 7pm)</option>
+                <option>Weekend Only</option>
+                <option>Flexible</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="consent-row">
+            <input type="checkbox" id="consent" required>
+            <label for="consent" class="consent-text">I agree to be contacted by DVOC Institute for career guidance. <a href="https://dvoc.in/" target="_blank">Privacy Policy</a>.</label>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span class="btn-text"><i class="fa-solid fa-paper-plane" style="font-size:13px;"></i> &nbsp;Book Free Counselling</span>
+            <div class="spinner"></div>
+          </button>
+
+          <p class="form-note"><i class="fa-solid fa-lock"></i> Free · No spam · We call you within 24 hrs</p>
+
+        </form>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="success-card" id="success-state">
+        <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="success-title">You're All Set!</div>
+        <p class="success-desc">Our counsellor will call you within 24 hours. Want to speak now?</p>
+        <a href="tel:+918879922911" class="btn-call"><i class="fa-solid fa-phone"></i> Call Us Now</a>
+      </div>
+
+    </div>
+
+    <!-- BELOW FORM -->
+    <div class="below-form">
+      <p class="below-desc">Job-ready courses in Data Science, Full Stack, Tally, Digital Marketing &amp; more. Get free career counselling — we'll call you within 24 hours.</p>
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-num">30+</span>
+          <span class="stat-label">Years of Training</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">30K+</span>
+          <span class="stat-label">Students Placed</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">22</span>
+          <span class="stat-label">Courses</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+document.getElementById('college').addEventListener('change',function(){
+  const wrap=document.getElementById('college-other-wrap');
+  const inp=document.getElementById('college-other');
+  if(this.value==='other'){wrap.style.display='flex';wrap.style.flexDirection='column';wrap.style.gap='4px';inp.required=true;}
+  else{wrap.style.display='none';inp.required=false;}
+});
+
+function v(id,errId,ok){
+  const el=document.getElementById(id),err=document.getElementById(errId);
+  if(!ok){el.classList.add('err');err.style.display='block';return false;}
+  el.classList.remove('err');err.style.display='none';return true;
+}
+['fname','phone','email','edu','branch','college','course'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(!el)return;
+  ['input','change'].forEach(ev=>el.addEventListener(ev,function(){
+    this.classList.remove('err');
+    const e=document.getElementById(id+'-err');
+    if(e)e.style.display='none';
+  }));
+});
+
+document.getElementById('leadForm').addEventListener('submit',async function(e){
+  e.preventDefault();
+  const fname=document.getElementById('fname').value.trim();
+  const phone=document.getElementById('phone').value.trim().replace(/\D/g,'');
+  const email=document.getElementById('email').value.trim();
+  const edu=document.getElementById('edu').value;
+  const branch=document.getElementById('branch').value;
+  const college=document.getElementById('college').value;
+  const collegeOther=document.getElementById('college-other').value.trim();
+  const course=document.getElementById('course').value;
+  const consent=document.getElementById('consent').checked;
+
+  let ok=true;
+  ok&=v('fname','fname-err',fname.length>=2);
+  ok&=v('phone','phone-err',phone.length===10);
+  ok&=v('email','email-err',/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+  ok&=v('edu','edu-err',!!edu);
+  ok&=v('branch','branch-err',!!branch);
+  ok&=v('college','college-err',!!college);
+  if(college==='other')ok&=v('college-other','college-other-err',collegeOther.length>=2);
+  ok&=v('course','course-err',!!course);
+  if(!consent){alert('Please agree to the terms to continue.');return;}
+  if(!ok)return;
+
+  const btn=document.getElementById('submitBtn');
+  btn.classList.add('loading');btn.disabled=true;
+
+  const payload={
+    name:fname,phone,email,education:edu,branch,
+    college:college==='other'?collegeOther:college,
+    course,
+    timing:document.getElementById('timing').value||'Not specified',
+    submitted_at:new Date().toISOString(),
+    source:'Meta Ads Landing Page'
+  };
+
+  try{
+    // ── Paste your Google Apps Script Web App URL here ──
+    // (see google-apps-script.js for setup steps)
+    const ENDPOINT='https://script.google.com/macros/s/AKfycbzelWH0OD_fJ4OslHyg0pjIpp_Q6c9SRTEYHTOxOy-xM_vrDM8s_PZuBHcbqGiPwBaoFA/exec';
+    if(ENDPOINT!=='YOUR_FORM_ENDPOINT_HERE'){
+      // text/plain avoids a CORS preflight, which Apps Script cannot answer
+      await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+    } else {
+      await new Promise(r=>setTimeout(r,1000));
+    }
+    document.getElementById('form-state').style.display='none';
+    const s=document.getElementById('success-state');
+    s.style.display='flex';
+  } catch(err){
+    btn.classList.remove('loading');btn.disabled=false;
+    alert('Something went wrong. Please call us directly.');
+  }
+});
+</script>
+</body>
+</html>

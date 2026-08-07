@@ -540,7 +540,7 @@ document.getElementById('leadForm').addEventListener('submit',async function(e){
   try{
     // ── Paste your Google Apps Script Web App URL here ──
     // (see google-apps-script.js for setup steps)
-    const ENDPOINT='https://script.google.com/macros/s/AKfycbzelWH0OD_fJ4OslHyg0pjIpp_Q6c9SRTEYHTOxOy-xM_vrDM8s_PZuBHcbqGiPwBaoFA/exec';
+    const ENDPOINT='https://script.google.com/macros/s/AKfycbzHLY9WAfTQRyM1SIydx847YskjW2K0A1flOPQCu4v77c2stY0WcmwF_V3-op40_EDRCw/exec';
     if(ENDPOINT!=='YOUR_FORM_ENDPOINT_HERE'){
       // text/plain avoids a CORS preflight, which Apps Script cannot answer
       await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});

@@ -4,6 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Career Counselling | DVOC Institute Mumbai</title>
+
+<!-- ─── Meta Pixel ───────────────────────────────────────────────
+     Dataset: "Dvoc_All Evnets" (827060954584322), Events Manager.
+     The id appears twice below — in fbq('init') and in the <noscript>
+     fallback. Change both together if it is ever swapped.
+     ───────────────────────────────────────────────────────────── -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','827060954584322');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=827060954584322&ev=PageView&noscript=1" alt=""></noscript>
+<!-- ─── End Meta Pixel ─── -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -547,6 +569,15 @@ document.getElementById('leadForm').addEventListener('submit',async function(e){
     } else {
       await new Promise(r=>setTimeout(r,1000));
     }
+    // Meta Pixel: report the conversion so ad delivery optimises for
+    // people who actually submit, not just people who land here.
+    if(typeof fbq==='function'){
+      fbq('track','Lead',{
+        content_name:course,
+        content_category:edu
+      });
+    }
+
     document.getElementById('form-state').style.display='none';
     const s=document.getElementById('success-state');
     s.style.display='flex';

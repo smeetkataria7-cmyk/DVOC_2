@@ -146,7 +146,6 @@ body{
 .sw::after{content:'';position:absolute;right:12px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid #9AA5B4;pointer-events:none;}
 .sw .fs{padding-right:30px;}
 
-#college-other-wrap{display:none;}
 
 .consent-row{display:flex;align-items:flex-start;gap:9px;margin-top:2px;}
 .consent-row input{width:15px;height:15px;accent-color:var(--orange);flex-shrink:0;margin-top:2px;cursor:pointer;}
@@ -290,9 +289,9 @@ body{
 
           <div class="row2">
             <div class="fg">
-              <label class="flabel" for="edu">Education <span class="req">*</span></label>
+              <label class="flabel" for="edu">Education</label>
               <div class="sw">
-                <select class="fs" id="edu" name="education" required>
+                <select class="fs" id="edu" name="education">
                   <option value="" disabled selected>Select level</option>
                   <option>10th Pass</option>
                   <option>12th Pass</option>
@@ -305,10 +304,10 @@ body{
               <span class="ferr" id="edu-err">Please select</span>
             </div>
             <div class="fg">
-              <label class="flabel" for="branch">Branch <span class="req">*</span></label>
+              <label class="flabel" for="branch">Nearest Branch</label>
               <div class="sw">
-                <select class="fs" id="branch" name="branch" required>
-                  <option value="" disabled selected>Select branch</option>
+                <select class="fs" id="branch" name="branch">
+                  <option value="" disabled selected>Select nearest branch</option>
                   <option>Andheri</option>
                   <option>Vile Parle</option>
                   <option>Grant Road</option>
@@ -319,54 +318,7 @@ body{
             </div>
           </div>
 
-          <div class="fg">
-            <label class="flabel" for="college">College / School <span class="req">*</span></label>
-            <div class="sw">
-              <select class="fs" id="college" name="college" required>
-                <option value="" disabled selected>Select your college</option>
-                <optgroup label="Popular Mumbai Colleges">
-                  <option>Mithibai College</option>
-                  <option>HR College of Commerce</option>
-                  <option>Jai Hind College</option>
-                  <option>K.C. College</option>
-                  <option>St. Xavier's College</option>
-                  <option>Sophia College</option>
-                  <option>Wilson College</option>
-                  <option>Ruia College</option>
-                  <option>Sathaye College</option>
-                  <option>Narsee Monjee College</option>
-                  <option>VES College</option>
-                  <option>Rizvi College</option>
-                  <option>Bhavans College</option>
-                  <option>Elphinstone College</option>
-                  <option>Sydenham College</option>
-                  <option>VG Vaze College</option>
-                  <option>St. Andrews College</option>
-                  <option>Don Bosco College</option>
-                  <option>Thadomal Shahani Engineering College</option>
-                  <option>DJ Sanghvi College</option>
-                  <option>KJ Somaiya College</option>
-                  <option>SIES College</option>
-                  <option>NMIMS University</option>
-                  <option>SP Jain Institute</option>
-                  <option>NM College</option>
-                  <option>RD National College</option>
-                </optgroup>
-                <optgroup label="School">
-                  <option>Currently in School (10th)</option>
-                  <option>Currently in School (12th)</option>
-                </optgroup>
-                <option value="other">Other (specify below)</option>
-              </select>
-            </div>
-            <span class="ferr" id="college-err">Please select your college</span>
-          </div>
 
-          <div class="fg" id="college-other-wrap">
-            <label class="flabel" for="college-other">College Name <span class="req">*</span></label>
-            <input class="fi" type="text" id="college-other" name="college_other" placeholder="Enter your college name">
-            <span class="ferr" id="college-other-err">Please enter your college name</span>
-          </div>
 
           <div class="fg">
             <label class="flabel" for="course">Course Interested In <span class="req">*</span></label>
@@ -501,19 +453,13 @@ body{
 </div>
 
 <script>
-document.getElementById('college').addEventListener('change',function(){
-  const wrap=document.getElementById('college-other-wrap');
-  const inp=document.getElementById('college-other');
-  if(this.value==='other'){wrap.style.display='flex';wrap.style.flexDirection='column';wrap.style.gap='4px';inp.required=true;}
-  else{wrap.style.display='none';inp.required=false;}
-});
 
 function v(id,errId,ok){
   const el=document.getElementById(id),err=document.getElementById(errId);
   if(!ok){el.classList.add('err');err.style.display='block';return false;}
   el.classList.remove('err');err.style.display='none';return true;
 }
-['fname','phone','email','edu','branch','college','course'].forEach(id=>{
+['fname','phone','email','course'].forEach(id=>{
   const el=document.getElementById(id);
   if(!el)return;
   ['input','change'].forEach(ev=>el.addEventListener(ev,function(){
@@ -530,8 +476,6 @@ document.getElementById('leadForm').addEventListener('submit',async function(e){
   const email=document.getElementById('email').value.trim();
   const edu=document.getElementById('edu').value;
   const branch=document.getElementById('branch').value;
-  const college=document.getElementById('college').value;
-  const collegeOther=document.getElementById('college-other').value.trim();
   const course=document.getElementById('course').value;
   const consent=document.getElementById('consent').checked;
 
@@ -539,10 +483,6 @@ document.getElementById('leadForm').addEventListener('submit',async function(e){
   ok&=v('fname','fname-err',fname.length>=2);
   ok&=v('phone','phone-err',phone.length===10);
   ok&=v('email','email-err',/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
-  ok&=v('edu','edu-err',!!edu);
-  ok&=v('branch','branch-err',!!branch);
-  ok&=v('college','college-err',!!college);
-  if(college==='other')ok&=v('college-other','college-other-err',collegeOther.length>=2);
   ok&=v('course','course-err',!!course);
   if(!consent){alert('Please agree to the terms to continue.');return;}
   if(!ok)return;
@@ -551,8 +491,10 @@ document.getElementById('leadForm').addEventListener('submit',async function(e){
   btn.classList.add('loading');btn.disabled=true;
 
   const payload={
-    name:fname,phone,email,education:edu,branch,
-    college:college==='other'?collegeOther:college,
+    name:fname,phone,email,
+    education:edu||'Not specified',
+    branch:branch||'Not specified',
+    college:'',
     course,
     timing:document.getElementById('timing').value||'Not specified',
     submitted_at:new Date().toISOString(),

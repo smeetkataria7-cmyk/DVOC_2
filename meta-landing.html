@@ -103,6 +103,31 @@ body{
   width:100%;
 }
 
+.stats-top{margin-bottom:18px;}
+
+/* hero photo — slim so the form stays reachable */
+.hero-media{width:100%;margin:0 0 20px;}
+.hero-media img{
+  width:100%;height:170px;object-fit:cover;object-position:center 40%;
+  border-radius:14px;display:block;
+  border:1px solid rgba(255,255,255,0.10);
+}
+.hero-media figcaption{
+  margin-top:7px;text-align:center;
+  font-size:11px;color:rgba(255,255,255,0.35);
+}
+
+/* WhatsApp CTA */
+.btn-wa{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:13px 24px;border-radius:8px;
+  background:#25D366;color:#fff;
+  font-size:14px;font-weight:700;text-decoration:none;
+  transition:background .2s,transform .2s,box-shadow .2s;
+}
+.btn-wa:hover{background:#1EBE5A;transform:translateY(-1px);box-shadow:0 8px 22px rgba(37,211,102,.35);}
+.btn-wa i{font-size:16px;}
+
 /* BELOW FORM: desc + stats */
 .below-form{
   width:100%;
@@ -224,7 +249,7 @@ body{
 
 @media(prefers-reduced-motion:reduce){
   .success-mark .sm-ring,.success-mark .sm-tick{animation:none;stroke-dashoffset:0;}
-  .btn-site:hover{transform:none;}
+  .btn-site:hover,.btn-wa:hover{transform:none;}
 }
 
 /* MOBILE */
@@ -235,6 +260,7 @@ body{
   .form-card{padding:22px 16px;}
   .row2{grid-template-columns:1fr;}
   .stats{flex-direction:row;}
+  .hero-media img{height:120px;}
 }
 </style>
 </head>
@@ -243,9 +269,9 @@ body{
 
   <!-- NAV -->
   <nav class="nav">
-    <a href="https://dvoc.in" class="nav-logo">
+    <div class="nav-logo">
       <img src="pictures/dvoc-logo.jpg" alt="DVOC INSTITUTE">
-    </a>
+    </div>
     <a href="tel:+918879922911" class="nav-phone">
       <i class="fa-solid fa-phone"></i> +91 88799 22911
     </a>
@@ -254,9 +280,22 @@ body{
   <!-- HERO -->
   <div class="hero">
 
-    <div class="badge"><i class="fa-solid fa-shield-check"></i> Government Certified</div>
-    <h1 class="hero-title">Launch Your <span>Tech Career</span> in Mumbai</h1>
-    <p class="hero-sub">Free career counselling — we'll call you within 24 hours.</p>
+    <div class="badge"><i class="fa-solid fa-shield-check"></i> NSDC Certified</div>
+    <h1 class="hero-title">NSDC-Certified Courses · <span>30K+ Placed</span><br>Free Counselling — Batches Filling Fast</h1>
+    <p class="hero-sub">Tell us what you want to learn. A counsellor calls you within 24 hours.</p>
+
+    <!-- trust strip, kept above the fold -->
+    <div class="stats stats-top">
+      <div class="stat"><span class="stat-num">30+</span><span class="stat-label">Years of Training</span></div>
+      <div class="stat"><span class="stat-num">30K+</span><span class="stat-label">Students Placed</span></div>
+      <div class="stat"><span class="stat-num">22</span><span class="stat-label">Courses</span></div>
+    </div>
+
+    <figure class="hero-media">
+      <img src="pictures/Andheri%20Centre.webp" width="1656" height="931"
+           alt="Students in a live batch at the DVOC Andheri centre">
+      <figcaption>A live batch at our Andheri centre</figcaption>
+    </figure>
 
     <!-- FORM -->
     <div class="form-card" id="form-card">
@@ -287,36 +326,6 @@ body{
             <span class="ferr" id="email-err">Enter a valid email</span>
           </div>
 
-          <div class="row2">
-            <div class="fg">
-              <label class="flabel" for="edu">Education</label>
-              <div class="sw">
-                <select class="fs" id="edu" name="education">
-                  <option value="" disabled selected>Select level</option>
-                  <option>10th Pass</option>
-                  <option>12th Pass</option>
-                  <option>Pursuing Graduation</option>
-                  <option>Graduate</option>
-                  <option>Post Graduate</option>
-                  <option>Working Professional</option>
-                </select>
-              </div>
-              <span class="ferr" id="edu-err">Please select</span>
-            </div>
-            <div class="fg">
-              <label class="flabel" for="branch">Nearest Branch</label>
-              <div class="sw">
-                <select class="fs" id="branch" name="branch">
-                  <option value="" disabled selected>Select nearest branch</option>
-                  <option>Andheri</option>
-                  <option>Vile Parle</option>
-                  <option>Grant Road</option>
-                  <option>No Preference</option>
-                </select>
-              </div>
-              <span class="ferr" id="branch-err">Please select</span>
-            </div>
-          </div>
 
 
 
@@ -360,19 +369,6 @@ body{
             <span class="ferr" id="course-err">Please select a course</span>
           </div>
 
-          <div class="fg">
-            <label class="flabel" for="timing">Preferred Timing</label>
-            <div class="sw">
-              <select class="fs" id="timing" name="timing">
-                <option value="" disabled selected>Select timing (optional)</option>
-                <option>Morning (9am – 12pm)</option>
-                <option>Afternoon (12pm – 3pm)</option>
-                <option>Evening (4pm – 7pm)</option>
-                <option>Weekend Only</option>
-                <option>Flexible</option>
-              </select>
-            </div>
-          </div>
 
           <div class="consent-row">
             <input type="checkbox" id="consent" required>
@@ -417,6 +413,10 @@ body{
         </div>
 
         <div class="success-actions">
+          <a href="https://wa.me/918879922911?text=Hi%20DVOC%2C%20I%20just%20booked%20a%20free%20counselling%20session."
+             class="btn-wa" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+          </a>
           <a href="https://dvoc.in/" class="btn-site">
             <i class="fa-solid fa-arrow-right"></i> Explore Our Courses
           </a>
@@ -432,20 +432,6 @@ body{
     <!-- BELOW FORM -->
     <div class="below-form">
       <p class="below-desc">Job-ready courses in Data Science, Full Stack, Tally, Digital Marketing &amp; more. Get free career counselling — we'll call you within 24 hours.</p>
-      <div class="stats">
-        <div class="stat">
-          <span class="stat-num">30+</span>
-          <span class="stat-label">Years of Training</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">30K+</span>
-          <span class="stat-label">Students Placed</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">22</span>
-          <span class="stat-label">Courses</span>
-        </div>
-      </div>
     </div>
 
   </div>
@@ -474,8 +460,6 @@ document.getElementById('leadForm').addEventListener('submit',async function(e){
   const fname=document.getElementById('fname').value.trim();
   const phone=document.getElementById('phone').value.trim().replace(/\D/g,'');
   const email=document.getElementById('email').value.trim();
-  const edu=document.getElementById('edu').value;
-  const branch=document.getElementById('branch').value;
   const course=document.getElementById('course').value;
   const consent=document.getElementById('consent').checked;
 
@@ -492,11 +476,11 @@ document.getElementById('leadForm').addEventListener('submit',async function(e){
 
   const payload={
     name:fname,phone,email,
-    education:edu||'Not specified',
-    branch:branch||'Not specified',
+    education:'Not specified',
+    branch:'Not specified',
     college:'',
     course,
-    timing:document.getElementById('timing').value||'Not specified',
+    timing:'Not specified',
     submitted_at:new Date().toISOString(),
     source:'Meta Ads Landing Page'
   };
@@ -514,10 +498,7 @@ document.getElementById('leadForm').addEventListener('submit',async function(e){
     // Meta Pixel: report the conversion so ad delivery optimises for
     // people who actually submit, not just people who land here.
     if(typeof fbq==='function'){
-      fbq('track','Lead',{
-        content_name:course,
-        content_category:edu
-      });
+      fbq('track','Lead',{content_name:course});
     }
 
     document.getElementById('form-state').style.display='none';

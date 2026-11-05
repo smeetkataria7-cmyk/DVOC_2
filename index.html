@@ -793,9 +793,9 @@ const coursesData = [
   {id: 21, name: "Social Media Marketing",        hours: 40,  segments: ["any"], icon: "", desc: "Instagram, Facebook, LinkedIn, content strategy"},
   {id: 22, name: "R-Programming",                 hours: 36,  segments: ["any"], icon: "", desc: "Statistical computing, data analysis, ggplot2"},
   {id: 23, name: "Data Analytics with Python",    hours: 48,  segments: ["any"], icon: "", desc: "Pandas, NumPy, data cleaning, visualization"},
-  {id: 24, name: "Career-Edge",                   hours: 80,  segments: ["any"], icon: "", desc: "Certificate in Digital Skills & GenAI — digital, analytics & coding"},
+  {id: 24, name: "Digital Skills & Gen AI", img: "pictures/Career-Edge.webp", hours: 80,  segments: ["any"], icon: "", desc: "Certificate in Digital Skills & GenAI — digital, analytics & coding"},
   {id: 25, name: "Foundation in IT",              hours: 80,  segments: ["any"], icon: "", desc: "Computer basics, internet, productivity software"},
-  {id: 26, name: "Professional Certificate in AI Essentials", hours: 36, segments: ["any"], icon: "", desc: "AI fundamentals, prompt engineering, applied GenAI tools"},
+  {id: 26, name: "Professional Certificate in AI Essentials", hours: 40, segments: ["any"], icon: "", desc: "AI fundamentals, prompt engineering, applied GenAI tools"},
   {id: 27, name: "MS-CIT",                         hours: 144, segments: ["any"], icon: "", desc: "Maharashtra govt-certified computer literacy programme"},
 ];
 
@@ -880,7 +880,7 @@ const coursePageByName = {
   "Social Media Marketing":                                          "courses/socialmedia/",
   "R-Programming":                                                   "courses/rprogramming/",
   "Data Analytics with Python":                                      "courses/dataanalytics-python/",
-  "Career-Edge":                                                     "courses/careeredge/",
+  "Digital Skills & Gen AI":                                         "courses/careeredge/",
   "Foundation in IT":                                                "courses/foundationit/",
   "Professional Certificate in AI Essentials":                       "courses/ai/",
   "MS-CIT":                                                          "courses/mscit/"
@@ -1050,7 +1050,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="video-testi-head">
             <div class="video-testi-photo">TF</div>
             <div class="video-testi-meta">
-              <div class="video-testi-name">Tiya Fonsecs</div>
+              <div class="video-testi-name">Tiya Fonseca</div>
               <div class="video-testi-course">DVOC Student</div>
             </div>
           </div>
@@ -1141,7 +1141,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.video-thumbnail.playing').forEach(other => {
         const savedUrl = other.dataset.video;
         other.classList.remove('playing');
-        other.style.height = '320px';
+        other.style.height = '';
         other.style.cursor = 'pointer';
         other.innerHTML = `<video class="preview" src="${savedUrl}" muted preload="metadata" style="pointer-events:none;"></video><div class="video-play-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg></div>`;
         other.dataset.video = savedUrl;
